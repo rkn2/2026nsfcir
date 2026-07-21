@@ -1,0 +1,617 @@
+\documentclass[11pt]{article}
+% NSF PAPPG Ch. 2 §B.2: font ≥11pt, margins ≥1in, ≤6 lines/inch.
+% No hyperlinks in Project Description body (Research.gov constraint).
+
+\usepackage{amsmath}
+\usepackage{bm}
+\usepackage{color}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{subcaption}
+\usepackage{vmargin}
+\usepackage{mathrsfs}
+\usepackage{float}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{ltablex}
+\usepackage[svgnames]{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{caption}
+\usepackage{colortbl}
+\usepackage[numbers,square,sort&compress]{natbib}
+
+% ── Colors ──────────────────────────────────────────────────────────────────
+\definecolor{mycmykcolor}{cmyk}{0.45,0.30,0.20,0}
+\definecolor{secondary}{cmyk}{0,0,0,0.20}
+
+% ── Section formatting (runin style, matches example grant) ─────────────────
+\titleformat{\section}[runin]{\normalfont\bfseries}{\thesection}{1em}{}[:]
+\titlespacing*{\section}{0pt}{\baselineskip}{1ex}
+\titleformat{\subsection}[runin]{\normalfont\bfseries}{\thesubsection}{1em}{}[:]
+\titlespacing*{\subsection}{0pt}{\baselineskip}{1ex}
+
+% ── Page layout ─────────────────────────────────────────────────────────────
+\bibliographystyle{unsrtnat}
+\hypersetup{hidelinks,colorlinks=false,urlcolor=black}
+\hypersetup{draft}
+\setpapersize{USletter}
+\setmarginsrb{1in}{1in}{1in}{1in}{0pt}{0mm}{0pt}{0mm}
+\pretolerance=5000
+\tolerance=9000
+\graphicspath{{images/}}
+
+% ── Placeholder command (renders in red for PI review) ──────────────────────
+\newcommand{\placeholder}[1]{\textcolor{red}{[\textbf{PLACEHOLDER:} #1]}}
+
+% ── Pseudodot for strings that look like URLs ───────────────────────────────
+\newcommand{\pseudodot}{{\lower 2.4pt\hbox{$\cdot$}}}
+
+% TODO: Populate biblio.bib with all citations before submission.
+%   Copy the exampleNSF/biblio.bib as a starting point, then add new references
+%   for SAR flood mapping, Bayesian sensor fusion, fragility functions, etc.
+
+\begin{document}
+% \pagestyle{empty} % turn back on for nsf
+\setlength{\baselineskip}{12.6pt}
+\setlength{\normalbaselineskip}{12.6pt}
+
+% ============================================================
+%  PROJECT GOALS BOX + OPENING FIGURE
+% ============================================================
+
+\begin{tcolorbox}[colback=mycmykcolor, colframe=black, boxrule=1pt, coltext=black]
+\textbf{Project goals:}
+Small, repeatedly-flooded municipalities with pre-code building stock have no
+engineering tool to evaluate whether community-scale drainage investment or distributed
+building hardening better reduces flood damage.
+We propose a closed-loop cyber-physical system (CPS) organized around four coupled layers:
+the \textbf{physical layer} (pre-code load-bearing masonry and timber structures, absent from existing vulnerability frameworks);
+the \textbf{sensing layer} (Sentinel-1 and Capella SAR coherence time series, with ICEYE providing building-level inundation duration as a validation reference);
+the \textbf{cyber layer} (Bayesian fusion of SAR coherence with hydrological mass balance and community-elicited priors on inundation duration); and
+the \textbf{decision layer} (a multi-criteria retrofit allocation framework co-developed with Montpelier, VT community partners).
+\textbf{RQ1} (Napolitano, Wauthier, Busse): Can this CPS provide a decision-adequate pathway to probabilistic flood damage assessment for small historic municipalities without resource-intensive simulation?
+\textbf{RQ2} (Napolitano with all PIs): Under what conditions does locally held community knowledge, operationalized as informative Bayesian priors, produce measurably better-calibrated damage assessments than data-only approaches?
+The defining contribution is making community knowledge mathematically load-bearing in the Bayesian inference layer rather than supplementary to it.
+\end{tcolorbox}
+\vspace{-0.5cm}
+
+\begin{wrapfigure}{r}{0.45\textwidth}
+\vspace{-0.4cm}
+
+\includegraphics[width=0.45\textwidth]{images/layers.png}
+\captionsetup{justification=centering,singlelinecheck=false,font=small}
+\caption{\placeholder{Four-layer CPS architecture diagram. This is just AI placeholder}}
+\label{fig:cps_arch}
+\end{wrapfigure}
+\normalsize
+
+% ============================================================
+% STATUS QUO / MOTIVATION
+% ============================================================
+
+\section{Status quo}
+Small, aging communities at the confluence of riverine flood hazard and pre-code building stock face a resilience challenge that no existing engineering framework is designed to address. 
+Thousands of towns across the northeastern United States and Appalachian corridor share this profile: riverine flood exposure with multi-day inundation durations, dense historic cores of load-bearing masonry and timber construction built before modern building codes, and institutional capacity below the threshold required for hydrodynamic simulation \cite{placeholder_nfip_acs}.
+FEMA's National Flood Insurance Program enrolls over 22,000 communities nationwide; the subset in this region with significant pre-1940 building stock, without sustained in-house hydraulic modeling capacity, and with a history of riverine flooding numbers in the thousands. 
+For these communities, every flood event surfaces the same unresolved question: where do limited retrofit dollars belong?
+
+That question involves two distinct decisions that existing frameworks cannot separate. 
+The first is the individual building question: which buildings sustain damage severe enough to justify investment in flood barriers, foundation waterproofing, or structural hardening? 
+The second is the community-scale question: would a drainage investment such as a retention basin, channel improvement, or permeable infrastructure upgrade reduce building damage enough across the community to justify its cost relative to distributed individual retrofits? 
+Answering the second question requires a model that connects upstream drainage decisions to downstream building damage probabilities across the community's building stock.
+Without it, municipalities cannot make the case to funders, to state partners, or to their own residents that community-scale investment is warranted. No such model exists for small communities with pre-code building stock, and no existing framework allows these two decisions to be compared on the same probabilistic basis.
+
+Existing flood damage assessment tools were designed for the resources and building stocks of larger municipalities. Hydrodynamic simulation pipelines such as HEC-RAS and LISFLOOD-FP require calibrated hydraulic models, high-resolution topographic data, and sustained technical capacity that small towns cannot maintain. Damage functions in HAZUS and FEMA P-58 are built around post-1945 construction archetypes; pre-code load-bearing masonry and timber structures, the dominant building type in repeatedly-flooded historic downtowns, are absent from existing fragility frameworks. Emergency managers, historic preservation officials, and building owners in these communities have no engineering tool that translates a flood event into building-specific guidance on where limited retrofit dollars belong.
+
+Montpelier, VT exemplifies this challenge in its sharpest form. It is a small, aging riverine community with a dense historic core of pre-code load-bearing masonry, limited institutional capacity relative to hydrodynamic simulation requirements, and a history of repeated flood exposure spanning more than a century. Montpelier experienced catastrophic flooding in July 2023 that damaged 80\% of its National Register Historic District, and sustained significant flood damage again in 2024; the 2023 and 2024 events together provide the empirical foundation for this project.
+Community partners have learned through repeated flooding that how long water remained mattered as much as how high it rose, and that no existing framework helps them evaluate whether that distinction favors community-scale drainage investments over distributed building retrofits.
+
+
+\begin{wrapfigure}{r}{0.45\textwidth}
+\vspace{-0.4cm}
+\includegraphics[width=0.45\textwidth]{images/img.jpg}
+\captionsetup{justification=centering,singlelinecheck=false,font=small}
+\vspace{-0.9cm}
+\caption{\placeholder{Pre-code load-bearing masonry buildings in Montpelier.}}
+\label{fig:precode}
+\vspace{-0.3cm}
+\end{wrapfigure}
+
+These buildings degrade under extended inundation through duration-governed mechanisms including mortar softening, masonry unit saturation, and rising damp-driven cohesion loss that current assessment tools neither observe nor model. 
+Existing community flood resilience frameworks are predominantly top-down in design, built around standardized data collection and technical modeling pipelines that low-capacity localities with limited government resources and technical expertise cannot sustain. 
+Community-generated data and locally held knowledge offer an underutilized pathway to resilience assessment in resource-constrained settings, yet no existing framework operationalizes this knowledge as structural input to probabilistic assessments that inform both building-specific hardening decisions and community-scale drainage investment.
+
+\vspace{-10pt}
+\subsection{Research questions and intellectual merit}
+
+The intellectual merit of this work addresses two fundamental research questions:
+
+\begin{itemize}[leftmargin=1.5em,itemsep=0pt]
+\item \textbf{RQ1 (Napolitano, Wauthier, and Busse):} Can a closed-loop CPS that couples community-accessible satellite sensing with Bayesian inference provide a decision-adequate pathway to probabilistic flood damage assessment for small historic municipalities, enabling them to evaluate both building-specific hardening and community-scale drainage investments without resource-intensive simulation?
+\item \textbf{RQ2 (Napolitano with all PIs):} When locally held community knowledge
+is operationalized as informative Bayesian priors and empirical damage observations,
+under what conditions does it produce measurably more accurate and better-calibrated
+damage assessments than data-only approaches, and what does the pattern of improvement
+reveal about the epistemic role of co-design in CPS calibration for socio-technical
+systems?
+\end{itemize}
+
+These questions together span three scientific contributions.
+First, this research establishes whether a closed-loop CPS coupling community-accessible satellite sensing with Bayesian inference can provide decision-adequate probabilistic flood damage assessment for retrofit allocation purposes without hydrodynamic simulation, advancing a generalizable CPS architecture principle: that community-accessible sensing, fused under a Bayesian framework, is sufficient for the specific investment decisions small municipalities face when resource-intensive simulation is not an option.
+Second, it characterizes the conditions under which locally held community knowledge, operationalized as informative Bayesian priors and damage observation training data, improves CPS model accuracy and calibration relative to data-only approaches, and what the pattern of improvement reveals about the epistemic role of co-design in CPS development: specifically, whether community knowledge functions as a structural calibration input or whether its contribution is primarily social.
+Third, it establishes a principle about CPS physical layer design: when the cyber layer produces duration estimates rather than flood depth, the physical model must take duration as its governing input rather than just the depth variable that existing fragility frameworks assume. This research demonstrates that principle by producing the first empirically-derived, duration-dependent fragility surfaces for pre-code load-bearing masonry archetypes from field damage observations across two flood events.
+Montpelier's 2023 and 2024 flood events provide a within-community train-test structure: the inference chain and fragility parameters are calibrated on 2023 observations and validated against 2024 data, which were collected independently and span a different storm magnitude and antecedent conditions. This design directly tests whether the framework generalizes across event characteristics within the same community, without requiring a second study site.
+RQ1 is addressed through RO1; RQ2 is addressed through RO2.
+
+\begingroup
+\footnotesize
+\begin{tabularx}{\textwidth}{|X|X|X|X|}
+\caption{Summary of research gaps, objectives, approaches, and outcomes%
+         \label{tab:research_summary}}\\
+\hline
+\rowcolor{mycmykcolor}
+\textbf{Research Gaps} & \textbf{Our Objectives} & \textbf{Approaches} & \textbf{Outcomes}\\
+\hline
+\endfirsthead
+\multicolumn{4}{c}{\tablename\ \thetable\ -- \textit{Continued from previous page}}\\
+\hline
+\rowcolor{mycmykcolor}
+\textbf{Research Gaps} & \textbf{Our Objectives} & \textbf{Approaches} & \textbf{Outcomes}\\
+\hline
+\endhead
+\hline \multicolumn{4}{r}{\textit{Continued on next page}}\\
+\endfoot
+\hline
+\endlastfoot
+No engineering pathway exists to translate a flood event into building-specific
+damage assessment from community-accessible sensing without resource-intensive
+hydrodynamic simulation &
+\textbf{RO1:} Develop a closed-loop CPS that fuses SAR coherence with hydrological
+mass balance in a Bayesian inference framework to produce building-specific flood
+damage assessments without hydrodynamic simulation &
+Sentinel-1/Capella SAR coherence time series; hydrological mass balance model;
+Bayesian hierarchical fusion framework; validation against USGS gauge records,
+high water marks, community reports, and video documentation &
+Validated closed-loop CPS producing probabilistic flood damage assessments at both
+the building and community scale in Montpelier, demonstrated as
+decision-adequate for evaluating both building-specific hardening and community-scale
+drainage investments in communities where hydrodynamic simulation is not an option \\
+\hline
+The CPS lacks a physical model that connects its duration-based sensing output to
+damage state for the relevant building stock. No fragility surface exists for pre-code
+load-bearing archetypes that takes inundation duration as input. &
+\textbf{RO1:} Develop empirically-derived, duration-dependent fragility surfaces for
+pre-code load-bearing masonry archetypes from field damage observations across both
+flood events &
+Field damage data collection from the 2023 and 2024 Montpelier flood events; new archetype
+development from empirical observations; component-based methodology extended with
+duration-dependent material parameters &
+Duration-dependent fragility surfaces for pre-code load-bearing masonry archetypes,
+calibrated on 2023 observations and validated against the 2024 held-out event \\
+\hline
+Existing CPS frameworks treat locally held community knowledge as post-hoc validation
+rather than structural calibration input, leaving its epistemic contribution to system
+accuracy untested &
+\textbf{RO2:} Operationalize locally held community knowledge as informative Bayesian
+priors and damage observation training data, and test whether this measurably improves
+model accuracy and calibration compared to data-only model runs &
+Annual co-development workshops in Montpelier across three years; structured
+elicitation of community flood knowledge for prior specification; comparative model
+runs with and without community-informed priors &
+Characterization of the conditions under which community knowledge improves CPS
+model accuracy and calibration relative to data-only approaches, and what the pattern
+of improvement reveals about the epistemic role of co-design; transferable protocol
+for incorporating community knowledge into CPS calibration \\
+\hline
+No retrofit allocation framework exists that translates probabilistic duration-based
+damage assessment into decisions actionable by small municipalities without ongoing
+technical support &
+\textbf{RO2:} Co-develop a multi-criteria retrofit allocation framework that translates
+probabilistic duration-based damage assessment into actionable retrofit decisions for
+small municipalities operating without ongoing research support &
+Multi-criteria decision analysis with what-if simulations; stakeholder weighting
+elicitation through annual co-development workshops across three years; Year~3
+independent-use stress testing with community partners in Montpelier &
+Community partners independently produce a retrofit priority ranking in Year~3 that
+places community-scale drainage investments and individual building retrofits on the
+same probabilistic basis, validated against community assessment of whether outputs
+reflect local conditions \\
+\end{tabularx}
+\endgroup
+\normalsize
+
+% ============================================================
+%   CURRENT STATE OF THE ART
+% ============================================================
+
+\vspace{-5pt}
+
+\vspace{-5pt}
+\section{Current state-of-the-art}
+
+Each of the three technical domains underpinning this proposal has advanced substantially as a standalone field: SAR remote sensing for flood characterization, hydrodynamic and hydrological modeling for flood dynamics, and fragility-based vulnerability assessment for building damage estimation. 
+Yet none has been integrated with the others into a system accessible to small, resource-constrained municipalities, and each contains a specific gap that prevents it from serving the building stock and community context where flood damage is most persistent and least addressed. 
+SAR methods characterize inundation extent but not duration; hydrodynamic models estimate flood dynamics accurately but require technical capacity that small municipalities cannot sustain; and existing fragility frameworks built around modern construction archetypes do not capture the duration-governed degradation mechanisms of the pre-code load-bearing building stock dominant in repeatedly-flooded historic communities.
+
+\subsection{SAR-based flood mapping}
+\placeholder{Describe the state of SAR for inundation extent mapping: Sentinel-1 change detection, coherence-based approaches, and their limitation to extent rather than duration.}
+% christelle?
+
+\subsection{SAR coherence change detection}
+\placeholder{Describe the use of SAR coherence for structural damage detection (e.g., post-earthquake, post-hurricane) and the gap in applying it to inundation duration rather than binary damage.}
+% christelle? 
+
+\subsection{Hydrodynamic and hydrological modeling}
+\placeholder{Describe HEC-RAS, LISFLOOD, and similar models, their accuracy and their data/expertise requirements that place them beyond small municipality capacity.  Note that prior remote sensing work uses SAR to calibrate these models, not replace their duration output.}
+% maggie
+
+\subsection{Fragility and vulnerability frameworks}
+\placeholder{Describe existing fragility databases (HAZUS, FEMA P-58, Lagomarsino \& Giovinazzi) and their reliance on post-1945 construction archetypes. Identify the gap for pre-code load-bearing masonry and timber under extended inundation. Also identify the CPS physical layer design gap: existing frameworks assume flood depth as their governing input variable, which prevents them from serving as the physical model layer for a CPS whose cyber layer produces duration estimates rather than depth. This is why new duration-dependent fragility surfaces are required, not merely new archetypes.}
+% becca
+
+\subsection{Community decision support for flood resilience}
+\placeholder{Describe existing retrofit decision frameworks (FEMA P-2055, NIST CRHP, IBHS Fortified) and identify three specific gaps: (1) none addresses small municipalities with limited institutional capacity; (2) none covers pre-code building stock or duration-based damage states; (3) none allows comparison of community-scale drainage investments against distributed individual building retrofits on the same probabilistic basis, which is the specific decision municipalities like Montpelier cannot currently make. Also note that none of these frameworks operationalizes locally held community knowledge as a calibration input rather than post-hoc validation.}
+% becca
+
+\subsection{Gap summary}
+These gaps (Tab.~\ref{tab:research_summary}) together define a decision problem that no existing framework can support. 
+Small municipalities with pre-code building stock face two investment decisions simultaneously: which individual buildings warrant hardening, and whether community-scale drainage improvements reduce building damage enough across the stock to justify their cost over distributed individual retrofits. 
+Answering either question on the same probabilistic basis requires connecting upstream drainage decisions to downstream building damage probabilities through a physical model of the relevant building stock. 
+The CPS proposed here closes that connection by coupling community-accessible SAR sensing with hydrological mass balance in a Bayesian framework, linking those outputs to building damage state through empirically-derived duration-dependent fragility surfaces for pre-code archetypes, and co-developing with community partners a multi-criteria retrofit allocation framework that places both investment decisions on the same probabilistic footing. 
+A parallel gap motivates the CIR contribution: locally held community knowledge enters the system as structural calibration input rather than post-hoc validation, directly testing whether co-design improves the scientific outputs of the CPS rather than only its social reception.
+
+\section{Case study community and preliminary results}
+Preliminary research by PI Napolitano focuses on Montpelier, VT across two flood events (2023 and 2024); community statistics are provided in Tab.~\ref{tab:community_stats}.
+Community partners in Montpelier participate as co-developers throughout the project, shaping model architecture in Year~1, validating framework outputs against locally held knowledge in Year~2, and stress-testing decision tools for independent use in Year~3.
+
+\vspace{-0.3cm}
+\begin{table}[h]
+\centering
+\footnotesize
+\caption{Statistics of the study community \cite{placeholder_acs}}
+\label{tab:community_stats}
+\vspace{-0.7cm}
+\begin{tabularx}{\textwidth}{@{}l*{6}{>{\centering\arraybackslash}X}@{}}
+\toprule
+\textbf{Community} & \textbf{Pop.} & \textbf{Med.\ Inc.} & \textbf{\% Poverty}
+  & \textbf{\% Pre-1940 bldgs} & \textbf{Flood events} & \textbf{Inst.\ capacity} \\
+\midrule
+Montpelier, VT &
+  \placeholder{pop} & \placeholder{inc} & \placeholder{\%} &
+  \placeholder{\%} & 45+ & Moderate \\
+\bottomrule
+\end{tabularx}
+\vspace{-0.3cm}
+\footnotesize{Note: Inst.\ capacity = institutional capacity for independent
+  framework use.  Pre-1940 building \% from ACS.}
+\end{table}
+\normalsize
+
+\begin{wrapfigure}{r}{0.45\textwidth}
+\vspace{-0.4cm}
+\includegraphics[width=0.45\textwidth]{images/vt.pdf}
+\captionsetup{justification=centering,singlelinecheck=false,font=small}
+\vspace{-0.9cm}
+\caption{Montpelier during 2023 flooding.}
+\label{fig:vt}
+\vspace{-0.3cm}
+\end{wrapfigure}
+\normalsize
+
+Montpelier, Vermont's capital city, experienced catastrophic flooding in July 2023, with 80\% of its National Register Historic District sustaining damage.
+The city has experienced over 45 flooding events since 1900 at the confluence of the Winooski and North Branch rivers. Its dense downtown core of 19th-century load-bearing masonry commercial buildings, many pre-dating the 1933 ANSI building code, represents the pre-code archetype.
+As Vermont's capital, Montpelier possesses \textit{moderate} institutional capacity relative to comparable communities: a professional emergency manager, state historic preservation office support, and a planning department, yet still lacks the technical
+infrastructure for hydrodynamic simulation.
+
+The framework transfers to any municipality sharing four scope conditions.
+First, riverine flood exposure with inundation persisting long enough for multiple SAR acquisitions during and after peak, approximately five or more days; this provides adequate temporal sampling for coherence-based duration inference and rules out flash floods and fast-draining small watersheds.
+Second, pre-1940 construction representing a meaningful share of the flood-exposed building inventory, for which the duration-dependent fragility surfaces apply.
+Third, no sustained in-house hydraulic modeling capacity, placing the community below the threshold for simulation-based assessment.
+Fourth, USGS streamflow gauge coverage on the primary watershed, providing the precipitation and drainage data required for the hydrological mass balance prior.
+% christelle is the 5 or more days threshold for SAR coherence detection correct or should this be different? !!!!!!!!!!!!!!!!!
+
+\vspace{-10pt}
+\subsection{Preliminary results: Sentinel-1 coherence analysis, Montpelier 2023}
+
+\begin{wrapfigure}{r}{0.45\textwidth}
+\vspace{-0.4cm}
+% TODO FIGURE: Sentinel-1 coherence map of Montpelier 2023 downtown core.
+% \includegraphics[width=0.45\textwidth]{images/coherence_montpelier.pdf}
+\captionsetup{justification=centering,singlelinecheck=false,font=small}
+\vspace{-0.9cm}
+\caption{\placeholder{Sentinel-1 coherence map, Montpelier 2023.  Coherence depression concentrated in the downtown core persists nearly two weeks post-peak across four polarization/orbit combinations.}}
+\label{fig:coherence}
+\vspace{-0.3cm}
+\end{wrapfigure}
+
+Preliminary Sentinel-1 C-band coherence analysis of the Montpelier 2023 event across four polarization/orbit combinations shows consistent coherence depression
+concentrated in the downtown core persisting nearly two weeks post-peak, establishing the observational foundation for the Bayesian fusion framework.
+This result confirms that the SAR observational window extends well into the inundation recovery period, and that the spatial extent of coherence depression
+is consistent with the known flood inundation boundary.
+
+\placeholder{2–3 additional sentences quantifying the coherence depression??}
+% christelle what specific coherence values (pre/post/delta) support the claim of "consistent coherence depression"?  What spatial resolution and coherence window size were used?
+
+\placeholder{Paragraph describing any preliminary hydrological mass balance results for Montpelier (Winooski watershed), if available; even order-of-magnitude estimates of drainage timescales or sub-basin delineation results would strengthen this section.}
+% maggie how hard would it be to do preliminary mass balance results for the Winooski? Even order-of-magnitude drainage timescale estimates?
+
+\textbf{Capella SAR.}
+\placeholder{description of Capella X-band SAR data, access status or planned acquisition strategy, how its resolution and revisit cadence complement Sentinel-1 C-band, and what specific observational gap it fills (so constraining the coherence recovery slope within a single day i think?}
+% christelle
+
+\vspace{-10pt}
+\subsection{Preliminary results: ICEYE building-level duration data, Montpelier 2023 and 2024}
+
+ICEYE commercial SAR provides building-level flood depth and inundation duration at
+6-hour temporal resolution for both Montpelier flood events, covering the full inundation
+and recovery period in each case.
+For the 2023 event, ICEYE data spans the catastrophic July flood that damaged 80\% of the
+National Register Historic District, providing depth and duration measurements at
+building scale across the historic downtown pre-code masonry core.
+For the 2024 event, comparable building-level temporal coverage is available for the
+same downtown structures.
+ICEYE data was acquired through a data access agreement with ICEYE; the project budget
+includes a planned data purchase of approximately \$5,000.
+
+These two datasets together enable a rigorous train-test validation structure that was not
+previously possible.
+The 2023 event serves as the calibration dataset: building-level Sentinel-1 coherence
+recovery rates from Subtask~1.1 are paired with ICEYE-measured inundation duration per
+building to fit the coherence recovery parameters $\alpha$ and $\beta$,
+and ICEYE-measured duration and depth are used alongside field damage observations to
+calibrate the fragility surface parameters.
+The 2024 event is the held-out test: the fitted inference chain and fragility surface,
+with no adjustment, are applied to 2024 SAR coherence data and evaluated against
+independently collected ICEYE duration measurements and 2024 field damage records.
+Because the two events differ in storm magnitude, antecedent conditions, and inundation
+pattern, this within-community test directly evaluates framework generalizability across
+event characteristics.
+ICEYE also provides both inundation duration and peak depth at building scale for the
+same structures where field damage state is recorded, enabling the multivariate fragility
+regression to directly test whether duration adds explanatory power beyond depth without
+relying on indirect proxies for either variable.
+
+\placeholder{Add ICEYE figure here: building-level duration map for Montpelier 2023
+  downtown core (color by duration category, pre-code masonry footprints overlaid)
+  and the coherence recovery rate vs.\ ICEYE-measured duration scatter plot per building
+  for Montpelier 2023. This scatter plot is the empirical foundation for calibrating
+  $\tau_C(T_i) = \alpha T_i^\beta$ and constitutes the key preliminary result figure.}
+% becca / christelle: can we generate the scatter plot of Sentinel-1 coherence recovery
+% rate vs ICEYE duration per building for Montpelier 2023? That is the key figure.
+
+% ============================================================
+% RESEARCH PLAN
+% ============================================================
+
+\section{Research plan}
+The research plan is organized around the two research objectives corresponding to the two research questions.
+RO1 (Napolitano, Wauthier, and Busse) addresses RQ1 through five coupled subtasks:
+SAR coherence analysis (Wauthier), 
+hydrological mass balance modeling (Busse),
+Bayesian fusion framework development (all three PIs), duration-dependent fragility surface development (Napolitano), 
+and system validation (all three PIs).
+RO2 (Napolitano with all PIs) addresses RQ2 through community co-development workshops and knowledge elicitation (Napolitano), comparative assessment of community knowledge contribution (all three PIs), a multi-criteria retrofit allocation framework
+(Napolitano), and closed-loop validation (all three PIs).
+
+% ── RO1 BOX ─────────────────────────────────────────────────────────────────
+\begin{tcolorbox}[colback=mycmykcolor,colframe=black,boxrule=1pt,coltext=black,
+  left=1mm,right=1mm,top=1mm,bottom=1mm]
+\textbf{Research Objective 1 (RO1, leads: Napolitano, Wauthier, and Busse): Develop and validate a closed-loop CPS that couples SAR coherence time series with hydrological mass balance in a Bayesian inference framework and duration-dependent fragility surfaces for pre-code load-bearing archetypes, and establish whether the system provides a decision-adequate alternative to resource-intensive simulation for the specific retrofit allocation decisions faced by small municipalities, calibrated on Montpelier 2023 and validated on the held-out 2024 event.}
+\end{tcolorbox}
+
+RO1 builds and validates the technical CPS by coupling four components: SAR coherence time series (Subtask~1.1), hydrological mass balance (Subtask~1.2), a Bayesian fusion framework that integrates these two sensing streams into probabilistic duration estimates (Subtask~1.3), and duration-dependent fragility surfaces that connect those duration estimates to building-specific damage state probabilities (Subtask~1.4).
+The Bayesian fusion framework treats mass balance as an informative prior on duration and SAR coherence decay as the observational likelihood: coherence declines as flood-induced moisture and structural deformation alter building surfaces, and its recovery rate is the observable proxy for inundation duration.
+The resulting posterior duration distribution propagates uncertainty through to the decision layer.
+Uncertainty varying with orbit geometry, revisit interval, and drainage basin geometry is characterized and propagated rather than collapsed.
+The fragility surface development in Subtask~1.4 provides the physical model layer of the CPS, connecting the Bayesian duration output to the damage states the RO2 decision framework requires.
+Subtask~1.5 validates the full RO1 system against observed flood behavior in Montpelier, using the 2024 event as a held-out test.
+
+\textbf{Subtask 1.1: SAR Data Processing and Coherence Analysis (lead: Wauthier).}
+\placeholder{Describe the SAR processing pipeline: software stack, coherence estimation window, multi-look parameters, coregistration approach. Describe how you handle temporal decorrelation from vegetation vs.\ built environment. State the number of Sentinel-1 acquisitions covering the Montpelier 2023 and 2024 events (before/during/after each). State the Capella acquisition (number of passes, timing relative to flood peak).}
+% christelle
+
+\textbf{Subtask 1.2: Hydrological Mass Balance Model (lead: Busse).}
+PI Busse develops a hydrological mass balance model for the Winooski watershed above Montpelier, estimating the drainage timescale $\hat{\tau}_k$ for each building-scale sub-basin as a function of contributing area, effective impervious fraction, antecedent soil moisture, and storm precipitation, constrained by USGS Winooski gauge records (station 04288000).
+The drainage timescale $\hat{\tau}_k$ represents the expected duration of standing water under gravitational drainage and serves as the physically grounded basis for the Bayesian prior on inundation duration.
+Inundation duration at building $i$ located in sub-basin $k$ is modeled as:
+\begin{equation}
+  T_i \sim \operatorname{LogNormal}(\mu_i,\, \sigma^2)
+\end{equation}
+where $\mu_i = \log \hat{\tau}_k + \delta_i^{\mathrm{comm}}$ is the log-scale prior mean, $\hat{\tau}_k$ is the mass balance drainage timescale for sub-basin $k$, $\delta_i^{\mathrm{comm}}$ is a building-level adjustment elicited from community knowledge in Subtask~2.1 (knowledge of specific drainage obstructions, historically slow drainage routes, or anomalous building conditions), and $\sigma^2$ captures residual local drainage uncertainty quantified from gauge-record variability across historical Winooski flood events.
+The LogNormal family is appropriate because duration is strictly positive and right-skewed, and because log-scale reasoning is consistent with the power-law coherence recovery model in Subtask~1.3.
+\placeholder{Maggie: fill in the specific functional form for $\hat{\tau}_k$ (ratio of stored volume to effective channel capacity? Unit hydrograph approach?), the spatial discretization (sub-basin size), and the precipitation and DEM inputs. Also note whether this applies the existing Winooski mass balance model or requires new development.}
+% maggie
+
+\textbf{Subtask 1.3: Bayesian Fusion Framework (leads: Napolitano, Wauthier, and Busse).}
+The Bayesian fusion framework integrates the hydrological prior from Subtask~1.2 with the SAR coherence time series from Subtask~1.1 to produce a posterior distribution over inundation duration at each building.
+Let $t = 0$ denote flood onset; SAR acquisition $k$ occurs at time $t_k$ measured from that origin, and $T_i$ is the inundation duration at building $i$, also measured from flood onset.
+Coherence is depressed while the building is inundated and recovers exponentially after the water drains:
+\begin{equation}
+  \hat{C}(t_k,\, T_i) \;=\; C_\infty - (C_\infty - C_{\mathrm{flood}})\, e^{-(t_k - T_i)/\tau_C(T_i)}, \quad t_k > T_i
+\end{equation}
+where $C_\infty$ is the pre-flood coherence baseline, $C_{\mathrm{flood}}$ is the minimum coherence during inundation, and $\tau_C(T_i) = \alpha T_i^\beta$ is the coherence recovery timescale as a power function of inundation duration.
+The power-law form allows the recovery rate to scale nonlinearly with duration; $\alpha$ and $\beta$ are calibrated from the Montpelier 2023 scatter of Sentinel-1 coherence recovery rate versus ICEYE-measured building-level duration, constituting the primary calibration result of the preliminary work.
+Observed coherence at each acquisition is modeled as Gaussian about this expectation:
+\begin{equation}
+  C_{i,k} \mid T_i \;\sim\; \mathcal{N}\!\left(\hat{C}(t_k,\, T_i),\; \sigma_C^2\right)
+\end{equation}
+where $\sigma_C^2$ aggregates speckle noise and orbit-geometry uncertainty, estimated from stable-surface coherence over non-flooded reference structures in each scene.
+Conditioning on all $K$ SAR acquisitions spanning the inundation and recovery window, the posterior duration distribution for building $i$ is:
+\begin{equation}
+  p(T_i \mid C_{i,1}, \ldots, C_{i,K}) \;\propto\; p(T_i) \prod_{k=1}^{K} p(C_{i,k} \mid T_i)
+\end{equation}
+where $p(T_i)$ is the LogNormal prior from Equation~(1).
+Because $T_i$ is one-dimensional and the likelihood is smooth, the posterior is computed on a dense grid rather than by sampling, propagating full uncertainty from both observational streams into the damage and decision layers without collapsing to a point estimate.
+The 2024 Montpelier event is the held-out test: parameters $\alpha$, $\beta$, and $\sigma_C^2$ fitted to 2023 data are applied without adjustment to 2024 SAR coherence and compared against independently collected ICEYE 2024 duration measurements.
+\placeholder{Christelle: confirm whether Sentinel-1 acquisitions cover the Montpelier 2023 inundation and recovery window (how many passes, what orbit/track, what temporal baseline relative to flood peak?). Also confirm whether Capella X-band acquisitions are available to constrain the early coherence recovery slope.}
+% christelle / becca
+
+\textbf{Subtask 1.4: Duration-Dependent Fragility Surface Development (lead: Napolitano).}
+Duration and peak flood stage are correlated in observational data, so the fragility surfaces are developed using a two-component approach that separates the duration effect physically before fitting it statistically.
+The \textit{physical component} grounds the duration claim in material science: component-based analysis of duration-governed degradation mechanisms in pre-code load-bearing masonry (mortar softening rate, brick saturation curves, rising damp penetration depth as a function of inundation time) provides a theoretically grounded basis for why duration adds explanatory power beyond depth, establishing the functional form of the duration effect independently of observational confounding.
+The \textit{empirical component} calibrates the fragility surface parameters from field damage observations from the 2023 Montpelier flood and validates them against the 2024 event, with peak depth treated as a covariate and duration entering as the primary variable whose additional explanatory power is directly tested.
+ICEYE building-level data, acquired at 6-hour temporal resolution for both events, provides both the duration measurement and the depth covariate directly at building scale, enabling the multivariate regression without relying on indirect proxies for either variable.
+
+The fragility surface for damage state $ds$ takes the form:
+\begin{equation}
+  P(DS \geq ds \mid T_i,\, d_i) \;=\; \Phi\!\left(\frac{\ln T_i - \lambda_{ds}(d_i)}{\zeta_{ds}}\right)
+\end{equation}
+where $T_i$ is inundation duration (hours), $d_i$ is peak inundation depth (m), $\lambda_{ds}(d_i) = \lambda_0 + \gamma \ln d_i$ is the log-scale median duration capacity (depth shifts the threshold at which duration governs damage), $\zeta_{ds}$ is the log-standard deviation of capacity, and $\Phi$ is the standard normal cumulative distribution function.
+The physical component provides initial estimates of $\lambda_0$, $\gamma$, and $\zeta_{ds}$ from material science; the empirical component refines these parameters using the 2023 Montpelier field observations, and the fitted surface is applied unchanged to the 2024 event for validation.
+The claim under test is that duration adds statistically significant explanatory power beyond depth alone, evaluated by comparing the bivariate model against a depth-only baseline using damage prediction accuracy across both events.
+The posterior duration distribution $p(T_i \mid \mathbf{C})$ from Subtask~1.3 propagates through Equation~(5) by Monte Carlo integration, producing a building-specific damage state probability distribution that carries the full inferential uncertainty of the SAR and hydrological observation streams into the decision layer.
+\placeholder{Becca: describe the building archetypes (load-bearing brick URM, timber frame, or both); the damage state definitions from field observations; and the sample sizes available across damage states for the 2023 calibration dataset.}
+% becca
+
+\textbf{Subtask 1.5: System Validation (leads: all three PIs).}
+\placeholder{Describe the validation strategy for RO1, framed around decision-adequacy rather than accuracy relative to hydrodynamic simulation. The primary validation reference is ICEYE building-level inundation duration at 6-hour temporal resolution for both Montpelier events. The 2023 event is the calibration dataset; the 2024 event is the held-out test. For the 2024 test, the coherence-to-duration inference chain is applied without parameter adjustment and evaluated against ICEYE 2024 duration measurements; state the comparison metrics (RMSE, correlation, coverage of 90\% credible intervals against ICEYE reference). Secondary validation sources: USGS Winooski gauge records (station 04288000), high water marks, community reports, and video documentation for both events. Two validation targets: (1) do posterior duration distributions align with ICEYE reference measurements within credible intervals, and do damage state predictions from Equation~(5) align with observed building damage in 2024? (2) do retrofit priority rankings align with what community partners and domain experts recommend based on locally held knowledge and observed damage from both events? The second target is the decision-adequacy test: the system need not match hydrodynamic fidelity, only produce rankings sufficient for the retrofit allocation decisions Montpelier faces.}
+% becca
+
+% ── RO2 BOX ─────────────────────────────────────────────────────────────────
+\vspace{5pt}
+\begin{tcolorbox}[colback=mycmykcolor,colframe=black,boxrule=1pt,coltext=black,
+  left=1mm,right=1mm,top=1mm,bottom=1mm]
+\textbf{Research Objective 2 (RO2, lead: Napolitano with all PIs): Co-develop the CPS decision layer with community partners in Montpelier, operationalizing locally held flood knowledge as informative Bayesian priors and building damage observations as fragility surface training data, and characterize the conditions under which community knowledge input produces measurably more accurate and better-calibrated damage assessments than data-only approaches, culminating in a retrofit allocation framework that places both community-scale drainage investments and individual building retrofits on the same probabilistic basis for independent community use.}
+\end{tcolorbox}
+
+RO2 addresses RQ2 by characterizing the conditions under which community knowledge, introduced as structural calibration input rather than post-hoc validation, improves the CPS outputs developed in RO1.
+Annual co-development workshops in Montpelier (Subtask~2.1) surface locally held flood knowledge operationalized as informative Bayesian priors on duration and building damage observations that serve as fragility surface training data.
+Subtask~2.2 runs the CPS with and without community-informed priors to directly quantify the epistemic contribution of co-design.
+The multi-criteria retrofit allocation framework (Subtask~2.3) translates RO1 outputs into actionable decisions for community partners.
+Subtask~2.4 closes the loop through post-retrofit SAR validation.
+
+\textbf{Subtask 2.1: Community Co-Development Workshops and Knowledge Elicitation (lead: Napolitano).}
+PI Napolitano will lead annual co-development workshops with emergency managers, historic preservation officials, and building owners in Montpelier across three years.
+Community partners include Vermont State Historic Preservation Office representatives, Department of the Interior cultural heritage representatives, and the Montpelier planning commission; letters of collaboration from all community partners are included in the supplementary materials.
+\textit{Year~1} surfaces locally held knowledge about which buildings held water longest, which drainage routes are historically slow, and which buildings have anomalous conditions; this knowledge is operationalized as informative Bayesian priors on inundation duration for the Subtask~1.3 fusion framework. Community partners also co-develop the criteria and weighting structure of the Subtask~2.3 retrofit allocation framework, shaping which investment outcomes matter most to their communities. Community-identified priorities are documented in structured form at the close of Year~1 workshops to enable assessment of priority incorporation in subsequent years.
+\textit{Year~2} collects community-observed building damage reports from the 2023 and 2024 flood events, serving as empirical training data for the Subtask~1.4 fragility surfaces, and validates framework outputs against community-observed flood behavior. Community partners assess whether the framework outputs reflect the priorities they identified in Year~1; discrepancies are documented and used to update the framework architecture. Year~2 workshops also include structured interpretation training in which emergency managers and planning commission staff learn to read probabilistic damage state outputs, understand what building-specific damage probabilities mean for retrofit priority, and run what-if simulations comparing community-scale drainage investments against individual building retrofits. This training focuses on interpreting decision-layer outputs, not on satellite data processing, which the CPS handles internally.
+\textit{Year~3} stress-tests the retrofit allocation framework for independent use, reassesses whether community priorities have shifted over the project period, and documents any framework adaptations required to maintain alignment with current community needs. Year~3 also assesses whether emergency managers and planning commission staff can explain framework outputs to elected officials and residents without researcher support, building the interpretive capacity required for long-term independent use of the framework.
+This structured co-development process constitutes the \textbf{CIR} component required by NSF 25-543: locally held knowledge enters the CPS as structural calibration input, community partners co-develop the framework architecture, and the process is assessed against documented community-identified priorities throughout.
+\placeholder{Add logistical detail becca: approximate number of workshop participants per year, exact names/titles of Montpelier community contacts, IRB coverage status, and format (in-person/virtual/hybrid).}
+% becca
+
+\textbf{Subtask 2.2: Comparative Assessment of Community Knowledge Contribution (leads: all three PIs).}
+\placeholder{Describe the structured comparison that directly addresses RQ2: run the full CPS with community-informed Bayesian priors (elicited in Subtask~2.1) and with uninformative priors (data-only), and compare posterior duration distributions on accuracy, calibration, and coverage.  
+Describe the same comparison for fragility surface performance: community damage observations vs.\ existing generic fragility databases.  
+State the metrics used to quantify improvement.}
+% becca what metrics will you use to compare community-informed vs.\ data-only runs? RMSE on duration? coverage of 90\% credible intervals? CRPS and damage state prediction accuracy against 2024 held-out outcomes? how will you handle cases where community knowledge and SAR data conflict? Will you report the disagreement as a finding?
+
+\textbf{Subtask 2.3: Multi-Criteria Retrofit Allocation Framework (lead: Napolitano).}
+The multi-criteria retrofit allocation framework translates the probabilistic RO1 outputs into decisions actionable by community partners in Montpelier without ongoing research support.
+Community partners (Vermont SHPO representatives, Montpelier planning commission staff, and building owners) co-develop the criteria, weighting structure, and output format in Year~1 workshops, not merely validate a team-built tool.
+
+For each retrofit action $a$ under consideration, the framework computes expected loss by integrating the action-modified damage probability over the Bayesian posterior duration distribution from Equation~(4):
+\begin{equation}
+  E[\text{loss} \mid a] \;=\; \int_0^\infty \sum_{i} P(DS_i \geq ds \mid T,\, d_i,\, a)\cdot L_i \cdot p(T \mid \mathbf{C},\, a)\, dT
+\end{equation}
+where $L_i$ is the replacement value at building $i$.
+The action $a$ enters the integrand in two places depending on its type: a community-scale drainage investment modifies $p(T \mid \mathbf{C}, a)$ by reducing the expected inundation duration through the mass balance model; an individual building hardening action modifies $P(DS_i \geq ds \mid T, d_i, a)$ by raising the capacity threshold in Equation~(5).
+Computing Equation~(6) under both action types and comparing the expected loss reduction against a no-action baseline places community-scale drainage investments and individual building retrofits on the same probabilistic basis, resolving the comparison that current frameworks cannot support.
+
+Expected loss reduction is one criterion within the multi-criteria decision analysis score:
+\begin{equation}
+  S(a) \;=\; \sum_{j=1}^{J} w_j \cdot V_j(a)
+\end{equation}
+where criteria $V_j$ include structural risk reduction (from Equation~(6)), retrofit cost, historic preservation value, and community equity; weights $w_j$ are elicited from community partners in Year~1 workshops through structured pairwise comparison, formalized as the co-developed weighting structure that community partners own and can revisit.
+The output interface presents $S(a)$ for each action alongside what-if simulations in which emergency managers and planning commission staff adjust weights and compare scenarios without any knowledge of SAR processing or Bayesian inference; all technical complexity is abstracted behind the decision-layer output.
+Year~2 community assessment of whether outputs reflect Year~1 stated priorities drives any framework adaptations; Year~3 stress-tests independent use without researcher support.
+\placeholder{Becca: confirm retrofit options in scope (retention basin, channel improvement, flood barriers, masonry repointing, foundation waterproofing?); cost data source (RS Means? FEMA benefit-cost tool?); and the output format co-developed with community (ranked list? visual dashboard?).}
+% becca
+
+\textbf{Subtask 2.4: Closed-Loop Validation (leads: all three PIs).}
+\placeholder{Describe how the closed loop closes: how post-retrofit SAR acquisitions will detect changes in building physical state, the expected coherence signature changes from specific retrofit actions, the timeline for observing a subsequent flood event, and the mechanism for updating model priors from new SAR data.}
+% The closed loop is the defining CPS contribution so this must be described really really well.
+% becca how will post-retrofit SAR acquisitions detect changes in building physical state? What observable changes in coherence signature do you expect from masonry repointing, flood barrier installation, or foundation waterproofing?
+% What is your timeline for observing a subsequent flood event? Is this opportunistic, or do you have a plan if no flood occurs in Year~3? If no event, demonstrate prior updating from any Sentinel-1 coherence change over retrofitted structures regardless of flooding.
+% becca how will you update model priors: Bayesian online updating or full re-estimation?
+
+\begin{wrapfigure}{r}{0.55\textwidth}
+\vspace{-0.3cm}
+% TODO FIGURE: Gantt chart / project timeline. Suggested rows:
+%     1.1 SAR Processing (Wauthier)
+%     1.2 Mass Balance Model (Busse)
+%     1.3 Bayesian Fusion Framework (all)
+%     1.4 Fragility Surface Development (Napolitano)
+%     1.5 System Validation (all)
+%     2.1 Co-Design Workshops Y1/Y2/Y3 (Napolitano)
+%     2.2 Comparative Assessment (all)
+%     2.3 Retrofit Allocation Framework (Napolitano)
+%     2.4 Closed-Loop Validation (all)
+%     Publications
+%     Outreach
+% \includegraphics[width=0.55\textwidth]{images/timeline.pdf}
+\captionsetup{justification=centering,singlelinecheck=false,font=small}
+\vspace{-0.9cm}
+\caption{\placeholder{Project timeline (Gantt chart) with PI assignments.}}
+\label{fig:timeline}
+\vspace{-0.4cm}
+\end{wrapfigure}
+
+
+\section{Broader impacts}
+
+The closed-loop CPS framework transforms how flood-affected communities interact with infrastructure sensing, enabling the probabilistic flood damage assessments that small, resource-constrained municipalities need to evaluate both building-specific hardening and community-scale drainage investments, where no such pathway currently exists.
+By enabling better-informed retrofit investment decisions, the framework directly improves the quality of life of residents who live, work, and rebuild in repeatedly-flooded historic communities, reducing the flood damage burden that falls disproportionately on towns with the fewest resources to recover.
+The decision layer and co-development process are designed for communities without ongoing research support; the framework is demonstrated in Montpelier and documented for transfer to any municipality meeting the four scope conditions.
+Emergency managers, historic preservation officials, and planning commission staff gain structured capacity to interpret probabilistic damage assessments and use satellite-informed decision tools independently, building the municipal technical literacy that currently does not exist in this community class.
+Graduate students will receive cross-disciplinary training in SAR remote sensing, probabilistic structural modeling, and participatory community research.
+The CIR co-design methodology, documented as a transferable protocol, advances CPS practice for connected communities by establishing how structured elicitation of locally held flood knowledge can be translated into informative Bayesian prior distributions, making resident knowledge mathematically load-bearing in model calibration rather than a post-hoc input, and how community retrofit decisions feed back into physical infrastructure sensing across networks of similarly situated towns.
+
+\vspace{-10pt}
+\subsection{Potential for transformative impact}
+\placeholder{Describe how the framework provides the decision pathway that communities like Montpelier specifically need: a system that places community-scale drainage investments and individual building retrofits on the same probabilistic basis for the first time, resolving the investment allocation problem that repeatedly-flooded small municipalities currently cannot evaluate. Define the four scope conditions that determine where the framework transfers: (1) riverine flood exposure with inundation durations sufficient for SAR coherence detection; (2) significant pre-1940 load-bearing building stock; (3) institutional capacity insufficient for hydrodynamic simulation; (4) USGS gauge coverage. Estimate the number of municipalities in the northeastern United States and Appalachian corridor that meet all four scope conditions to ground the ``thousands of towns'' claim. Suggested data sources: FEMA NFIP community enrollment data for riverine flood communities; ACS table B25035 (Median Year Structure Built) filtered to communities with significant pre-1940 housing stock; USGS National Water Information System for gauge coverage; and FEMA Flood Map Service Center for communities without existing hydrodynamic models. The goal is to convert the ``thousands'' assertion into a bounded, citable estimate. Describe how the generalizable CPS architecture principle (community-accessible sensing providing a decision-adequate pathway where resource-intensive simulation is not an option) applies to other infrastructure contexts sharing these scope conditions. Also describe the transferability of the CIR methodology: the co-design protocol that operationalizes locally held knowledge as Bayesian priors and empirical damage observations is replicable in any community context where local knowledge cannot be separated from model calibration.}
+
+\vspace{-10pt}
+\subsection{Education and broadening participation}
+
+In addition to broader impacts for study communities, the project will integrate research outcomes into engineering education.
+\placeholder{Describe graduate student training plan: number of PhD students total across the three PIs, advising assignments, and any cross-institutional co-advising or student exchange plan.}
+
+Undergraduate students hired for this project will participate in the Building
+Engineering Seminal Undergraduate Research Experience (BESURE) program at Penn
+State, which provides support through the Women in Science and Engineering Research
+(WISER) and Minority Undergraduate Research Experience (MURE) programs.
+
+\vspace{-10pt}
+\subsection{Open science and transferability}
+\placeholder{Describe the open-source software and data release plan: the Bayesian fusion code will be released on GitHub (MIT license); SAR-derived coherence products for Montpelier will be shared on DesignSafe; and the community knowledge elicitation protocol will be documented and released alongside the technical software as a transferable co-design artifact. Describe the minimum pathway for a new community to apply the framework: Sentinel-1 is free; what additional data (DEM, gauge records, building inventory) and community engagement capacity does a new municipality need?}
+% becca
+
+
+\section{Project timeline and evaluation}
+
+Progress will be monitored through monthly PI team meetings and annual project reviews.
+The project includes a formal assessment component evaluating success across three dimensions.
+\textit{Technical assessment} (Subtask~1.5) evaluates decision-adequacy of the RO1 system: do posterior duration distributions align with ground truth within credible intervals, and do retrofit priority rankings align with what community partners and domain experts recommend based on locally held knowledge and observed damage?
+\textit{Community engagement assessment} evaluates whether community-identified priorities, documented at the close of Year~1 workshops, were successfully incorporated into the framework architecture and outputs; this assessment runs in Year~2 as community partners evaluate whether framework outputs reflect their stated priorities, with discrepancies documented and used to update the framework.
+\textit{Adoption assessment} (Year~3) evaluates whether community partners in Montpelier can apply the retrofit allocation framework independently, whether emergency managers and planning commission staff can interpret probabilistic outputs and explain them to elected officials and residents without researcher support, and whether the framework's outputs support the specific investment decisions they face, providing the practical success measure required by NSF 25-543 CPS-CIR.
+\placeholder{Add specific KPIs for each assessment dimension becca: suggested technical KPIs include RMSE on duration estimates against ICEYE reference, coverage of 90\% credible intervals, and damage state prediction accuracy against field observations; suggested community engagement KPIs include proportion of Year~1 stated priorities reflected in Year~2 framework outputs; suggested adoption KPIs include Year~3 independent-use completion rate, community partner confidence in interpreting probabilistic outputs, and ability of emergency managers to explain framework outputs to elected officials without researcher support.}
+
+% ============================================================
+%   RESULTS FROM PRIOR NSF SUPPORT
+% ============================================================
+
+\vspace{-10pt}
+
+\section{Results from prior NSF Support}
+
+\noindent\textbf{PI Napolitano:}
+% add in here becca
+
+\noindent\textbf{Co-PI Wauthier:}
+% add in here christelle
+
+\noindent\textbf{Co-PI Busse:}
+% add in here maggie
+
+% ref section normally begins a new page:
+\newpage
+
+\bibliography{biblio.bib}
+
+\end{document}
+

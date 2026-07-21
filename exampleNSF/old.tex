@@ -1,0 +1,666 @@
+\documentclass[11pt]{article} 
+% The Proposal and Award Policies and Procedures Guide
+% (PAPPG: https://www.nsf.gov/publications/pub_summ.jsp?ods_key=pappg)
+% mandates, in Chapter 2, section B.2, that the main text should have a font size no less
+% than 11 points for *most* typefaces (including Computer Modern Roman and Times (new) Roman).
+% 
+% Actually, Helvetica (a.k.a. Arial), Palatino and Courier New can drop
+% to 10 point font size, according to the PAPPG, but be aware:
+% 10-point fonts (whatever the typeface) will promote reader fatigue.
+% Reader fatigue never works to the author's advantage.
+%
+%
+% This sample  assumes the pdflatex chain (not the traditional latex | dvips | ps2pdf chain).
+% It should function in the traditional chain if you comment out the hyperref package lines.
+% 
+%\usepackage{times} % uncomment for Times Roman;
+%                   % replace "times" with other font names, as desired. 
+\usepackage{bm} % If you want bold math, but without the bloat of AMS packages
+\usepackage{color} % doh
+\usepackage{hyperref} % LaTeX cross references become hyperlinks in pdf output
+\usepackage{graphicx} % For figure insertion
+\usepackage{wrapfig} % for wrapping the figure
+\usepackage{subcaption}
+\usepackage{vmargin} % To set page size
+\usepackage{mathrsfs}
+\usepackage{float}
+\usepackage{hyperref} % turn off for NSF submission
+%\usepackage[options]{nohyperref}  % turn on for NSF submission
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{ltablex}  % This combines longtable and tabularx
+
+
+\usepackage[svgnames]{xcolor}  % Load xcolor with predefined color names
+\usepackage[most]{tcolorbox}   % Load tcolorbox package
+\definecolor{mycmykcolor}{cmyk}{0.45,0.30,0.20,0}
+\definecolor{secondary}{cmyk}{0,0,0,0.20} 
+
+\usepackage{enumitem}
+
+\newlist{gitemizeinsurance}{itemize}{4}
+\setlist[gitemizeinsurance,1]{
+    leftmargin=\dimexpr1cm+\labelsep\relax,
+    label={\smash{\raisebox{-0.55cm\height}{\includegraphics[width=0.8cm]{icons/insurance.png}}}}
+}
+
+
+\newlist{gitemizemoney}{itemize}{4}
+\setlist[gitemizemoney,1]{
+    leftmargin=\dimexpr1cm+\labelsep\relax,
+    label={\smash{\raisebox{-0.55cm\height}{\includegraphics[width=1cm]{icons/money.png}}}}
+}
+
+\newlist{gitemizedistribution}{itemize}{4}
+\setlist[gitemizedistribution,1]{
+    leftmargin=\dimexpr1cm+\labelsep\relax,
+    label={\smash{\raisebox{-0.55cm\height}{\includegraphics[width=1cm]{icons/distribution.jpg}}}}
+}
+
+\newlist{gitemizedpropertyValue}{itemize}{4}
+\setlist[gitemizedpropertyValue,1]{
+    leftmargin=\dimexpr1cm+\labelsep\relax,
+    label={\smash{\raisebox{-0.55cm\height}{\includegraphics[width=0.8cm]{icons/propertyValue.png}}}}
+}
+
+\newlist{gitemizecollect}{itemize}{4}
+\setlist[gitemizecollect,1]{
+    leftmargin=\dimexpr1cm+\labelsep\relax,
+    label={\smash{\raisebox{-0.55cm\height}{\includegraphics[width=0.6cm]{icons/collect.png}}}}
+}
+
+\newlist{gitemizeanalyze}{itemize}{4}
+\setlist[gitemizeanalyze,1]{
+    leftmargin=\dimexpr1cm+\labelsep\relax,
+    label={\smash{\raisebox{-0.55cm\height}{\includegraphics[width=0.7cm]{icons/analyze.png}}}}
+}
+\newlist{gitemizeflow}{itemize}{4}
+\setlist[gitemizeflow,1]{
+    leftmargin=\dimexpr1cm+\labelsep\relax,
+    label={\smash{\raisebox{-0.55cm\height}{\includegraphics[width=0.6cm]{icons/flow.png}}}}
+}
+
+\usepackage{titlesec}
+\titleformat{\section}[runin]{\normalfont\bfseries}{\thesection}{1em}{}[:]
+\titlespacing*{\section}{0pt}{\baselineskip}{1ex}
+
+\titleformat{\subsection}[runin]{\normalfont\bfseries}{\thesubsection}{1em}{}[:]
+\titlespacing*{\subsection}{0pt}{\baselineskip}{1ex}
+
+% Define a custom command to format section titles with a new line
+\newcommand{\customsection}[1]{%
+  \titleformat{name=\section,numberless}[runin]{\normalfont\bfseries}{}{0pt}{\newline}[ ]%
+  \section{#1\newline}%
+}
+
+\usepackage{caption}
+\usepackage{colortbl}
+\usepackage[numbers, square,sort&compress]{natbib}
+\bibliographystyle{unsrtnat} % Use the style of your choice
+%\setcitestyle{numbers, square, comma, sort&compress}
+%
+% Hyperref stuff: WARNING: don't use \href{link}{clickable text} in the Project Description,
+% as Research.gov doesn't like it. Likewise, avoid any text containing 
+% http:, https:, mailto:, etc.
+%
+\hypersetup{hidelinks, colorlinks=false, urlcolor=black}
+\hypersetup{draft}
+
+% vmargin parameters:
+% The Proposal and Award Policies and Procedures Guide
+% (PAPPG: https://www.nsf.gov/publications/pub_summ.jsp?ods_key=pappg)
+% mandates, in Chapter 2, section B.2, that margins must be at least 1 inch in all directions.
+%
+\setpapersize{USletter}
+% \setmarginsrb{〈leftmargin〉}{〈topmargin〉}{〈rightmargin〉}{〈bottommargin〉}%{〈headheight〉}{〈headsep〉}{〈footheight〉}{〈footskip〉}
+\setmarginsrb{1in}{1in}{1in}{1in}{0pt}{0mm}{0pt}{0mm}
+
+\pretolerance=5000
+\tolerance=9000
+
+\graphicspath{{/images/}} % Specify the path to your image files
+
+%
+% Pseudodot: break up "clickable" strings like "Data.gov" which you can
+% enter as Data\pseudodot{}gov in your file.
+% Use this trick in case research.gov misreads text such as "Data.gov" as a clickable hyperlink
+% (even when it isn't).
+%
+\newcommand{\pseudodot}{{\lower 2.4pt\hbox{$\cdot$}}}
+%\def\pseudodot{{\lower 2.4pt\hbox{$\cdot$}}} %% This is the PlainTeX version.
+%
+% On with the show...
+%
+
+\begin{document}
+%
+% Remove page numbers---Research.gov will paginate the document instead
+%
+\pagestyle{empty} 
+%\pagestyle{plain} %% REMOVE THIS LATER
+%
+% Line spacing: 
+% The Proposal and Award Policies and Procedures Guide
+% (PAPPG: https://www.nsf.gov/publications/pub_summ.jsp?ods_key=pappg)
+% mandates, in Chapter 2, section B.2, that the main text should have no more than
+% six lines to the vertical inch. With 72 points per inch, the minimum line skip 
+% would be 12 points.
+%
+\setlength{\baselineskip}{12.6pt} % in text mode
+\setlength{\normalbaselineskip}{12.6pt} % in math mode
+
+
+\begin{tcolorbox}[colback=mycmykcolor, colframe=black, boxrule=1pt, coltext=black]
+\textbf{Project goals:} 
+This research integrates community capitals and engineering innovations for heritage recovery in flood-vulnerable inland non-metropolitan community centers (INMCCs), focusing on the ``preservation urgency paradox" and how rapid community mobilization interacts with heritage preservation. 
+Analyzing recovery processes in Montpelier, VT and Marshall, NC, we will co-create and disseminate a Flood-Resilient Heritage Preservation Toolkit that provides actionable resources to inform policy and practice for more resilient and equitable recovery outcomes in flood-vulnerable, heritage-rich INMCCs.
+\end{tcolorbox}
+\vspace{-0.5cm}
+
+\begin{wrapfigure}{r}{0.45\textwidth}
+\vspace{-0.4cm}
+\includegraphics[width=0.45\textwidth]{images/inmcc.pdf}
+\captionsetup{justification=centering, singlelinecheck=false, font=small}
+\vspace{-0.9cm}
+\caption{Examples of INMCC.}
+\label{fig:inmcc}
+\vspace{-0.4cm}
+\end{wrapfigure}
+\normalsize
+
+%% new version
+\section{Status quo}
+The U.S. faces increasing flood events, with inland, non-metropolitan community centers (INMCCs) experiencing unique challenges interconnecting disaster resilience, economic vitality, and heritage preservation \cite{WattsTompkins2022, ClimateCentral2024}.
+Predicted annual flood damage ranges from \$180 to \$500 billion across 94\% of continental states \cite{JEC2024FloodingCosts}, affecting diverse, heritage-rich communities nationwide (Fig.~\ref{fig:inmcc}), exemplified by Montpelier, VT, where 80\% of historic buildings sustained flood damage in July 2023 \cite{NWSPaducah2023, dupigny2002climate}. Conventional urban-centric recovery models fail to address the specific needs of INMCCs needs, particularly in heritage preservation \cite{ClimateCentral2024} because these communities struggle with inadequate flood insurance, limited financial resources, and disparities in recovery fund distribution \cite{npr_hurricane_helene_2024, wilson2021flood, zhorov2024floodprints}.
+
+The use of older unreinforced masonry (URM) buildings for INMCCs presents unique challenges \cite{SeronSuhoothi2017}. 
+Retrofitting demands a balance between historical integrity and resilience, complicated by limited structural data \cite{NPS2021}. 
+These buildings, often housing small and minority-owned businesses, are crucial to local economies and cultural identity \cite{OlderSmallerBetter2014, untapped2017}. 
+Heritage recovery involves complex social, technical, cultural, and economic factors \cite{Hou2023, UNESCO2024, Patel2024}. 
+Top-down approaches often fail to address the nuanced needs of historic environments, but community-based strategies, though more contextually sensitive, struggle to balance preservation with adaptation \cite{Jigyasu2024, joshi2021community}.
+\textbf{Our preliminary work has identified a critical ``preservation urgency paradox," where rapid recovery needs conflict with time-intensive heritage preservation processes.} This proposal seeks to develop an integrated approach to flood resilience in INMCCs, prioritizing heritage preservation while enhancing community resilience. 
+\textbf{By bridging engineering, social sciences, heritage studies, and natural hazards science, we aim to investigate this paradox and develop strategies addressing both the physical vulnerabilities of historic structures and community capitals in shaping recovery.} 
+Our goal is to promote resilience while preserving irreplaceable cultural heritage, and navigating the tension between urgent recovery and long-term preservation.
+
+\vspace{-10pt}
+\subsection{Research objectives and intellectual merit}
+This research addresses these challenges by investigating the newly identified preservation urgency paradox through two INMCC case studies: Montpelier, VT, and Marshall, NC. With a much lower socioeconomic status but rougher terrain than Montpelier, Marshall was hit by Hurricane Helene in late 2024. 
+Our objectives are as follows:
+\vspace{-0.4cm}
+\begin{gitemizecollect}
+\item To \textbf{collect data on community capitals and engineering solutions for heritage recovery in flood-vulnerable INMCCs}, focusing on how institutional arrangements, community agency, and knowledge integration shape preservation outcomes and contribute to the preservation urgency paradox. 
+\end{gitemizecollect}
+\begin{gitemizeanalyze}
+\item To analyze collected data to develop the preservation urgency paradox concept across different contexts,\textbf{ examining how rapid community mobilization and community capitals interact with heritage preservation goals in post-flood recovery processes for INMCCs}.
+\end{gitemizeanalyze}
+\vspace{-0.6cm}
+\begin{gitemizeflow}
+\item To develop a \textbf{Flood-Resilient Heritage Preservation Toolkit} for \textbf{translating research into actionable resources} and training for flood-vulnerable, heritage-rich INMCCs, with specific strategies to navigate the preservation urgency paradox.
+\end{gitemizeflow}
+\vspace{-0.2cm}
+
+The \textbf{intellectual merit} of this research lies in its novel approach to understanding heritage recovery as the integration of community capitals and engineering innovations centered on the preservation urgency paradox. 
+\textbf{By introducing the concept of the preservation urgency paradox, we challenge conventional assumptions \cite{MurzynKupisz2013, HistoricEngland2023} about the relationship between community capitals and heritage preservation during inland flooding recovery.} 
+While self-organized, community-driven approaches have been central to disaster recovery by drawing on community capitals to assess needs, allocate resources, and coordinate recovery \cite{imperiale2016experiencing}, our research explores the tensions that arise when these rapid mobilization efforts intersect with heritage preservation goals. 
+This investigation will \textbf{contribute to fundamental social sciences by advancing our understanding of community resilience, community capitals, and institutional adaptation in the context of heritage preservation and disaster recovery}.
+We expand community capital theory by addressing how specific forms of capital—cultural, social, and institutional—interact during disaster recovery in flood-prone, heritage-rich communities. 
+In this context, cultural capital (e.g., historic sites, shared heritage, and identity) often becomes a double-edged sword, requiring preservation while also being at risk of erasure due to the urgency of recovery. 
+Our study examines how social capital (trust, networks, and community norms) can both enable rapid mobilization and create friction under competing priorities (recovery vs. preservation). 
+
+Comparative analysis of INMCCs will provide insights into how the preservation urgency paradox manifests across different contexts, illuminating how institutional arrangements and community capitals shape recovery outcomes. 
+Through these case studies, we will provide evidence of how community capitals evolve, interact, and transform under the pressure of disaster recovery. 
+By incorporating technical and infrastructural considerations, we not only address the preservation urgency paradox but also expand community capital theory to account for the unique challenges of heritage-rich, disaster-prone contexts.
+Our study will contribute to the field of institutional analysis by investigating how formal and informal governance structures evolve and adapt in response to flood events, offering new perspectives on institutional bricolage in crisis situations, especially when navigating the preservation urgency paradox.
+
+The research will also \textbf{advance our understanding of knowledge integration processes}--how different forms of expertise (local, technical, and institutional) are leveraged in post-disaster decision-making within the preservation urgency paradox. 
+This work will contribute to the growing body of literature on community-based disaster risk reduction, \textbf{by providing empirical evidence on the effectiveness of bottom-up approaches in heritage preservation while addressing the challenges posed by the urgency of recovery.}
+Specifically, this research will contribute to updating the Intergovernmental Panel on Climate Change (IPCC) framework and enhance the overall adaptive capacity of these communities \cite{kundzewicz2004floods}. 
+By focusing on INMCCs, we will shed light on the unique challenges and opportunities faced by these often-overlooked communities, contributing to a more nuanced understanding of rural resilience and adaptive capacity while providing practical guidance for improving disaster response strategies. 
+The development of a Flood-Resilient Heritage Preservation Toolkit is both an academic and a practical contribution, offering strategies to navigate the preservation urgency paradox in real-world settings.
+% This toolkit will synthesize our theoretical advancements in community capital theory with practical, actionable guidance for communities facing the dual challenges of disaster recovery and heritage preservation.
+
+\vspace{-10pt}
+\section{Current state-of-the-art}
+
+In technical preservation, studies have explored the impacts of flooding, increased precipitation, and temperature changes on traditional building materials and techniques \cite{sesana2021climate, NPS2021, Arrighi2024, HUDExchange2024}. 
+Advanced tools have been developed to evaluate the resilience of heritage structures to various natural hazards \cite{briz2022prioritization}.
+Community-based approaches to heritage preservation and disaster recovery have gained prominence in recent work \cite{castro2021community, ali2021integrating}, with researchers highlighting the influence of how community capitals and networks on recovery in heritage-rich areas \cite{gibson2019engagement}. 
+Studies have highlighted the importance of local knowledge and traditional practices in contextually appropriate preservation strategies \cite{wheeler2020informing}.
+
+Adaptive heritage management has emerged as a response to challenges with natural hazards, emphasizing flexibility in preservation practices to balance conservation goals with adaptation imperatives \cite{fatoric2023towards}. 
+Innovative governance models have been proposed to address changing environmental conditions while maintaining cultural significance.
+Interdisciplinary frameworks for assessing and managing flood risks from sea level rise in cultural heritage areas have integrated hydrological modeling with socio-economic and cultural considerations \cite{vojinovic2016holistic}. 
+Recent studies have also focused on institutional arrangements and their impact on shaping heritage recovery outcomes and how different governance structures influence the integration of heritage concerns into broader disaster recovery and natural hazards adaptation planning \cite{castro2021community}.
+\textbf{Despite these advancements, the tension between rapid recovery and heritage preservation in flood-vulnerable INMCCs remains largely unexplored.} 
+The preservation urgency paradox we have identified in our preliminary work represents a \textbf{critical gap }in current research. 
+This paradox highlights the need for approaches that can effectively balance the immediacy of post-disaster recovery with the careful, time-intensive processes required for heritage preservation.
+These gaps (Tab.~\ref{tab:research_summary}) present opportunities for further investigation into the complex challenges at the intersection of heritage preservation, disaster recovery, and natural hazards adaptation, particularly with INMCCs. 
+
+
+\begingroup
+\footnotesize
+\begin{tabularx}{\textwidth}{|X|X|X|X|}
+\caption{Summary of research gaps, objectives, approaches, and outcomes\label{tab:research_summary}}\\
+
+\hline
+\rowcolor{mycmykcolor}
+\textbf{Research Gaps} & \textbf{Our Objectives}& \textbf{Approaches}& \textbf{Outcomes}\\
+\hline
+\endfirsthead
+
+\multicolumn{4}{c}%
+{\tablename\ \thetable\ -- \textit{Continued from previous page}} \\
+\hline
+\rowcolor{mycmykcolor}
+\textbf{Research Gaps} & \textbf{Our objectives}& \textbf{Approaches}& \textbf{Outcomes}\\
+\hline
+\endhead
+
+\hline \multicolumn{4}{r}{\textit{Continued on next page}} \\
+\endfoot
+
+\hline
+\endlastfoot
+
+Limited understanding of community capitals and engineering integration for heritage recovery in flood-vulnerable INMCCs & Collect data on the integration of community capitals and engineering for heritage recovery in flood-vulnerable INMCCs in the context of the preservation urgency paradox & Multimodal data collection for recovery patterns and stakeholder dynamics in flood-vulnerable INMCCs with focus on rapid recovery vs. preservation tensions & Dataset of social and engineering factors influencing heritage recovery and the preservation urgency paradox in INMCCs \\
+\hline 
+Underexplored tensions between rapid recovery and preservation goals for INMCCs & Investigate the preservation urgency paradox to identify key features in predicting recovery and preservation outcomes & Archival research, interviews, recovery timelines, social network analysis, feature importance analysis focused on the preservation urgency paradox & Generalizable insights into how rapid mobilization interacts with preservation goals in INMCCs and the preservation urgency paradox \\ 
+\hline 
+Insufficient research translation into actionable resources for navigating the preservation urgency paradox & Translate research into resources and training materials for managing the preservation urgency paradox & Synthesis of findings, stakeholder workshops, and development of resources focused on balancing rapid recovery and preservation & Toolkit for pre-flood assessment, adaptation planning, and post-flood recovery that addresses the preservation urgency paradox \\
+\end{tabularx} 
+\endgroup
+\normalsize
+\vspace{-0.5cm}
+\section{Case study communities and preliminary results}
+Preliminary research done by PI Napolitano includes two INMCC case studies: Montpelier, VT and Marshall, NC; information on the communities is provided in Tab.~\ref{tab:community_stats}. 
+\vspace{-0.3cm}
+\begin{table}[h]
+\centering
+\footnotesize
+\caption{Statistics of the two study communities  \cite{uscensus_acs5year}}
+\label{tab:community_stats}
+\vspace{-0.7cm}
+\begin{tabularx}{\textwidth}{@{}l*{10}{>{\centering\arraybackslash}X}@{}}
+\toprule
+\textbf{Community} & \textbf{Pop.} & \textbf{\% White} & \textbf{Med. Age} & \textbf{Med. Inc.} & \textbf{\% Poverty} & \textbf{Med. Prop.} & \textbf{Prop. Tax} & \textbf{\% Home} & \textbf{\% Mort.} \\
+\midrule
+Montpelier, VT & 8,030 & 90 & 44 & \$76,143 & 6.4 & \$326,800 & \$2,154 & 56 & 59.7 \\
+Marshall, NC & 616 & 87 & 42 & \$49,700 & 22.7& \$228,400 & \$183 & 60 & 65\\
+Nationwide & -- & 89 & 39 & \$75,149 & 12.5 & \$281,900 & \$2111 & 65 & 65 \\
+\bottomrule
+\end{tabularx}
+\vspace{-0.3cm}
+\footnotesize{Note: Pop. = Population; Med. = Median; Inc. = Income; Prop. = Property value; \% Home = Homeownership rate; \% Mort. = Percentage of homes with mortgage}
+\end{table}
+\normalsize
+
+\begin{wrapfigure}{r}{0.45\textwidth}
+\vspace{-0.4cm}
+\includegraphics[width=0.45\textwidth]{images/vt.pdf}
+\captionsetup{justification=centering, singlelinecheck=false, font=small}
+\vspace{-0.9cm}
+\caption{Montpelier during flooding.}
+\label{fig:vt}
+\vspace{-0.3cm}
+\end{wrapfigure}
+\normalsize
+\vspace{-0.3cm}
+The initial work in Montpelier was supported by an NSF RAPID Graduate Scholar grant for gathering structural analysis data.
+Montpelier, a small, predominantly White city, boasts above-average median income, and low poverty, although homeownership rates are slightly below the national average. 
+As Vermont's capital, it serves as a government and cultural hub, with a stable job market from state offices and colleges. 
+The city's National Register Historic District, featuring 19th-century architecture, attracts tourists and contributes to the local economy. However, its compact urban form and location at the confluence of two rivers make it vulnerable to flooding, with 80\% of the district's buildings damaged in July 2023 (Fig.~\ref{fig:vt}). 
+Montpelier has experienced over 45 flooding events since 1900, exacerbated by intensifying precipitation, ice jams, and snowmelt, highlighting the challenge of balancing disaster resilience with heritage preservation in flood-prone historic areas.
+
+Our initial research on structural analysis revealed gaps in understanding the social and institutional dimensions of the recovery process. 
+Informal conversations with various stakeholders, including local officials, business owners, and residents, highlighted interactions among community capitals, institutional arrangements, and heritage preservation efforts that structural assessments alone missed. 
+\textbf{These discussions unveiled the preservation urgency paradox, a critical gap between rapid recovery needs and heritage preservation goals}.
+This insight prompted our interdisciplinary approach to studying heritage recovery in flood-vulnerable INMCCs. 
+Our preliminary analysis indicated that distinct recovery trajectories varied based on building characteristics, socioeconomic factors, and institutional arrangements. 
+Governance structures evolved from ad-hoc community-led responses to formalized arrangements, demonstrating institutional adaptation but also revealing challenges in balancing priorities. 
+The delayed integration of heritage expertise, attributed to resource constraints and lack of clear protocols, significantly impacted preservation outcomes. 
+These findings suggest complex interactions between institutional arrangements, community agency, and technical expertise in shaping heritage recovery outcomes, particularly in navigating the preservation urgency paradox, warranting further investigation.
+
+Additional preliminary community conversations were held while collecting structural data in Marshall, NC, the site of another INMCC that experienced severe flooding after 2024 Hurricane Helene (Fig.~\ref{fig:nc}).  
+Marshall, a small, rural Appalachian town with a predominantly White population and median age near the national average, faces significant economic challenges, with below-average median household income and high poverty rates.
+\begin{wrapfigure}{r}{0.45\textwidth}
+\includegraphics[width=0.45\textwidth]{images/nc.pdf}
+\vspace{-0.4cm}
+\captionsetup{justification=centering, singlelinecheck=false, font=small}
+\caption{Marshall during flooding}
+\label{fig:nc}
+\vspace{-0.2cm}
+\end{wrapfigure}
+Property values and taxes are lower than national averages; while homeownership rates are slightly below average, more homeowners have mortgages compared to Montpelier. 
+The economy relies on small businesses, crafts, and tourism. 
+Marshall's National Register Historic District, featuring late 19th and early 20th-century stone buildings, is central to its identity as an emerging arts and tourism destination. 
+Despite revitalization efforts, Marshall struggles with limited job opportunities and requires economic diversification. 
+Although differences exist in geography, size, and flood characteristics, Marshall's recovery patterns paralleled Montpelier's as \textbf{both communities faced similar challenges regarding the preservation urgency paradox}: integrating heritage expertise into rapid response efforts, balancing formal institutional structures with grassroots initiatives, and navigating tensions between immediate recovery needs and long-term preservation goals. 
+These shared challenges often led to \textbf{prioritizing short-term recovery over heritage conservation}, highlighting the interaction between top-down and bottom-up approaches. 
+Marshall's rural Appalachian context, characterized by distinct economic challenges and rich cultural heritage, contrasts with Montpelier's more urban state capital setting, allowing for a nuanced examination of the preservation urgency paradox across diverse INMCC settings. 
+For instance, Marshall's limited economic resources and ties to traditional craftsmanship present different opportunities and constraints in preservation efforts compared to Montpelier's more diverse economy and institutional resources. 
+Through comparisons, we can gain insights into how varying socio-economic contexts, institutional capacities, and community characteristics influence the balance between urgent recovery and heritage preservation in flood-vulnerable communities.
+\vspace{-10pt}
+\subsection{Outlook based on preliminary results}
+These patterns across two distinct INMCCs highlight several areas for further investigation, with the preservation urgency paradox emerging as a central theme. 
+The preservation urgency paradox warrants deeper examination across different contexts. 
+Additionally, the challenges in integrating different forms of knowledge--local, organizational, and technical--throughout the recovery process suggest the need for more adaptive toolkits and resources for heritage preservation in flood-vulnerable INMCCs. 
+The evolution of governance structures and decision-making processes throughout recovery phases offers insights into how communities adapt institutional arrangements in response to crisis events.
+Preliminary investigations highlight the need for flexible, data-driven resources to address these common challenges while remaining flexible enough to accommodate the unique characteristics of diverse flood-vulnerable INMCCs.
+Our mixed-methods research plan will analyze the integration of community capitals and engineering innovations for heritage recovery, explore features influencing the paradox, and develop a Flood-Resilient Heritage Preservation Toolkit that addresses this paradox. 
+This study aims to bridge gaps between technical preservation approaches and community-based recovery strategies, offering a holistic approach to INMCC resilience in the face of increasing flood risks while providing strategies to effectively manage the tension between rapid recovery and heritage preservation.
+
+\vspace{-10pt}
+\section{Research plan}
+Our study addresses gaps related to the preservation urgency paradox. 
+First, we will collect data on the integration of community capitals and engineering innovations for heritage recovery in Montpelier and Marshall using quantitative assessment of recovery patterns and qualitative examination of stakeholder perspectives, identifying the paradox. 
+Second, we will analyze this paradox across case studies, \textbf{examining how community mobilization and community capitals' interactions with heritage preservation goals affect this paradox}, through timeline creation, thematic analysis, social network mapping, and feature importance calculations. 
+Third, we will synthesize results, conduct comparative analysis, and develop actionable resources for communities, including community tip sheets and practitioner guides for pre-disaster assessment and post-disaster recovery, designed to help navigate the paradox. 
+Led by PI Napolitano (Architectural Engineering) and CoPI Chi (Demography and Rural Sociology), this interdisciplinary study will examine the interplay between institutional arrangements, community agency, and heritage preservation amid natural hazards, with a focus on how these factors influence the paradox.
+PI Napolitano is a task lead for the Association for Preservation Technology's Disaster Response Initiative (APT DRI), a key role that involves connecting post-disaster reconnaissance teams with heritage-rich communities. 
+This experience equips our team to bridge academic research with practical, on-the-ground disaster response in historic communities, enhancing the study's real-world applicability and impact in addressing the preservation urgency paradox.
+
+\begin{tcolorbox}[colback=mycmykcolor, colframe=black, boxrule=1pt, coltext=black,left=1mm, right=1mm, top=1mm, bottom=1mm]
+\textbf{Objective 1 involves collecting data about the integration of community capitals and engineering innovations for heritage recovery in flood-vulnerable, heritage-rich INMCC}, focusing on how institutional arrangements, community agency, and knowledge integration shape preservation outcomes and contribute to the preservation urgency paradox in Montpelier, VT and Marshall, NC. 
+\end{tcolorbox}
+
+\textbf{Subtask 1.1 Review documentation:}
+This subtask involves analyzing documents such as historical flood records and the National Register of Historic Places designation, focusing on their architectural and historical significance criteria. 
+We will examine local and state preservation policies, including preservation ordinances and regulations with attention given to any special provisions for disaster response. 
+In this vein, we will analyze existing disaster recovery plans, particularly provisions for heritage structures, and examine changes implemented following recent floods. 
+We will also analyze engineering assessments or damage reports for affected heritage structures and review local media coverage of floods and recovery efforts; community forums will shed light on the evolution of community-led recovery efforts.
+Subtask 2.1 details our use of ATLAS.ti software for thematic coding to identify key themes, decision points, and policy evolution in heritage preservation and flood recovery. 
+This analysis aims to understand the institutional and policy contexts shaping recovery processes in both communities and seeks to identify early manifestations of the preservation urgency paradox in policy and planning documents.
+
+\textbf{Subtask 1.2 Collect quantitative data:}
+This subtask involves gathering data on recovery trajectories for affected heritage structures in Montpelier and Marshall, capturing the physical, socioeconomic, and contextual dimensions of each structure and its recovery process.
+Variables include building characteristics (area, pre-flood condition, construction materials, architectural style), property context (urban setting, building date, proximity to flood zones), socioeconomic factors (property use, value, most recent sale date, owner-occupancy status, business type and size for commercial properties), community factors (social vulnerability index, presence of local support networks, cultural significance), impact and recovery metrics (damage extent, permit application date, time to recovery, types of assistance received, displacement duration of occupants), and indicators of the preservation urgency paradox (conflicts between demolition and preservation goals). 
+We will also collect data on key community capital indicators, including organizational involvement, community event participation, and volunteer activity during flood recovery efforts. 
+Data will be obtained from local government records, community organization reports, local media coverage, event attendance logs, and social media activity of relevant community organizations.
+
+\textbf{Subtask 1.3 Conduct interviews:}
+This subtask involves conducting semi-structured interviews in each city to gain insights into stakeholder perspectives and governance evolution during recovery (Fig.~\ref{fig:josh}). 
+The semi-structured interviews will be guided by protocols informed by our preliminary research; theories of community resilience, community capitals, and institutional adaptation \cite{moya2022approach, aldrich2015social, cleaver2002reinventing, castro2021community}; and reviewed documentation. 
+\begin{wrapfigure}{r}{0.45\textwidth}
+\vspace{-0.4cm}
+\includegraphics[width=0.45\textwidth]{images/josh.jpg}
+\captionsetup{justification=centering, singlelinecheck=false, font=small}
+\vspace{-0.4cm}
+\caption{Preliminary community conversations in Marshall, NC (with IRB approval)}
+\label{fig:josh}
+\vspace{-0.4cm}
+\end{wrapfigure}
+We anticipate the protocols will cover roles and responsibilities, decision-making, resource allocation, community engagement, knowledge integration, and experiences between rapid recovery needs and preservation goals. 
+We will also focus on how governance and decision-making processes evolved across three recovery phases: emergency response (days 1-14), short-term recovery (weeks 2-8), and long-term recovery (month 3 onward). Semi-structured interviews maintain the flexibility for new questions or follow-up probes to come forth during the interview as a consequence of an interviewee's response \cite{maxwell1996methods}. 
+They are therefore useful for identifying general themes across interviewees while also maintaining the option to dig more deeply into emergent topics. 
+
+We will employ a two-stage sampling strategy: 
+First, we will use stratified purposive sampling to recruit three participants from each of five key categories (local authorities, community organization leaders, heritage experts, property owners, and affected residents). 
+Stratified purposive sampling facilitates hearing from a wide array of stakeholders \cite{maxwell1996methods}.
+Second, we will use snowball sampling to identify other key individuals, particularly those who emerged as informal leaders or influential actors. 
+Interviewees will specifically be asked to recommend multiple people to reach out to, including people who are likely to hold different perspectives than themselves on the topics. 
+This method will help us identify and include stakeholders who may not be apparent from formal roles but played significant parts in the recovery process and will promote exposure to potentially contrary perspectives on the interview topics \cite{maxwell1996methods}.
+Interviews through snowball sampling will continue until data saturation, that is when additional data collection does not yield new information \cite{maxwell1996methods}. 
+While it is difficult to predict exact numbers of interviewees ahead of time, we expect a total sample size of approximately 50 to 60 in Montpelier and 30 to 40 interviewees in Marshall. 
+
+\textbf{Key outcomes and evaluation:}
+Objective 1 will result in a dataset on recovery patterns, governance structures, and stakeholder perspectives for Montpelier and Marshall. 
+This will comprise analysis of historical records, policies, and documentation on flood management and heritage preservation; quantitative data on recovery trajectories for affected heritage structures; community capital indicators data; and qualitative data from semi-structured interviews on governance evolution and decision-making processes. 
+Evaluation will involve assessing data quality through cross-referencing and member checking, analyzing the dataset's insights into the preservation urgency paradox and its manifestations in different contexts, integrating community capitals and engineering innovations for heritage recovery, and evaluating the sampling strategy's effectiveness in capturing diverse perspectives on the paradox.
+
+\textbf{Risk and mitigation strategies:}
+To address data availability, we will establish intellectual property plans with local authorities and organizations; PI Napolitano has experience working with Penn State offices for data use agreements.
+We'll engage historical societies and long-term residents to fill gaps in official records and develop clear protocols for social media data collection to ensure consistency and privacy. 
+To mitigate recall bias, we'll triangulate interview data with contemporaneous documentation, use timeline prompts, and conduct follow-up verifications. 
+We'll manage stakeholder fatigue by clearly communicating study benefits, offering stipends, and providing flexible participation options, including phone interviews. 
+To ensure diverse representation, we'll monitor participant demographics and adjust outreach strategies as needed.
+Finally, to address ethical and privacy considerations, we will obtain institutional review board (IRB) approval, provide clear information to participants about the study's purpose and their rights, and offer support resources to participants if needed.
+We will also develop a clear data management plan to protect participant confidentiality and sensitive community information.
+
+\begin{tcolorbox}[colback=mycmykcolor, colframe=black, boxrule=1pt, coltext=black,left=1mm, right=1mm, top=1mm, bottom=1mm]
+\textbf{Objective 2 involves leveraging collected data to analyze and develop the preservation urgency paradox} across different contexts, examining how rapid community mobilization and community capitals interact with heritage preservation goals in post-flood recovery processes.
+\end{tcolorbox}
+
+
+\textbf{Subtask 2.1 Thematic analysis:}
+This subtask involves analyzing documentation and interviews from Objective 1 to uncover themes related to the preservation urgency paradox (Fig.~\ref{fig:casestudies}). 
+We will develop an initial coding scheme based on institutional bricolage, community capital theories, and knowledge integration, including codes for recovery phases, such as `ad-hoc institutional arrangements', `community network mobilization', `expert knowledge integration', and `preservation vs. urgency trade-offs'. 
+\begin{wrapfigure}{r}{0.45\textwidth}
+\includegraphics[width=0.45\textwidth]{images/themes.png}
+\captionsetup{justification=centering, singlelinecheck=false, font=small}
+\caption{Preliminary results from Marshall conversation}
+\label{fig:casestudies}
+\vspace{-0.2cm}
+\end{wrapfigure}
+We will also include codes related to the three recovery phases identified in our research design. 
+Using ATLAS.ti software, we will conduct iterative coding, remaining open to emerging themes while identifying key concepts, recurring ideas, and notable quotations that show stakeholders' experiences and perspectives on balancing rapid recovery needs with preservation goals. 
+\textbf{We will focus on how different stakeholder groups (e.g., local authorities, heritage experts, property owners) perceive the tensions between urgency and preservation. }
+The analysis will identify patterns in decision-making, prioritization strategies, and conflict resolution in preservation urgency dilemmas.
+We will also examine how stakeholders' perceptions and strategies evolved across the different recovery phases. 
+After initial coding, we will conduct a higher-level analysis to identify overarching themes and subthemes, such as ``trade-offs between immediate safety and long-term preservation," ``innovative solutions for rapid yet sensitive interventions," and ``communication challenges between preservation experts and emergency responders." 
+A thematic map will visualize relationships between themes. 
+We will ensure reliability through inter-coder checks and member checking. 
+The output will be a thematic analysis report providing insights into stakeholders' experiences navigating the preservation urgency paradox.
+
+\textbf{Subtask 2.2 Recovery timeline:} 
+We will create a chronological recovery timeline for Montpelier and Marshall, focusing on the interplay between rapid response and preservation considerations. 
+The timeline will span from the immediate aftermath of flooding events through the long-term recovery phase, structured around three phases: emergency response (days 1-14), short-term recovery (weeks 2-8), and long-term recovery (month 3 onward). 
+\textbf{We'll aggregate data from multiple sources, including official city records, meeting minutes, local news, social media, stakeholder interviews, and heritage preservation organization documents. }
+Each entry will record date, event description, key actors, decisions made, immediate impacts on heritage structures, and potential long-term preservation implications. 
+Special attention will be paid to instances where rapid response actions potentially conflicted with preservation goals, such as emergency demolitions or resource allocation decisions. 
+We'll also highlight successful integrations of preservation considerations into urgent recovery efforts. 
+The timeline will be color-coded to distinguish event types and illustrate the intensity of the preservation urgency paradox. 
+To ensure accuracy, draft timelines will be reviewed by key stakeholders in each community. 
+These timelines will provide a chronological framework for understanding how the preservation urgency paradox manifested and evolved throughout the recovery process in both communities.
+
+\textbf{Subtask 2.3 Social network analysis:} 
+This subtask involves conducting a social network analysis to understand the relationships and interactions that shaped the recovery process and the preservation urgency paradox in Montpelier and Marshall. 
+We will identify key actors and organizations involved in the recovery efforts and gather data from multiple sources, including stakeholder interviews, official meeting minutes, social media interactions, and documentation of resource allocation and decision-making processes.
+We will use Pajek \cite{Batagelj2004}, a social network analysis software, to create visual representations of the networks in both communities; this software is a free alternative to commonly used UCINET \cite{Borgatti2002, flecha2023social}. 
+Nodes will represent individual actors (e.g., city officials, heritage experts, property owners) and organizations (e.g., local government departments, preservation societies, community groups), while edges will represent relationships or interactions between these entities. 
+Relationships will be defined based on data from interviews, meeting minutes, and other documentation and will include interactions such as information sharing, resource allocation, and collaborative decision-making. 
+For resource flow, we will map how financial, material, and human resources were mobilized and distributed throughout the recovery process. 
+Information dissemination networks will be analyzed to understand how knowledge about recovery processes, heritage preservation techniques, and available support was shared among stakeholders. 
+Decision-making influence networks will be constructed to identify key power brokers and examine how different actors influenced critical decisions throughout the recovery phases. 
+We will calculate various network metrics, including centrality measures (degree, betweenness, and eigenvector centrality) to identify the most influential actors in each network. 
+Community detection algorithms such as the Louvain method \cite{de2011generalized} will be applied to identify subgroups or clusters within the networks, which may correspond to different interest groups or functional units in the recovery process. 
+Temporal analysis will be conducted to examine how these networks evolved across the different recovery phases, providing insights into the dynamic nature of community capital mobilization during crisis events. 
+The social network analysis will identify patterns illuminating the preservation urgency paradox, such as disconnects between heritage expertise and rapid response networks. 
+This analysis will reveal how community structures and relationships influenced the balance between recovery imperatives and preservation goals in both cities. 
+Comparative analysis between Montpelier's and Marshall's networks will identify similarities and differences in network structures and their implications for recovery outcomes.
+
+\textbf{Subtask 2.4 Identify influencing features:} 
+This subtask aims to understand the relative importance of different features in shaping the preservation urgency paradox and recovery outcomes in flood-vulnerable, heritage-rich INMCCs.
+To integrate qualitative data from interviews, timelines, and social network analysis into our feature importance model, we will employ a mixed-methods approach to data transformation. 
+From the thematic analysis of interviews, we will derive numerical scores for key themes related to the preservation urgency paradox, such as `preservation priority' or `urgency pressure', based on the frequency and intensity of these themes in each stakeholder's responses.
+From the recovery timeline, we will extract quantitative features such as `time to first preservation action', `number of conflicting urgent-preservation decisions', and `ratio of preservation to urgent actions' for each property or area.
+Social network analysis will provide quantitative metrics that can be directly incorporated, including centrality measures for key actors and organizations. 
+We will also create composite scores representing the `strength of preservation network' and `strength of urgency network' for each property based on its connections to relevant actors.
+These derived features will be combined with our existing quantitative data on building characteristics, socioeconomic factors, and recovery metrics. 
+To ensure the reliability of our transformed data, we will conduct sensitivity analyses to assess how different scoring methods for qualitative data affect our results.
+
+\begin{wrapfigure}{r}{0.45\textwidth}
+\vspace{-0.7cm}
+\includegraphics[width=0.45\textwidth]{images/predict.pdf}
+\vspace{-0.7cm}
+\captionsetup{justification=centering, singlelinecheck=false, font=small}
+\caption{Feature importance for predictive models of recovery.}
+\label{fig:features}
+\vspace{-0.3cm}
+\end{wrapfigure}
+
+We will employ machine learning techniques, specifically random forest classifiers and multi-layer perceptron models, to analyze two key recovery indicators: permit initiation (whether buildings applied for recovery permits) and permit timing (how long after the flood permits were submitted). 
+Feature importance analysis using the permutation method will be conducted to evaluate the relative influence of social, economic, cultural, and building-specific attributes on recovery outcomes (Fig.~\ref{fig:features}). 
+To mitigate biases from correlated features, we'll implement hierarchical correlation clustering before importance analysis. 
+We'll then perform partial dependence analysis to understand the nature and direction of influential features on recovery indicators. 
+This will reveal factors shaping recovery trajectories across property types and contexts in both cities, providing insights into the key determinants of the preservation urgency paradox and informing strategies for its management.
+
+\textbf{Key outcomes and evaluation:}
+Objective 2 outcomes will include a thematic analysis report on stakeholder perceptions and strategies for navigating the preservation urgency paradox and interactive, color-coded recovery timelines for Montpelier and Marshall, highlighting rapid response and preservation considerations across three recovery phases. 
+We'll produce social network maps and analyses illustrating resource flow, information dissemination, and decision-making power, including centrality measures and community detection results. 
+Feature importance rankings will assess the influence of various factors on recovery outcomes, incorporating quantitative and transformed qualitative data, along with partial dependence analyses showing each feature's influence. 
+Sensitivity analyses of qualitative data transformation methods will be conducted. 
+These analyses will collectively contribute to understanding and addressing the preservation urgency paradox in diverse INMCC contexts.
+Findings will be published in peer-reviewed journals (e.g., International Journal of Flood Risk Management, Journal of Cultural Heritage) and presented at relevant conferences (e.g., "Keeping History Above Water," Association of Preservation Technology).
+
+\textbf{Risk and mitigation strategies:}
+We will address researcher bias through inter-coder reliability checks and member checking, ensure timeline accuracy by cross-referencing multiple sources and conducting stakeholder validation, and tackle data completeness in social network analysis using multiple collection methods and sensitivity analyses.
+To prevent overfitting or misinterpretation in feature importance analysis, we will apply cross-validation and expert consultation. 
+To combat stakeholder fatigue, we will communicate study benefits, ensure confidentiality, offer flexible participation, and provide stipends. 
+PI Napolitano's rapport in these communities through pro bono engineering work will facilitate engagement, data collection, and stakeholder participation, ensuring more accurate analysis of the preservation urgency paradox.
+
+\begin{tcolorbox}[colback=mycmykcolor, colframe=black, boxrule=1pt, coltext=black,left=1mm, right=1mm, top=1mm, bottom=1mm] \textbf{Objective 3 involves developing and disseminating a Flood-Resilient Heritage Preservation Toolkit} based on synthesized findings, to provide actionable resources and training materials for flood-vulnerable, heritage-rich INMCCs. This toolkit will inform policy and practice for more resilient and equitable recovery outcomes, specifically addressing the preservation urgency paradox and providing strategies for navigating the tension between rapid recovery and heritage preservation. \end{tcolorbox}
+
+\textbf{Subtask 3.1 Comparative analysis and synthesis:}
+This subtask will synthesize findings from Objectives 1 and 2 to examine the preservation urgency paradox in Montpelier and Marshall. 
+\textbf{A structured comparison will identify key socio-economic indicators as well as institutional and community characteristics influencing recovery and preservation efforts that contribute to or mitigate the preservation urgency paradox.}
+We’ll analyze how contextual differences influenced the balance between rapid recovery and preservation goals, with a focus on institutional integration of preservation concerns into emergency planning. 
+Special focus will be given to factors that either exacerbate or mitigate these tensions. 
+We’ll create three to five in-depth case studies per city, highlighting various property types and their historical significance. 
+Each case study will include historical background, flood damage documentation, decision-making processes, stakeholder roles, and key tensions between urgency and preservation. 
+We’ll focus on decision points where these considerations conflicted, documenting influencing factors and consequences.
+
+We will employ qualitative meta-synthesis to identify patterns, success factors, and challenges across both communities. 
+This will begin with systematic coding to re-analyze data from Objectives 1 and 2, focusing on cross-cutting themes.  
+We will develop comparative matrices to juxtapose key factors such as institutional arrangements, community characteristics, and recovery across both communities, highlighting similarities and differences. 
+These matrices will help us identify patterns in the preservation–urgency paradox, focusing on integration of diverse knowledge types (local, technical, institutional) and documenting facilitating conditions and strategies while also examining cases of failed integration to identify constraints.
+To ensure validity, we’ll conduct peer debriefing sessions with experts in disaster recovery and heritage preservation. 
+The result will be a report outlining key factors influencing successful knowledge integration in heritage recovery, supported by comparative analysis and case studies, serving as the foundation for our Flood-Resilient Heritage Preservation Toolkit.
+
+\textbf{Subtask 3.2 Develop baseline toolkit:}
+In conjunction with APT DRI, we will create baseline versions of the toolkit with decision-supporting flowcharts, assessment templates, and case study examples. 
+The toolkit will be aimed at (1) practitioners such as engineers, architects, and preservation specialists who are interacting with heritage-rich communities preparing for or recovering from flooding and (2) community members, including local leaders, property owners, and residents in flood-vulnerable, heritage-rich areas. 
+The practitioner guides will detail methodologies for applying the new research outcomes about feature importance to assess and improve resilience in these communities, focusing on strategies for navigating the preservation urgency paradox, incorporating case studies from Montpelier and Marshall.
+Based on feedback from stakeholders in both communities and the Vermont State Historic Preservation Officer, we have identified step-by-step guides, particularly in the form of flowcharts, as an effective modality for communicating complex decision-making processes. 
+Flowcharts offer easily navigable format that can help users quickly understand and apply the toolkit's guidance in high-pressure situations often encountered during flood recovery.
+All materials will be freely accessible online through the APT DRI platform and the NHERI DesignSafe Data Depot.
+
+Building on the practitioner guides, we will also create resources for URM building owners, occupants, and community members. 
+These resources will include flowcharts for interacting with practitioners, checklists for maintenance and flood preparedness, and guidance on preservation tax credits and regulatory requirements.
+We will model our tip sheets on successful examples such as the FLASH Tornado Safe Room Checklist \cite{FLASH-SafeRoomChecklist} and FEMA's Protect Your Property from High Winds series \cite{FEMA-ProtectYourProperty}, but with a specific focus on heritage structures and flood hazards. 
+We will employ principles of information design and visual communication, drawing on best practices outlined in resources like the CDC's Clear Communication Index \cite{CDC-CCI}.
+All developed materials will be freely accessible online through the APT DRI platform and will be designed for easy distribution through local government channels, community organizations, and social media platforms. These draft toolkit materials will serve as the foundation for discussion and refinement during subsequent stakeholder meetings, ensuring that the final toolkit effectively addresses the needs and perspectives of practitioners and community members.
+
+\textbf{Subtask 3.3 Stakeholder workshop:} 
+We will organize and facilitate separate collaborative workshops in Montpelier and Marshall, followed by a joint virtual workshop with key stakeholders from both communities. 
+For the in-person workshops, we will invite a diverse group of participants, including local government officials, heritage preservation experts, community leaders, property owners, and representatives from relevant state and federal agencies. 
+Each workshop will be a two-day event, with the first day focused on presenting and discussing our preliminary findings, and the second day dedicated to co-creating strategies and resources for the community to use. 
+Day 1 includes a presentation of our findings from Subtask 3.1, along with small-group discussions where participants can provide feedback, share perspectives, and identify gaps or misinterpretations in our analysis. 
+We will use interactive techniques such as mind mapping and affinity diagramming to capture and organize participant insights. 
+On Day 2, we will co-create strategies for navigating the preservation–urgency paradox based on the resources developed in Subtask 3.2. 
+This will include scenario planning exercises, where participants work through hypothetical future flood events and identify opportunities for better integration of local knowledge, technical expertise, and institutional capacities. 
+We will use digital collaboration to document all discussions and outputs in real time. 
+Following each in-person workshop, we will analyze the feedback received and the resources developed. 
+This will involve coding and categorizing the workshop outputs and identifying key themes and ideas that emerged from the collaborative process. 
+We will integrate these insights with our previous findings, updating our synthesis report and baseline toolkit as necessary. 
+After that, we will conduct a joint virtual workshop, facilitating cross-community learning and further refining our toolkit. 
+We will pay particular attention to facilitating discussions that allow stakeholders from Montpelier and Marshall to share experiences and insights. 
+The outputs of this subtask will be a draft Flood-Resilient Heritage Preservation Toolkit and a report summarizing the feedback on our preliminary findings and presenting the strategies and resources for navigating the preservation–urgency paradox.
+
+\textbf{Subtask 3.4 Toolkit testing and refinement:}
+We will test and refine our draft Flood-Resilient Heritage Preservation Toolkit to ensure its practicality, effectiveness, and adaptability in real-world scenarios outside of Marshall and Montpelier. 
+In collaboration with APT DRI, PI Napolitano will organize a day-long training workshop at the annual APT conference, which will give attendees the resources produced in previous subtasks. 
+The workshop will include a presentation of research findings and resources from the proposed work and guided tabletop exercises using real-world case studies. 
+Participants will navigate these scenarios using our toolkit to make decisions, allocate resources, and address heritage preservation challenges in simulated crisis situations. 
+We will assess the toolkit’s performance, with a particular focus on how effectively it helps users navigate the preservation–urgency paradox in different scenarios. 
+These methods include tracking decision-making processes and timelines, analyzing resource allocation patterns, evaluating the integration of different knowledge types (local, technical, and institutional), observing group dynamics and communication patterns, and collecting participant feedback through structured questionnaires and open-ended discussions. 
+The workshop will conclude with a group discussion on the toolkit’s usability, clarity, and perceived effectiveness. 
+This data will be analyzed to identify strengths, weaknesses, and areas for improvement, focusing on how well the toolkit addresses the preservation urgency paradox and facilitates the integration of diverse knowledge types. 
+Based on these insights, we will refine the toolkit, enhancing its effectiveness, clarity, and adaptability. 
+To ensure theoretical soundness and practical applicability, we will conduct a final round of expert reviews by leading scholars in heritage preservation, disaster management, and natural hazards adaptation. 
+The final output will be a refined toolkit for heritage preservation in flood-vulnerable INMCCs, accompanied by implementation guidelines. 
+This toolkit represents a significant contribution to the field, offering a tested approach for integrating local knowledge, technical expertise, and institutional capacities in heritage preservation strategies for flood-vulnerable communities.
+
+\textbf{Subtask 3.5 Disseminate the toolkit:}
+To enhance accessibility and engagement, we will develop digital versions of these resources and explain them in recorded webinars published to the APT DRI website. 
+Furthermore, in collaboration with APT DRI, we will leverage their post-disaster field deployment program to disseminate and test the toolkit in real-world scenarios. 
+As a key liaison for connecting reconnaissance teams with affected communities, PI Napolitano will ensure that the toolkit is integrated into these field deployments. 
+This will provide valuable opportunities for immediate application and feedback in diverse post-flood contexts, allowing for continuous refinement and validation of the toolkit's effectiveness across various INMCC settings. 
+By incorporating the toolkit into APT DRI's established field deployment protocols, we can maximize its reach and impact, ensuring that it becomes an integral part of heritage preservation efforts in the immediate aftermath of flood events.
+
+To extend the impact of our dissemination, we will engage with international networks such as the International Council on Monuments and Sites (ICOMOS) Scientific Committee on Structural Analysis and Restoration of Historic Structures (ISCARSAH) of which PI Napolitano is a vice president, as well as the NSF-funded Structural Extreme Events Reconnaissance (StEER) network that PI Napolitano is part of. 
+Additionally, materials can be shared through relevant government agencies such as the Heritage Emergency National Task Force (HENTF), which already works with APT DRI. 
+We will present our findings and toolkit at key conferences in the fields of heritage preservation, disaster management, and natural hazards adaptation, such as Engineering Mechanics Institute sessions on objective resilience as well as the annual APT conference. 
+We will also organize a series of webinars through APT to introduce the toolkit and provide hands-on training to potential users. 
+Throughout the dissemination process, we will collect feedback from users to refine and update our resources, ensuring their ongoing relevance and effectiveness.
+
+\textbf{Key outcomes and evaluation:} 
+Objective 3 outcomes are a synthesis report on critical factors for successful knowledge integration in heritage recovery, stakeholder workshop reports summarizing co-created strategies and resources, and a refined Flood-Resilient Heritage Preservation Toolkit comprising practitioner guides and community resources on the preservation urgency paradox, decision-supporting flowcharts, and case studies. 
+Evaluation methods will include peer review by experts, performance assessment in tabletop exercises at the APT conference, stakeholder feedback on usability and relevance, tracking of toolkit adoption and implementation, monitoring academic citations and practitioner references, follow-up surveys with workshop participants and toolkit users, and feedback from international networks on global applicability.
+
+\textbf{Risk and mitigation strategies:}  
+To prevent the toolkit from becoming overly complex or academic, we’ll prioritize stakeholder input; focus on clear, actionable guidance; and use visual aids such as flowcharts. 
+We’ll address diverse INMCC contexts by designing for flexibility and adaptability, including our case studies. 
+We’ll offer multiple participation options, provide stipends, and leverage existing community relationships and APT DRI collaboration. 
+We’ll partner with professional networks and government agencies to broaden dissemination, creating materials in multiple formats. 
+APT DRI’s post-disaster field deployment program will help reach practitioners in real-world scenarios. 
+To keep the toolkit current as natural hazards evolve, we’ll provide for ongoing refinement based on new research and user feedback, with APT DRI’s field deployments providing opportunities for continuous testing and improvement.
+
+%\vspace{-2cm}
+\section{Broader impacts}
+\vspace{-0.5cm}
+\subsection{Potential for benefiting society through transformative concepts}
+\vspace{-0.5cm}
+This research addresses challenges faced by flood-vulnerable, heritage-rich INMCCs through several transformative concepts with implications beyond these specific communities and hazards. 
+By introducing the preservation urgency paradox, we provide a mechanism for understanding tensions between rapid recovery and heritage preservation that is applicable across various community types and disaster scenarios. 
+While our focus is on flood-vulnerable INMCCs, this concept is transferable to urban centers, coastal communities, and areas facing other natural hazards such as wildfires, hurricanes, or tornadoes.
+Our approach to integrating social, institutional, and technical factors in heritage preservation offers a holistic model that can be adapted to diverse contexts. 
+This integration will inform more equitable, effective, and culturally sensitive approaches to disaster recovery and heritage preservation across the nation and potentially internationally.
+The Flood-Resilient Heritage Preservation Toolkit we will develop will serve as a prototype for similar resources addressing other hazards and community types. 
+By demonstrating how to balance urgent recovery needs with long-term preservation goals, this toolkit will provide a template for communities facing various natural hazard threats to protect their cultural heritage while enhancing overall resilience. 
+Concrete benefits to society include preservation of cultural identity in vulnerable communities;
+support of social cohesion during recovery; enhanced economic resilience through the protection of heritage assets that often form the backbone of local tourism and small business ecosystems; improved disaster preparedness and response strategies that consider both immediate safety and long-term cultural preservation; increased community engagement in disaster planning and recovery processes, fostering a sense of ownership and empowerment; and development of transferable skills and knowledge in integrating heritage preservation with disaster resilience, applicable to various professions and community roles.
+
+
+\vspace{-15pt}
+\subsection{Proposed activities and mechanisms to assess success}
+The project maximizes broader impacts through stakeholder engagement workshops in Montpelier, VT, and Marshall, NC, involving local officials, heritage experts, and community members; wide toolkit dissemination via collaborations with professional organizations, including integration into APT DRI’s post-disaster field deployment program; training and education through webinar series and conference presentations to disseminate findings and train practitioners; and creation and distribution of open-access online resources, including the toolkit and educational materials. Success will be assessed through multiple methods: tracking toolkit adoption and use across different regions and community types; monitoring research citations and conducting follow-up interviews with users; evaluating feedback from international networks and measuring online engagement metrics; assessing the toolkit’s performance in facilitating effective decision-making during exercises and deployments; conducting pre- and post-workshop surveys to measure changes in stakeholder knowledge and attitudes; and developing case studies documenting the toolkit’s application in real-world recovery scenarios through APT DRI.
+
+In addition to broader impacts for the communities and relevant professional societies, the project will integrate research outcomes into engineering education through PI Napolitano's courses, including a 200-level programming course for architectural engineers (120 students annually) and a 400-level structural engineering class (40 students annually). 
+Learning outcomes will be assessed through surveys, project-based assignments, and rubrics evaluating students’ ability to apply preservation urgency paradox concepts to real-world engineering challenges. 
+Undergraduate students hired for this project will participate in the Building Engineering Seminal Undergraduate Research Experience (BESURE) program at Penn State, which provides support for undergraduate research, mentoring, and assessment. 
+BESURE matches undergraduates with faculty members from computer science and civil, architectural, mechanical, and electrical engineering associated with Penn State’s Women in Science and Engineering Research (WISER) and Minority Undergraduate Research Experience (MURE) programs.
+The program implements regular assessment through pre- and post-program surveys, project outcome rubrics, and tracking of long-term outcomes. 
+Undergraduate students hired for this project will participate in the BESURE program, ensuring evaluation of educational components and student learning outcomes. 
+By integrating this work into engineering education and research, the project will foster interdisciplinary skills in future engineers, promoting a more holistic approach to disaster resilience and heritage preservation while also broadening participation in STEM fields. 
+% These activities and assessment mechanisms ensure the research will have a lasting, positive impact on heritage preservation practices in flood-vulnerable communities.
+
+\vspace{-10pt}
+\begin{wrapfigure}{r}{0.55\textwidth}
+\vspace{-0.3cm}
+\includegraphics[width=0.55\textwidth]{images/timeline.png}
+\captionsetup{justification=centering, singlelinecheck=false, font=small}
+\caption{Projected schedule with responsible parties listed.}
+\label{fig:timeline}
+\vspace{-0.4cm}
+\end{wrapfigure}
+
+\section{Project timeline and evaluation}
+The timeframe is August 2025-2028 (Fig.~\ref{fig:timeline}). 
+Progress will be monitored using PSU Microsoft Planner and Teams and through weekly project meetings.
+
+% \begin{figure}[h]
+%     \centering
+%     \includegraphics[width=0.95\linewidth]{images/timeline.png}
+%     \caption{Placeholder for space.}
+%     \label{fig:timeline}
+%     \vspace{-10pt}
+% \end{figure}
+
+\vspace{-10pt}
+\section{Results from prior NSF Support} 
+\textbf{PI Napolitano: }(a) CMMI-2222849, \$131,317.00, 4/22-2/25. (b) RAPID: Examining the performance of historic masonry structures after the Midwest Tornados (c) Intellectual Merit: This grant addresses building code gaps by analyzing historic masonry structures' performance under tornadic conditions and assessing retrofitting efficacy. Broader Impacts: The project will enhance historic masonry resilience, inform building codes, and integrate community-centered data into engineering education, fostering interdisciplinary skills for future engineers. (d) journal papers \cite{kaushal2023understanding, kaushal2023structural, sskmdatacollection, sskmgeometric, sskmstructuralanalysis, kaushal2023b}, undergraduate research presentations \cite{patelski2022research, whitesides2023research}, (e) Publicly shared data sets \cite{steerquad, MapillaryDatasetSteer360, kaushal2023processed, kaushal2023raw}, (f) Renewal N/A. 
+
+\noindent \textbf{Co-PI Chi:} (a) ICER-1927827, \$3,018,000, PI, 1/1/2020–6/30/2025. (b) NNA Track 1: Pursuing Opportunities for Long-term Arctic Resilience for Infrastructure and Society (POLARIS). (c) Intellectual Merit: This transdisciplinary project is developing theoretical frameworks and models to tackle environmental hotspots of disruption to communities and infrastructure, food security, and migration and community relocation in Arctic Indigenous communities. Broader Impacts: The convergent knowledge can be used by governments, researchers, practitioners, and Indigenous groups to inform decision- and policy-making to adapt to rapid changes in the Arctic. It supports 6 Ph.D. students, 3 postdocs, and 10+ undergraduates. (d) 16 academic articles \cite{yin2022tale, korkut2022addressing, Yin2022, Holen2022, Mucioki2024, Chi2024, Christian2024, Smith2024, Abdar2020, Holen2023, Mucioki2024b, Zhou2024, Mucioki2024c, Hamilton2024, Smith2023, Powell2023} and 6 op-ed pieces published \cite{ArcticPOLARIS, Bogardus2024, Baldwin2023, AumanBauer2019, POLARIS, AumanBauer2020}. (e) 5 videos produced \cite{WoodRiverBridge2022, StakesForStakeholders2022, POLARISTeam2021, ChevakSchool2024, ChevakAlaska2022}, 16 conference and community presentations delivered \cite{Smith2025, Maio2024, Yin2025, Maio2024b, Miller2024, Miller2021, Mucioki2024, Yin2024, Tickamyer2024, Tickamyer2025, Hamilton2024, Maio2024c, Chi2024, Mucioki2024b, Chi2025, Maio2024d}, with many more in process. (f) NA. 
+
+
+
+% The References Cited section would normally begin a new page:
+\newpage
+
+\bibliography{biblio.bib} 
+
+\end{document}
+
+
+

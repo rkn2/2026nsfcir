@@ -1,0 +1,120 @@
+\documentclass[11pt]{article}
+\usepackage{nopageno}
+\setcounter{secnumdepth}{1}
+\usepackage[margin=1in]{geometry}
+\usepackage{titlesec}
+\titleformat{\section}[runin]{\normalfont\bfseries}{\thesection}{1em}{}[]
+\titlespacing*{\section}{0pt}{0.1\baselineskip}{1ex}
+\titleformat{\subsection}[runin]{\normalfont\bfseries}{\thesubsection}{1em}{}[:]
+\titlespacing*{\subsection}{0pt}{0.1\baselineskip}{1ex}
+\usepackage{enumitem}
+\begin{document}
+\pagestyle{empty}
+
+\noindent \textbf{Data Management and Sharing Plan}
+\vspace{0.3cm}
+
+\section{Roles and Responsibilities}
+% QUESTION: Which PI is the data management lead?
+%   Recommend Napolitano (Penn State) as lead given existing DesignSafe affiliation
+%   and ICDS-ACI storage infrastructure from the prior grant.
+%   Wauthier and Busse are secondary data custodians for their respective data streams.
+The Principal Investigator (PI), Dr.\ Rebecca Napolitano (Penn State), will have
+primary responsibility for data management throughout the project lifecycle and will
+ensure data is collected, stored, preserved, and shared in accordance with this plan
+and NSF policies.
+Co-PI \textbf{Wauthier} (\placeholder{Institution}) is responsible for SAR data
+products and coherence time series.
+Co-PI \textbf{Busse} (\placeholder{Institution}) is responsible for hydrological
+model inputs, outputs, and associated metadata.
+
+\vspace{0.3cm}
+\section{Expected Data and Formats}
+This project will generate the following data types:
+
+\begin{itemize}
+\item[] \textbf{SAR coherence time series (Sentinel-1, Capella):}
+  Interferometric coherence and amplitude stacks for Montpelier, VT and Marshall, NC.
+  Formats: GeoTIFF (.tif), NetCDF (.nc), CSV summary tables (.csv).
+  % QUESTION (Wauthier): Confirm formats.  Are processed products stored as
+  %   GeoTIFFs (SNAP/ISCE output), NetCDF stacks (MintPy), or both?
+\item[] \textbf{Hydrological mass balance model outputs:}
+  Drainage timescale estimates, watershed routing outputs, uncertainty envelopes.
+  Formats: NetCDF (.nc), CSV (.csv).
+  % QUESTION (Busse): Confirm formats and model software.
+\item[] \textbf{Bayesian posterior distributions:}
+  Posterior duration distributions per building or spatial unit, credible intervals.
+  Formats: Python pickle (.pkl), NetCDF (.nc), CSV summary tables.
+  % QUESTION: Will the Bayesian code be on GitHub?  Confirm open-source license.
+  %   Recommended: MIT license.
+\item[] \textbf{Fragility surface parameters:}
+  Duration-damage fragility surfaces for pre-code load-bearing archetype(s).
+  Formats: CSV (.csv), MATLAB (.mat) or Python (.pkl).
+\item[] \textbf{Community co-design workshop materials:}
+  Workshop notes, participant feedback, facilitation guides.
+  Formats: PDF (.pdf), anonymized transcripts (.txt, .docx).
+  % NOTE: Workshop materials involving human subjects will be anonymized
+  %   before sharing.  See Ethics and Privacy section.
+\item[] \textbf{Decision framework outputs:}
+  Building-specific retrofit recommendations and what-if simulation outputs.
+  Formats: CSV (.csv), PDF reports for community partners.
+\item[] \textbf{Dissemination materials:}
+  Publications, presentations, webinars (.pdf, .pptx, .mp4).
+\end{itemize}
+
+Metadata will include instrument specifications (SAR sensor, orbit, acquisition dates),
+data processing parameters (coherence window, multi-look factors), and model version
+information.
+
+\vspace{0.3cm}
+\section{Access, Sharing, and Reuse Policies}
+SAR coherence products, mass balance outputs, posterior distributions, and fragility
+surface parameters will be shared via DesignSafe-CI under open-access licenses upon
+publication or within 12 months of data collection completion.
+Bayesian fusion and decision framework code will be released on GitHub under an
+open-source license (\placeholder{confirm: MIT or Apache 2.0}).
+% QUESTION: Confirm open-source license for code release.
+Community workshop materials will be anonymized; access to identifiable materials
+will be restricted to project personnel.
+Publications and presentations will be made openly available via institutional
+repositories.
+
+The hazard-related data and metadata will be archived on the Data Depot at
+DesignSafe-CI (the standard repository for the natural hazards community), following
+established standards listed on the DesignSafe-CI website and subject to
+DesignSafe-CI Data Sharing and Archiving Policies.
+
+\section{Reproducibility}
+All data processing and analysis scripts will be version-controlled using Git and
+stored on GitHub with appropriate documentation.
+Computational environments will be documented using Docker containers or Conda
+environment files, with configuration files shared alongside data.
+All statistical analyses and visualizations will include code to reproduce them from
+processed data.
+Open-source software tools will be prioritized to remove licensing barriers.
+
+\section{Data Storage, Preservation and Backup}
+All data and code will be archived on DesignSafe-CI.
+PI Napolitano is an affiliate of Penn State's Institute for Computation and Data
+Science (ICDS) and, through its Advanced Cyber Infrastructure (ICDS-ACI), has access
+to active and near-line storage that is backed up daily.
+Co-PIs Wauthier and Busse will maintain local backups at their institutions during
+active research phases, with regular synchronization to the shared DesignSafe-CI
+project workspace.
+
+\vspace{0.3cm}
+\section{Ethics and Privacy}
+The project will comply with all relevant regulations, including Institutional Review
+Board (IRB) requirements for human subjects research.
+Community co-design workshop participants will be fully informed of data collection
+and sharing plans.
+Workshop notes will be anonymized before sharing; personally identifiable information
+will be protected using encryption and access controls.
+% QUESTION: Does PI Napolitano have existing IRB coverage for community engagement
+%   that can be extended, or will a new protocol be needed?
+%   The prior grant had IRB approval for Marshall community conversations —
+%   confirm with Penn State IRB whether an amendment or new submission is required.
+This plan will be reviewed annually and revised as needed in consultation with the
+Penn State IRB.
+
+\end{document}

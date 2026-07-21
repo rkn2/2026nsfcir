@@ -1,0 +1,78 @@
+\documentclass[11pt]{article} 
+\usepackage{nopageno}
+\setcounter{secnumdepth}{1} % Use 1 for sections, 2 for subsections, etc.
+\usepackage[margin=1in]{geometry}
+\usepackage{titlesec}
+
+\titleformat{\section}[runin]{\normalfont\bfseries}{\thesection}{1em}{}[]
+\titlespacing*{\section}{0pt}{0.1\baselineskip}{1ex}
+
+\titleformat{\subsection}[runin]{\normalfont\bfseries}{\thesubsection}{1em}{}[:]
+\titlespacing*{\subsection}{0pt}{0.1\baselineskip}{1ex}
+
+\usepackage{enumitem}
+\begin{document}
+
+% Remove page numbers---Research.gov will paginate the document instead
+%
+\pagestyle{empty} 
+
+\noindent \textbf{Data Management and Sharing Plan}
+\vspace{0.3cm}
+\section{Roles and Responsibilities}
+The Principal Investigator (PI), Dr. Rebecca Napolitano, will have primary responsibility for data management throughout the project lifecycle and will ensure data is collected, stored, preserved, and shared in accordance with this plan and NSF policies.
+
+\vspace{0.3cm}
+\section{Expected Data and Formats}
+This project will generate the following data types:
+
+\begin{itemize}%[noitemsep]
+\item[] \textbf{Documentation review data:} Historical flood records, preservation policies (.pdf, .docx) 
+\item[] \textbf{Quantitative data:} Building characteristics, socioeconomic factors, recovery metrics (.csv, .xlsx) 
+\item[] \textbf{Interview data:} Transcripts with stakeholders (.txt, .docx) 
+\item[] \textbf{Social network analysis data:} Network maps and metrics (.gexf, .csv) 
+\item[] \textbf{Thematic analysis data:} Coded themes and relationships (.atlas) 
+\item[] \textbf{Recovery timeline data:} Chronological events and decisions (.xlsx, .json) 
+\item[] \textbf{Feature importance analysis data:} Machine learning outputs (.csv, .pkl) 
+\item[] \textbf{Toolkit materials:} Flowcharts, assessment templates, case studies (.pdf, .pptx, .docx) 
+\item[] \textbf{Educational materials:} Lecture slides, workshop materials (.pptx, .pdf)
+\item[] \textbf{Dissemination materials:} Publications, presentations, webinars (.pdf, .pptx, .mp4). Charts, figures, and tables generated from data analysis will be stored in publisher-specified formats. \end{itemize}
+
+Metadata will include equipment and instrument types used to collect the data, methods used to process the data collected, and drawings. 
+% The research team will be responsible for uploading all raw data and additional data (converted, corrected, derived), as well as associated metadata within 6-months of completion for the data cleaning; this must be no more than a year after the original research trip. 
+% Digital Object Identifiers (DOIs) will be requested, exposing these data sets for broad access.
+
+\vspace{0.3cm}
+\section{Access, Sharing, and Reuse Policies:} Data will be made available for reuse by other researchers to the greatest extent possible while maintaining confidentiality and protecting intellectual property. Restrictions on access and reuse will be specified in metadata records. Interview data will be anonymized and access restricted to project personnel, with anonymized data potentially shared upon request after an embargo period. Social network analysis, thematic analysis, and feature importance data will be shared via DesignSafe-CI under open-source licenses. Toolkit materials will be shared publicly via the APT DRI website under Creative Commons licenses. Similarly, educational materials will be shared publicly via the APT DRI website and institutional repositories under Creative Commons licenses. Publications and presentations will be made openly available via institutional repositories and the APT DRI website. These policies ensure broad accessibility while protecting sensitive information and intellectual property rights.
+
+The hazard-related data and metadata will be archived on the Data Depot at DesignSafe-CI (the standard repository for the natural hazards community), will follow the established standards listed on the DesignSafe-CI website, and will be subject to the DesignSafeCI Data Sharing and Archiving Policies. 
+These policies also define data confidentiality during the research and recommend that data be available to the broader community no later than 12-months after completion of the research trip. 
+The research data and digital artifacts generated from this project will be stored as long as the DesignSafe-CI data repository is maintained. 
+Significant findings will be made available to the scientific community through peer-review publications, conference presentations/proceedings, and through PI, departmental, and institutional websites as appropriate.  
+We will conform to NSF policy on dissemination of research data through the following activities: 1. Scientific findings will be published promptly. 2. Results will be discussed with the broader community via presentations at conferences. 3. Raw data will be shared with other researchers through DesignSafe-CI. 4. Data analysis and visualization codes will be made available through DesignSafe-CI. 
+
+\section{Reproducibility:} To ensure reproducibility of research findings, all data processing and analysis scripts will be version-controlled using Git and stored on GitHub with appropriate documentation. Computational environments will be documented using Docker containers or Conda environments, with configuration files shared alongside the data. A methodology section will be included in all publications, providing step-by-step protocols for data collection and analysis. Where possible, intermediate data products will be preserved to allow recreation of final results from raw data. All statistical analyses and visualizations will include code to reproduce them from the processed data. We will prioritize open-source software tools to facilitate reproducibility without licensing barriers.
+
+\section{Data Storage, Preservation and Backup:} 
+All data and codes will be archived and preserved on DesignSafe-CI. 
+The DesignSafe-CI will persistently maintain all uploaded data on storage resources at the Texas Advanced Computing Center, and these resources are redundant and geographically replicated.
+Features will be in place to ensure the authenticity, integrity, security and persistence of the datasets for open access. 
+The DesignSafe-CI is committed to the continuity of data preservation and will ensure preservation beyond the conclusion of the DesignSafe-CI project. 
+Additionally for long-term data preservation, the project team will work with the Pennsylvania State University (PSU) Library’s Research and Publication Services to ensure open-access availability of the source code and all software is appropriately archived for any future use, if, for some reason, storage in the community repository is unavailable. 
+PI Napolitano is an affiliate of the Institute for Computation and Data Science (ICDS) and through its Advanced Cyber Infrastructure (ICDS-ACI) has access to both active storage (for data that is being worked on, requiring frequent access) and near-line storage (for back-up purposes and data that needs only infrequent access). 
+Active storage is achieved through DDN 12KX40 and GS7K flash storage array systems, while near-line storage utilizes Oracle’s FS1 flash storage appliance and a SL8500 Tape Library. 
+Active storage is backed up to the SL8500 daily. 
+ICDS provides long-term archival services using the Oracle SL8500. 
+Multiple copies of archived data are created through Oracle Hierarchical Storage Manager (Oracle HSM) to safeguard against data corruption. 
+Oracle HSM generates and maintains metadata on archived files so that the data can be readily accessed. This technology affords us easy retrieval of data, even years after it has been written. 
+All students and faculty will receive training on secure data handling practices. 
+
+
+\vspace{0.3cm}
+\section{Ethics and Privacy:} 
+The project will comply with all relevant regulations, including the Institutional Research Board (IRB) for human subjects research and FERPA for student records. Participants will be fully informed of data collection and sharing plans. 
+Data will be anonymized before sharing to protect individual privacy.
+Any personally identifiable information will be protected using encryption and access controls.
+This plan will be reviewed annually and revised as needed in consultation with the PSU IRB evaluator. 
+
+\end{document}
