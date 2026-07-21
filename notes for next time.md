@@ -23,12 +23,11 @@
   - `2026_4_17_cpscir.docx`
   - `2026_4_17_contextEmails.docx`
   - `2026_4_12_cdse_onepager.docx`
-  - **Unclear which is more current** — the OneDrive docx or `latex/Research_v2.tex` in this repo. Diff/reconcile before treating either as authoritative.
+  - **Resolved (2026-07-21): Becca confirmed this repo (`latex/Research_v2.tex`) is the most current version.** OneDrive docx is stale — no reconciliation needed.
 - None of the actual proposal *content* has been reviewed yet this session — today was purely about locating and syncing the files, not assessing the draft itself.
 
 ## Next steps when resuming
-1. Reconcile OneDrive docx vs. `latex/Research_v2.tex` — figure out which is newer / merge if they've diverged.
-2. Do the read-through + hypothesis check that was already flagged as outstanding back on 2026-06-18.
-3. Finish/insert figures.
-4. Push to collaborator for review.
-5. Track remaining time against the 2026-09-01 deadline (~6 weeks out as of this note).
+1. Do the read-through + hypothesis check that was already flagged as outstanding back on 2026-06-18.
+2. Finish/insert figures.
+3. Push to collaborator for review.
+4. Track remaining time against the 2026-09-01 deadline (~6 weeks out as of this note).
