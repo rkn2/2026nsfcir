@@ -51,12 +51,34 @@ Read-through of root-level `Research_v2.tex` (canonical file as of 2026-07-21; `
 - 3 TODO figures (CPS architecture diagram, Montpelier pre-code building photo, Gantt chart) plus the ICEYE zoom-mismatch issue already noted (578–586).
 - "xxx PhD students" placeholder in Broader Impacts (1213, 1236).
 
-## Next (as of 2026-07-22, end of session)
-- **Item 4**: still awaiting Christelle/Young's reply — unblocks item 1's variance model. No action possible until then.
-- **Item 2**: text drafted, inline comment left asking Becca/Napolitano to confirm the VIF-check and cluster-robust-SE specifics. Pick this up once Napolitano weighs in.
-- **Item 3**: not yet started (RQ2 recall-vs-independent-knowledge judgment call).
-- **Item 5**: resolved and fully worked into the narrative.
-- Session paused here at Becca's request to resume with a different model. All changes are saved to `Research_v2.tex` and this file — nothing in progress/uncommitted beyond what's written above.
+## Session 2026-07-22 (PI pass, afternoon): items 1, 2, 3 resolved in the narrative
+
+### 1. RESOLVED as interval-censored Model B, approved by Becca 2026-07-22
+- Checked the CPS-CIR track description in the NSF 25-543 program webinar slides before deciding. Key realization: the fusion the CIR track evaluates is mass-balance prior with community priors, not prior with ICEYE. ICEYE is the arbiter, so the old worry that Model A "kills the fusion contribution" was the wrong lens; the model choice is purely about scientific defensibility, and Model A (ICEYE exact) fails that regardless.
+- Implemented: SAR duration is now an interval-censored observation. Each overpass gives wet/dry only, so true duration lies in a bracket [L_i, U_i] between last-wet and first-dry overpass. Likelihood is the prior mass on the bracket; posterior is the prior truncated to it. Mass-balance error moved to the prior side as sigma_MB (replaces both old sigma^2 and sigma^2_error), pre-estimated from gauge variability, calibrated on the 2023 brackets by censored maximum likelihood.
+- This formulation is cadence-agnostic, so the equations no longer wait on item 4. Christelle's scene list now only determines the bracket widths (and how strong the preliminary-results claims can be), not the model structure. The "6-hour temporal resolution" claims were hedged to "as fine as six hours where the acquisition sequence is dense" pending her reply.
+- Downstream updates: Subtask 1.1 outputs are brackets plus per-scene classification error; 1.5 and 2.3 metrics moved to interval-censored log predictive score and bracket-consistency coverage (also resolves the old CRPS comment); KPIs reworded to match; Eq (6) conditioning cleaned up; Subtask 2.4 interval-width sentence now points at sigma_MB.
+
+### 2. RESOLVED, Napolitano sign-off given 2026-07-22
+- Becca approved both: VIF diagnostic on the 2023 duration-depth data, and cluster-robust standard errors at the drainage sub-basin level for the bivariate-vs-depth-only comparison. Written into Subtask 1.4; inline comment removed.
+- The related Subtask 1.5 "271 independent assessment units" claim was fixed the same way: buildings are now assessment units with cluster-robust uncertainty at sub-basin level, consistent with 1.4.
+
+### 3. RESOLVED via mechanism attribution and an explicit test hierarchy
+- Subtask 2.1: each elicited adjustment is now recorded with its stated physical mechanism, not just magnitude.
+- Subtask 2.3: the 2023 comparison is now explicitly labeled a diagnostic of elicitation mechanics (partners saw the 2023 map, so it cannot separate knowledge from recall); the 2024 held-out event carries the substantive RQ2 test via cross-event persistence, evaluated separately for mechanism-attributed vs unexplained adjustments. Also added a detectability statement: adjustments smaller than the bracket width for a building cannot be adjudicated by that event's cadence, and the reported characterization says so per sub-group.
+
+### Citations added (2026-07-22, verified batch 1)
+- Root `biblio.bib` created (copy of latex/biblio.bib plus 23 verified entries) and is now canonical; root Research_v2.tex resolves against it. All entries verified against publisher/agency records: HEC-RAS/LISFLOOD-FP, HAZUS 7.0, FEMA P-58, JRC depth-damage, Gerl 2016, Kelman & Spence 2004, Schwarz & Maiwald 2008, Milanesi 2018, Hall & Hoff, Franzoni 2015, Sathiparan 2018, StreamStats, TR-55, NHDPlus, O'Hagan 2006, Garthwaite 2005, Sendai, Twigg 2015, Goodchild 2007, Assumpcao 2018, Kim 2019 (AMC, left as a pointer for Maggie).
+- Still pending from second research batch: NFIP/ACS/FEMA BCA/NIST CRPG/FEMA HMA placeholders, the FEMA P-2055 vs P-2078 question, and the NSF SCC papers (trust, two-tier outputs, closest-to-problem knowledge).
+
+### Deliberately left per Becca (2026-07-22)
+- "Results from Prior NSF Support" stub for Napolitano: Becca will handle.
+- "xxx PhD students" placeholders: budget not settled, left as placeholders.
+
+## Next (as of 2026-07-22 PI pass; supersedes the morning list)
+- **Item 4**: still awaiting Christelle/Young's reply, but it no longer blocks the equations (interval-censored model is cadence-agnostic). Her file list determines bracket widths and how firm the preliminary-results cadence language can be.
+- **Items 1, 2, 3, 5**: resolved and worked into the narrative (see session notes above).
+- **Remaining drafting gaps**: second citation batch (federal/SCC), Winooski mass-balance preliminary results subsection, field damage campaign description (needs Becca's 2023 campaign details), Prior NSF Support for Napolitano (Becca), PhD student counts (Becca), figures (CPS diagram, Montpelier photo, Gantt, ICEYE panels from company).
 
 **Scoping note (2026-07-22):** `latex/DMP2.tex`, `latex/mentoringPlan.tex`, and `latex/summary.tex` (plus the stale `latex/Research.tex` and `latex/Research_v2.tex`) still describe the older SAR-coherence-time-series architecture and haven't been reconciled to the canonical mass-balance-plus-ICEYE design in root `Research_v2.tex`. Becca confirmed this is intentional — those get reconciled in a later pass. Current focus is narrative (root `Research_v2.tex`) only; don't touch the companion docs until asked.
 
