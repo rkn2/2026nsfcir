@@ -65,7 +65,7 @@ Here, we propose a closed-loop cyber-physical system (CPS) organized around the 
 the \textbf{physical layer} (pre-code load-bearing masonry and timber structures,
 absent from existing fragility frameworks);
 the \textbf{sensing layer} (USGS stream gauges and NOAA precipitation for operational
-use, with ICEYE commercial Synthetic Aperture Radar (SAR) providing building-level inundation duration and depth for one-time model calibration);
+use, with ICEYE commercial Synthetic Aperture Radar (SAR) providing building-level inundation duration and depth for one-time model calibration, and open Sentinel-1 SAR providing broader flood-extent context);
 the \textbf{cyber layer} (a Bayesian framework fusing a GIS-parameterizable hydrological
 mass balance model with community-elicited priors on inundation duration and depth); and
 the \textbf{decision layer} (a co-developed three-mode interface supporting retrofit
@@ -89,8 +89,9 @@ geospatial data baseline.
 \includegraphics[width=0.45\textwidth]{images/img.jpg}
 \captionsetup{justification=centering,singlelinecheck=false,font=small}
 \caption{Four-layer CPS architecture. The operational sensing layer uses free
-USGS and NOAA data; ICEYE provides building-level ground truth for one-time
-model calibration only.}
+USGS and NOAA data; ICEYE commercial SAR provides building-level ground truth
+for one-time model calibration only, with open Sentinel-1 SAR providing
+broader flood-extent context.}
 \label{fig:cps_arch}
 \end{wrapfigure}
 \normalsize
@@ -229,8 +230,8 @@ framework fusing a GIS-parameterizable mass balance model with community knowled
 priors and an ICEYE-calibrated likelihood &
 GIS-parameterized mass balance model (USGS 3DEP, NLCD, SSURGO, NHD StreamStats);
 community knowledge priors from Subtask~2.1 workshops; Bayesian fusion with ICEYE
-2023 as likelihood calibration; 2024 held-out validation against ICEYE measurements
-and field damage observations &
+2023 as likelihood calibration (Sentinel-1 providing broader flood-extent context);
+2024 held-out validation against ICEYE measurements and field damage observations &
 Validated Bayesian framework with characterized decision-adequacy and identified
 conditions under which the GIS-parameterized system is and is not sufficient \\
 \hline
@@ -275,15 +276,16 @@ Co-development workshops in Years~1 and~2; NOAA forecast integration for pre-sto
 mode; Year~3 independent-use stress test with emergency managers and planning
 commission staff &
 Three-mode decision interface independently operated by Montpelier community partners;
-transferable minimum-pathway protocol for new communities requiring no ICEYE purchase \\
+transferable minimum-pathway protocol for new communities requiring no commercial SAR purchase \\
 \end{tabularx}
 \vspace{2pt}
 \footnotesize\textit{\textbf{Sensing layer} (underpins all rows): USGS stream
 gauges and NOAA precipitation provide free, nationally maintained operational
 inputs requiring no local deployment or community maintenance; ICEYE commercial
 SAR provides building-level inundation duration as one-time calibration ground
-truth (2023) and held-out validation (2024). No research gap: the sensing layer
-is a deliberate design choice, not an unknown.}
+truth (2023) and held-out validation (2024), with open Sentinel-1 SAR providing
+broader flood-extent context. No research gap: the sensing
+layer is a deliberate design choice, not an unknown.}
 \endgroup
 \normalsize
 
@@ -496,12 +498,12 @@ watershed.
 %confirm whether the five-or-more-day threshold is the right characterization of what the mass balance model requires for reliable drainage timescale estimation.
 
 \vspace{-10pt}
-\subsection{Preliminary results: ICEYE building-level data, Montpelier 2023 and 2024}
+\subsection{Preliminary results: SAR building-level data, Montpelier 2023 and 2024}
 
 Radar imagery (Synthetic Aperture Radar - SAR) allows us to study flood events, map flooded areas and other surface changes occurring overnight or during storms with dense cloud cover where optical imagery would fail. To properly image transient flood events in details, we need high spatial (~meter-scale or better) and temporal (a few hours) SAR resolution imagery. Open Sentinel-1 (C-band, wavelenght of ~6cm, ~10 meters spatial resolution) and ICEYE (X-band, wavelength of ~3cm, <1m of spatial resolution) data are available over the two Vermont events.
 In particular, ICEYE commercial SAR provides building-level flood depth and inundation maps fusing SAR amplitude imagery, with LIDAR and water gauges measurements, at 6-hour temporal resolution for both Montpelier flood events, covering the full inundation and recovery period in each case.
 Uncertainty of flood level Katie Iceye? other caveat CW need to mention?
-PI Wauthier will process and interpret available SAR imagery from these two sensors.  Through a NDA data access agreement, ICEYE data for 271 downtown pre-code masonry buildings, each with ICEYE-measured duration, ICEYE-measured peak depth, and field-recorded damage state, will be analyzed for both the 2023 and 2024 events.
+PI Wauthier will process and interpret available SAR imagery from these two sensors, using ICEYE for building-level quantitative measurements and Sentinel-1 for broader flood-extent context given its coarser resolution.  Through a NDA data access agreement, ICEYE data for 271 downtown pre-code masonry buildings, each with ICEYE-measured duration, ICEYE-measured peak depth, and field-recorded damage state, will be analyzed for both the 2023 and 2024 events.
 % see with ICEYE what text they want us to add and I think your preliminary screenshots are sufficient for the proposal but we should ask them if OK to include or if they prefer us to include something else with their logo super visible etc. TODO 
 The 271-building dataset constitutes the empirical foundation for fragility surface calibration (2023) and held-out validation (2024); the 2024 data is not used in any model fitting (Fig.~\ref{fig:iceye}).
 
@@ -570,8 +572,10 @@ hydraulic simulation, calibrated on Montpelier 2023 and validated on the held-ou
 2024 event.}
 \end{tcolorbox}
 
-RO1 builds and validates the technical CPS by coupling four components: SAR imagery with ICEYE
-building-level data processing, interpretation, and error characterization (Subtask~1.1), a
+RO1 builds and validates the technical CPS by coupling four components: SAR imagery,
+ICEYE commercial SAR for building-level data processing, interpretation,
+and error characterization, with open Sentinel-1 SAR for broader flood-extent
+context (Subtask~1.1), a
 GIS-parameterizable mass balance model (Subtask~1.2), a Bayesian fusion framework
 integrating the mass balance prior with community knowledge and the ICEYE-calibrated
 likelihood (Subtask~1.3), and duration-dependent fragility surfaces connecting
@@ -582,14 +586,13 @@ and NOAA precipitation, which are free and nationally available.
 Subtask~1.5 validates the full RO1 system against the 2024 held-out event and
 characterizes decision-adequacy across all three operational modes.
 
-\textbf{Subtask 1.1: ICEYE Data Processing, Interpretation, and Likelihood Characterization
+\textbf{Subtask 1.1: SAR Data Processing, Interpretation, and Likelihood Characterization
 (lead: Wauthier).}
-Subtasks 1.1 and 1.2 run in parallel in Year 1: PI Wauthier extracts building-level inundation measurements from ICEYE SAR while PI Busse develops the GIS-parameterized mass balance model; neither depends on the other's output until both feed into the Bayesian fusion framework in Subtask 1.3. 
-PI Wauthier processes ICEYE commercial SAR data for the 271 downtown Montpelier buildings across both flood events, extracting building-level inundation duration and peak depth at 6-hour temporal resolution and validating building footprint attribution against ground-referenced building inventory. 
-The key scientific output of this subtask is the empirical error distribution between mass balance predictions and ICEYE-measured duration per building for the 2023 event: how far off the GIS-only model's duration estimate is from what the SAR data actually observed, not a prediction of whether a building floods. 
-Once Subtask 1.2 delivers $\hat{\tau}_k$ estimates, this error distribution characterizes the systematic and random error of the GIS-parameterized mass balance at building scale and becomes the likelihood in the Bayesian fusion of Subtask 1.3, the statistical model of how ICEYE's measured duration relates to the true duration being estimated, used to update the mass-balance prior. 
-SAR imagery from both Sentinel-1 and ICEYE will be used to characterize building-level inundation duration and depth across both the 2023 and 2024 events.
-% christelle said : yes I would just say that we will use SAR imagery for both events including Sentinel - 1 and ICEYE. No need to explain the details of 2024 and that we might not get them right away --> so should we mention sentinel before this?????
+Subtasks 1.1 and 1.2 run in parallel in Year 1: PI Wauthier extracts building-level inundation measurements from ICEYE commercial SAR while PI Busse develops the GIS-parameterized mass balance model; neither depends on the other's output until both feed into the Bayesian fusion framework in Subtask 1.3.
+PI Wauthier processes ICEYE commercial SAR data for the 271 downtown Montpelier buildings across both flood events, extracting building-level inundation duration and peak depth at 6-hour temporal resolution and validating building footprint attribution against ground-referenced building inventory.
+The key scientific output of this subtask is the empirical error distribution between mass balance predictions and ICEYE-measured duration per building for the 2023 event: how far off the GIS-only model's duration estimate is from what the SAR data actually observed, not a prediction of whether a building floods.
+Once Subtask 1.2 delivers $\hat{\tau}_k$ estimates, this error distribution characterizes the systematic and random error of the GIS-parameterized mass balance at building scale and becomes the likelihood in the Bayesian fusion of Subtask 1.3, the statistical model of how ICEYE's measured duration relates to the true duration being estimated, used to update the mass-balance prior.
+Open Sentinel-1 imagery will also be processed for both events to provide broader flood-extent context; its ~10\,m resolution is too coarse to resolve individual buildings in the downtown core, so it supports interpretation and cross-checking of the ICEYE-derived building classifications rather than feeding the building-level likelihood directly.
 
 \textbf{Subtask 1.2: GIS-Parameterizable Mass Balance Model (lead: Busse).}
 PI Busse develops a hydrological mass balance model for the Winooski watershed above
@@ -714,6 +717,13 @@ and the fitted surface is applied unchanged to 2024 for held-out validation.
 The claim under test is that duration adds statistically significant explanatory
 power beyond depth alone, evaluated by comparing the bivariate model against a
 depth-only baseline using damage prediction accuracy on the 271-building 2024 event.
+Because duration and depth are correlated in the 271-building empirical sample, a
+depth-only model fit directly to the correlated data could appear competitive with
+the bivariate model even where duration has a real physical effect; the
+two-component design mitigates this identification problem by anchoring
+$\lambda_0$ and $\gamma$ to the physical component's material-science-derived
+functional form rather than fitting them from the correlated observations alone.
+% becca/napolitano: confirm the identification-strategy specifics before submission -- is a variance inflation factor (VIF) check on the 2023 duration-depth relationship the right diagnostic to report alongside the bivariate-vs-depth-only comparison? Given the 271 buildings are geographically clustered within one downtown core rather than independently sampled, should the comparison use cluster-robust standard errors instead of treating buildings as independent observations? Both are common approaches but need Napolitano's sign-off, not a default insertion.
 The posterior $T_i \mid \log T_i^{\mathrm{ICEYE}} \sim
 \operatorname{LogNormal}(\mu_i^*, \sigma^{*2})$ from Subtask~1.3 propagates through
 Equation~(5) by Monte Carlo integration, producing a building-specific damage state
@@ -997,10 +1007,16 @@ the 2023-only calibration baseline.
 The transferable protocol specifies the minimum pathway for a new community:
 a USGS gauge ID, standard national GIS layer downloads (USGS 3DEP, NLCD, SSURGO,
 NHD StreamStats), and one co-development workshop to elicit initial
-$\delta_i^{\mathrm{comm}}$ values, combined with the open-source software package
+$\delta_i^{\mathrm{comm}}$ values, optionally supported by free Sentinel-1 imagery
+as a rough visual aid for flood-extent discussion where local recall is difficult,
+combined with the open-source software package
 initialized from Montpelier-derived mass balance and fragility parameters.
 A community operating under this protocol will have wider credible intervals than
-Montpelier because it lacks local ICEYE calibration; the expected interval widths,
+Montpelier because it lacks local ICEYE calibration; access to free Sentinel-1
+imagery does not close this gap, since its coarser resolution cannot support
+building-level calibration, so credible intervals remain at the transferred
+default width regardless of whether open SAR imagery is available locally.
+The expected interval widths,
 derived from the $\sigma_{\mathrm{error}}^2$ characterization in Subtask~1.1, are
 reported as part of the protocol documentation so communities can assess
 decision-adequacy before committing to adoption, and intervals narrow with each
@@ -1016,8 +1032,8 @@ versus complements in CPS calibration, including cases where community knowledge
 adds no value relative to the GIS-only baseline (Subtask~2.3); and a transferable
 co-design protocol released alongside the open-source software package, enabling
 any municipality with a USGS gauge and standard GIS access to initialize the system
-from one workshop without an ICEYE purchase (Subtask~2.4).
-% we could also use sentinel 1 in the workshops if it is useful for flood mapping since it is free FYI from christelle do we want to include that? i thought the resolution wasnt good enough? or is it fine we need to figure this out TODO
+from one workshop without a commercial SAR purchase (Subtask~2.4).
+% resolved 2026-07-22 per Christelle: Sentinel-1's resolution is too coarse for building-level detail but fine for rough/qualitative flood-extent context. Added as an optional workshop visual aid in the transferable-protocol paragraph above (Subtask~2.4).
 
 \begin{figure}
 \includegraphics[width=0.6\textwidth]{images/img.jpg}
@@ -1050,9 +1066,9 @@ The framework's operational sensing layer requires only USGS gauge data and NOAA
 precipitation, both free and nationally available;
 the mass balance model is parameterizable from USGS 3DEP, NLCD, SSURGO, and NHD
 StreamStats for any municipality with a gauge.
-% christelle says mention sar imagery but i think the whole point is that we are using sar imagery to calibrate maggies models so that we wouldnt need sar imagery every time since we didnt have perfect ree data. TODO does this make sense
+% resolved 2026-07-22 per Christelle: yes, this is the point -- SAR (as a suite, not ICEYE exclusively) is a one-time calibration input to Maggie's mass balance model, not a recurring operational requirement, so a new community never needs to buy its own SAR data.
 A new community needs a gauge ID, standard GIS access, and one community workshop
-to elicit local drainage knowledge; no ICEYE purchase, no hydrologist, and no
+to elicit local drainage knowledge; no commercial SAR purchase, no hydrologist, and no
 hydraulic model is required.
 % becca: quantify the transferable community count using FEMA NFIP enrollment data (riverine flood communities), ACS table B25035 (pre-1940 housing stock),   USGS NWIS (gauge coverage), and FEMA DFIRM (communities without hydraulic   models). Convert the implied "thousands of towns" claim into a bounded, citable estimate.
 
