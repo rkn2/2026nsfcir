@@ -1,5 +1,10 @@
 # Adversarial review of Research_v2.tex (2026-07-22, post PI pass)
 
+> Status 2026-07-22 evening: all items worked through; see the matching session
+> section in FINDINGS.md for per-item resolutions. Items 4 and 5 remain on the
+> risk register (blocked on the 2024 damage distribution and Christelle's scene
+> list); everything else is resolved in the narrative.
+
 Written as a skeptical CPS-CIR panelist would, ranked by damage potential. Line numbers refer to Research_v2.tex at commit f99f492.
 
 ## Major concerns (any one could sink it)
