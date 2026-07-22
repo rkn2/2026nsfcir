@@ -596,6 +596,16 @@ Third, the two events differ in peak magnitude by nearly a factor of two, and th
 low-lying downtown parcels took water; the 2023-calibrated, 2024-validated design
 therefore tests transfer across event magnitudes rather than replication of a
 single event size.
+Extending the recession analysis across the gauge's full 1990--2026
+instantaneous record strengthens this anchor: fifteen well-fit flood events give
+$\hat{\tau}$ between 36 and 96 hours (median 51), an event-to-event spread of
+$\mathrm{sd}(\ln \hat{\tau}) = 0.30$ that supplies the pre-estimate of
+$\sigma_{\mathrm{MB}}$ in Subtask~1.2, and a quantified antecedent-moisture
+signal: wetter pre-event conditions correlate with slower recession (a shift of
+roughly 33 hours from the driest to the wettest antecedent state, with
+pre-event baseflow as the predictor), so the antecedent state that pre-storm
+mode must account for is itself observable from the same gauge the operational
+system already reads.
 Discharge remained above twice pre-event baseflow for roughly 19 days in 2023 and
 10 days in 2024, reflecting the sustained wet regime of both months; these gauge
 durations bound the window within which building-level standing water drained and
@@ -624,6 +634,11 @@ underpredicts the documented flooded core, with Main Street landmarks sitting
 gauge; the discrepancy is consistent with a water-surface slope of roughly 0.6
 to 1.0\,m/km along the reach, which is the single parameter the 2023 ICEYE
 depth field calibrates in Subtask~1.2.
+A complementary sweep of that slope parameter against documented 2023 outcomes
+(Main Street landmarks flooded, the State House dry) brackets the admissible
+slope at 0.9\,m/km or above and predicts 234 inundated buildings at that lower
+bound, the same order as the 271-building empirical set; the ICEYE depth field
+pins the value precisely.
 The analysis scripts and gauge records are archived with the project repository
 for reproducibility; discharge values are USGS provisional.
 % becca: images/stage_dem_depth.pdf (depth map with gauge and landmarks marked) exists if you want a figure for the stage-to-DEM prototype; left out of the text for space. Script: analysis/stage_to_dem.py, writeup: analysis/stage_dem.md.
@@ -708,6 +723,7 @@ Subtasks 1.1 and 1.2 run in parallel in Year 1: PI Wauthier extracts building-le
 PI Wauthier processes ICEYE commercial SAR data for the 271 downtown Montpelier buildings across both flood events, extracting building-level peak depth and per-overpass wet/dry status, and validating building footprint attribution against ground-referenced building inventory.
 Because duration is inferred from wet/dry status across successive overpasses, each building's inundation duration is delivered not as a point value but as a bracket between the last overpass observed wet and the first observed dry, with bracket width set by the acquired revisit cadence (as fine as six hours where the acquisition sequence is dense); this bracket is carried through the framework as an explicit measurement interval rather than collapsed to a false point estimate.
 The key scientific outputs of this subtask are the per-building duration brackets and peak depths for both events, together with per-scene wet/dry classification error rates; once Subtask~1.2 delivers $\hat{\tau}_k$ estimates, comparing mass balance predictions against the 2023 brackets calibrates the building-scale error variance $\sigma_{\mathrm{MB}}^2$ of the GIS-parameterized model in Subtask~1.3.
+An archived pre-submission cadence simulation shows that scenes spaced across the multi-day drainage window contribute substantially more calibration information than additional scenes clustered near the flood peak; this spacing criterion guides which acquisitions are prioritized for processing.
 Open Sentinel-1 imagery will also be processed for both events to provide broader flood-extent context; its ~10\,m resolution is too coarse to resolve individual buildings in the downtown core, so it supports interpretation and cross-checking of the ICEYE-derived building classifications rather than feeding the building-level likelihood directly.
 
 \textbf{Subtask 1.2: GIS-Parameterizable Mass Balance Model (lead: Busse).}
@@ -763,7 +779,9 @@ all model error lives on the prior side of the framework rather than being
 attributed to the sensing data.
 $\sigma_{\mathrm{MB}}^2$ is pre-estimated from historical Winooski gauge
 variability and then calibrated against the 2023 SAR duration observations in
-Subtask~1.3.
+Subtask~1.3; a recession analysis of fifteen well-fit flood events in the
+gauge's 1990--2026 instantaneous record (archived with the project repository)
+gives $\mathrm{sd}(\ln \hat{\tau}) = 0.30$ as that pre-estimate.
 Subtask~1.2 delivers the GIS-only prior: setting $\delta_i^{\mathrm{comm}} = 0$
 gives the baseline model parameterized entirely from national GIS layers, which
 constitutes both the operational system for transfer communities and the comparison
@@ -805,6 +823,7 @@ produce appropriately wider credible intervals on predicted duration.
 %
 % maggie -- IMPORTANT FOR PRE-STORM MODE: Drainage timescale is substantially shorter under dry  conditions than saturated ones; if the mass balance model does  not account for this, pre-storm duration predictions will carry large uncharacterized uncertainty and reviewers may challenge the resource-staging claim in RQ1. Please address explicitly: (1) does the model include an antecedent moisture condition (AMC) input (e.g., AMC-I/II/III from TR-55, or a continuous soil moisture state from SSURGO + prior precipitation)? (2) how is antecedent moisture estimated operationally before a storm (NOAA QPF history? USGS soil moisture network?)? (3) how much does tau_k_hat vary between dry and saturated antecedent conditions for the Winooski if the range is large and the operational estimate is uncertain, the pre-storm credible intervals will be wide enough to limit actionability. If the model handles AMC well, say so since that would strengthens the pre-storm mode substantially. If not, we should narrow the pre-storm claim before submission prob.
 % maggie: verified refs already in biblio.bib you can use here: usdascs1986tr55 (TR-55 AMC classes) and kim2019assessment (antecedent moisture effect on flood frequency, Napa River basin).
+% note 2026-07-22 (PI): partial empirical answer to your AMC question now in analysis/historical_tau.md -- across 15 well-fit events (1990-2026) tau ranges 36-96 h and correlates with normalized pre-event baseflow (r=0.59, ~+33 h shift dry-to-wet). Direction is wetter antecedent = SLOWER recession (baseflow-sustained falling limb), and pre-event baseflow is an operational AMC proxy read from the same gauge. Your question about the model formulation still stands; the prelim results section now cites these numbers.
 
 \textbf{Subtask 1.3: Bayesian Fusion Framework (leads: Napolitano, Wauthier,
 and Busse).}
@@ -865,6 +884,13 @@ $\sigma_{\mathrm{MB}}^2$ only weakly and the estimate falls back toward the
 pre-estimate rather than becoming unidentified, and the detectability statements
 reported in Subtask~2.3 make explicit what the acquired cadence can and cannot
 resolve.
+A pre-submission simulation study (archived with the project repository)
+quantifies this graceful degradation: across acquisition cadences from uniform
+six-hourly coverage down to a single usable post-peak scene,
+$\sigma_{\mathrm{MB}}$ remains identified with estimation uncertainty that grows
+continuously rather than collapsing, and the regularizing prior narrows the
+estimate at every cadence at a bias cost bounded by the pre-estimate's own
+error.
 Within this framework, the fusion that defines the cyber layer is between the
 physically grounded mass balance prior and the community knowledge adjustments
 $\delta_i^{\mathrm{comm}}$ of Equation~\eqref{eq:mu}; the SAR brackets calibrate the error
@@ -1431,8 +1457,12 @@ Year~3 independent-use stress testing.
 The project includes a formal assessment component evaluating success across three
 dimensions, with the following key performance indicators.
 \textit{Technical KPIs} (Subtask~1.5): building-level duration estimation error
-against the 2024 SAR duration brackets at or below the threshold at which ranking uncertainty affects
-retrofit priority decisions; empirical consistency of 90\% credible intervals with
+against the 2024 SAR duration brackets at or below the ranking-stability
+threshold established by a pre-submission sensitivity analysis (archived with
+the project repository): approximately 0.4 log-units, roughly 70 hours RMSE over
+the building portfolio, below which the top-20 retrofit priority set retains at
+least 80\% overlap with the error-free ranking across fragility parameter
+variants; empirical consistency of 90\% credible intervals with
 the observed brackets between
 0.85 and 0.95 across 271 buildings; damage state prediction accuracy of the
 duration-depth bivariate model exceeding the depth-only baseline by a statistically
@@ -1459,7 +1489,7 @@ decision interface modes without researcher support in the Year~3 stress test;
 emergency managers demonstrate ability to explain pre-storm risk maps and
 planning-mode retrofit comparisons to elected officials and residents without
 researcher involvement.
-% becca: confirm the RMSE threshold for "decision-adequate" duration estimation....this requires a judgment about how much duration estimation error changes retrofit priority rankings; a sensitivity analysis on the 2023 data before   submission would let us set this threshold defensibly...? is this worth it?
+% resolved 2026-07-22: the sensitivity analysis was worth it and is done (analysis/ranking_sensitivity.py/.md): on a synthetic 271-building portfolio with anchored fragility parameters, top-20 overlap stays >= 0.8 up to sigma_est ~ 0.40-0.44 log-units (70-78 h portfolio-wide RMSE) across gamma/zeta variants; Spearman >= 0.9 holds to ~0.5 log-units. Threshold above uses the stricter overlap criterion. Caveats in the .md: synthetic portfolio, duration channel only; redo on real 2023 data once ICEYE durations are in hand.
 
 % ============================================================
 %  RESULTS FROM PRIOR NSF SUPPORT

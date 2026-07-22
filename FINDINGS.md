@@ -152,3 +152,19 @@ Becca asked for pythonic sensitivity studies on the two judgment calls inserted 
 ### For Becca
 - If she wants more headroom on the KPI, moving 20% to 25-30% buys real power under the central assumptions; left at 20% since the sub-group KPI it feeds is less strict than the simulated aggregate test.
 - The one-dominant-sub-basin skew also means cluster-robust inference at sub-basin level leans on ~15 clusters with one heavy one; consistent with the 1.4/1.5 text as written, but worth a look from Napolitano's stats side before submission.
+
+## Session 2026-07-22 (night): equations pass + four more sensitivity studies
+
+### Equations added (CPS-community formalization pass)
+All seven existing equations converted to \label/\eqref (references were hardcoded numbers and would have silently broken). Five new numbered equations: linear-reservoir tau_k definition (eq:tau, flagged % maggie as a placeholder anchor consistent with the exponential recessions), stage-to-DEM depth projection (eq:stagedem, d_i = max{0, s_g + beta x_i - z_i}), classification-error-softened bracket likelihood (eq:softbracket, recovers the hard bracket as eps -> 0), interval-censored log predictive score (eq:lps), and the precision-weighted per-event delta update (eq:deltaupdate, the actuation law of the per-event loop).
+
+### Four sensitivity studies (all in analysis/, seeded/reproducible, run commands in script headers; agents hit the 6pm session limit mid-batch and were resumed after reset)
+- **historical_tau**: 15 well-fit floods, 1990-2026 IV record (IV goes back to 1990 at this gauge, not 2007). tau 36-96 h, median 51, sd(ln tau) = 0.30 = the sigma_MB pre-estimate, now cited in Subtask 1.2. Antecedent: wetter pre-event baseflow correlates with SLOWER recession (r=0.59, ~+33 h dry-to-wet), direction opposite the AMC worry as stated; pre-event baseflow is an operational AMC proxy from the same gauge. Written into prelim results; % maggie AMC comment annotated. 2023/2024 reproduce exactly.
+- **cadence_identifiability**: sigma_MB stays identified at every cadence tested including a single usable post-peak scene (estimation uncertainty grows continuously, no collapse, 0% bound-pinning in the pessimistic scenario); regularizer narrows every cell at a quantified bias cost. One honest non-monotonicity: the "requested 2023" schedule at sigma=0.3 has genuine boundary-MLE degeneracy because scenes clustered at 0-30 h never straddle multi-day drying times. That insight (spacing beats count) is now a design sentence in Subtask 1.1. De-risks adversarial review item 5 ahead of Christelle's scene list.
+- **ranking_sensitivity**: top-20 retrofit overlap stays >= 0.8 up to ~0.40-0.44 log-units duration error (70-78 h portfolio-wide RMSE) across fragility variants; Spearman >= 0.9 to ~0.5. The decision-adequacy KPI now carries this number (stricter overlap criterion) and Becca's inline "is it worth it?" comment is resolved. Caveats: synthetic portfolio, duration channel only; redo on real 2023 ICEYE durations when in hand.
+- **slope_sensitivity**: admissible reach slope bracketed at >= 0.9 m/km from documented 2023 outcomes (City Hall + Confluence Park flood, State House dry across sweep; State House only floods near 8 m/km so evidence sets a floor, not a ceiling); 234 OSM buildings inundated at 0.9 m/km, same order as the curated 271. Consistent with the 0.6-1.0 m/km flat-residual inference; written into prelim results.
+
+### For Becca / open
+- Wild cluster bootstrap committed in Subtask 1.4 text (consequence of the dominant-cluster skew), inline comment asks Napolitano to confirm.
+- eq:tau linear-reservoir form and the AMC formulation are still Maggie's calls; both flagged inline with the new empirical numbers attached.
+- Unchanged blockers: 2024 damage distribution, Christelle scene list, Prior NSF stub, PhD counts, figures.
