@@ -227,10 +227,11 @@ building-level inundation duration estimates accurate enough for retrofit alloca
 decisions without hydraulic model calibration is unknown &
 \textbf{RO1} (Napolitano, Wauthier, and Busse): Build and validate a Bayesian
 framework fusing a GIS-parameterizable mass balance model with community knowledge
-priors and an ICEYE-calibrated likelihood &
+priors and an error model calibrated on interval-censored ICEYE observations &
 GIS-parameterized mass balance model (USGS 3DEP, NLCD, SSURGO, NHD StreamStats);
-community knowledge priors from Subtask~2.1 workshops; Bayesian fusion with ICEYE
-2023 as likelihood calibration (Sentinel-1 providing broader flood-extent context);
+community knowledge priors from Subtask~2.1 workshops; Bayesian fusion of mass
+balance prior with community priors, error-calibrated on interval-censored ICEYE
+2023 duration brackets (Sentinel-1 providing broader flood-extent context);
 2024 held-out validation against ICEYE measurements and field damage observations &
 Validated Bayesian framework with characterized decision-adequacy and identified
 conditions under which the GIS-parameterized system is and is not sufficient \\
@@ -501,8 +502,9 @@ watershed.
 \subsection{Preliminary results: SAR building-level data, Montpelier 2023 and 2024}
 
 Radar imagery (Synthetic Aperture Radar - SAR) allows us to study flood events, map flooded areas and other surface changes occurring overnight or during storms with dense cloud cover where optical imagery would fail. To properly image transient flood events in details, we need high spatial (~meter-scale or better) and temporal (a few hours) SAR resolution imagery. Open Sentinel-1 (C-band, wavelenght of ~6cm, ~10 meters spatial resolution) and ICEYE (X-band, wavelength of ~3cm, <1m of spatial resolution) data are available over the two Vermont events.
-In particular, ICEYE commercial SAR provides building-level flood depth and inundation maps fusing SAR amplitude imagery, with LIDAR and water gauges measurements, at 6-hour temporal resolution for both Montpelier flood events, covering the full inundation and recovery period in each case.
-Uncertainty of flood level Katie Iceye? other caveat CW need to mention?
+In particular, ICEYE commercial SAR provides building-level flood depth and inundation maps fusing SAR amplitude imagery with LIDAR and water gauge measurements, at revisit cadences as fine as six hours during dense acquisition sequences, across the inundation and recovery period of both Montpelier flood events.
+% becca: waiting on Christelle/Young's file list (item 4 in FINDINGS.md) to confirm the actual 2023/2024 scene cadence before this paragraph gets more specific.
+% christelle: uncertainty of flood level -- Katie/ICEYE input? other caveats CW needs to mention?
 PI Wauthier will process and interpret available SAR imagery from these two sensors, using ICEYE for building-level quantitative measurements and Sentinel-1 for broader flood-extent context given its coarser resolution.  Through a NDA data access agreement, ICEYE data for 271 downtown pre-code masonry buildings, each with ICEYE-measured duration, ICEYE-measured peak depth, and field-recorded damage state, will be analyzed for both the 2023 and 2024 events.
 % see with ICEYE what text they want us to add and I think your preliminary screenshots are sufficient for the proposal but we should ask them if OK to include or if they prefer us to include something else with their logo super visible etc. TODO 
 The 271-building dataset constitutes the empirical foundation for fragility surface calibration (2023) and held-out validation (2024); the 2024 data is not used in any model fitting (Fig.~\ref{fig:iceye}).
@@ -528,8 +530,9 @@ The 271-building dataset constitutes the empirical foundation for fragility surf
 \caption{ICEYE building-level flood depth, Montpelier downtown core, for both
 study events. Building footprints are colored by peak inundation depth (yellow:
 $<$2\,ft; orange: 2--5\,ft; red: 5--8\,ft; dark red: $>$8\,ft). PI Wauthier
-has separately extracted building-level inundation \textit{duration} at 6-hour
-temporal resolution for all 271 buildings across both events; the 2024 event
+has separately extracted building-level inundation \textit{duration} brackets
+from successive overpasses (as fine as six hours during dense acquisition)
+for all 271 buildings across both events; the 2024 event
 is held out and not used in any model fitting.}
 \label{fig:iceye}
 \vspace{-0.3cm}
@@ -577,21 +580,22 @@ ICEYE commercial SAR for building-level data processing, interpretation,
 and error characterization, with open Sentinel-1 SAR for broader flood-extent
 context (Subtask~1.1), a
 GIS-parameterizable mass balance model (Subtask~1.2), a Bayesian fusion framework
-integrating the mass balance prior with community knowledge and the ICEYE-calibrated
-likelihood (Subtask~1.3), and duration-dependent fragility surfaces connecting
+integrating the mass balance prior with community knowledge, error-calibrated
+against interval-censored ICEYE duration brackets (Subtask~1.3), and duration-dependent fragility surfaces connecting
 duration estimates to building damage state probabilities (Subtask~1.4).
-ICEYE provides the one-time calibration ground truth for both the likelihood function
-and the fragility surface; the operational system runs entirely on USGS gauge data
-and NOAA precipitation, which are free and nationally available.
+ICEYE provides the one-time calibration data, delivered as interval-censored
+duration brackets with characterized classification error, for both the framework's
+error model and the fragility surface; the operational system runs entirely on USGS
+gauge data and NOAA precipitation, which are free and nationally available.
 Subtask~1.5 validates the full RO1 system against the 2024 held-out event and
 characterizes decision-adequacy across all three operational modes.
 
 \textbf{Subtask 1.1: SAR Data Processing, Interpretation, and Likelihood Characterization
 (lead: Wauthier).}
 Subtasks 1.1 and 1.2 run in parallel in Year 1: PI Wauthier extracts building-level inundation measurements from ICEYE commercial SAR while PI Busse develops the GIS-parameterized mass balance model; neither depends on the other's output until both feed into the Bayesian fusion framework in Subtask 1.3.
-PI Wauthier processes ICEYE commercial SAR data for the 271 downtown Montpelier buildings across both flood events, extracting building-level inundation duration and peak depth at 6-hour temporal resolution and validating building footprint attribution against ground-referenced building inventory.
-The key scientific output of this subtask is the empirical error distribution between mass balance predictions and ICEYE-measured duration per building for the 2023 event: how far off the GIS-only model's duration estimate is from what the SAR data actually observed, not a prediction of whether a building floods.
-Once Subtask 1.2 delivers $\hat{\tau}_k$ estimates, this error distribution characterizes the systematic and random error of the GIS-parameterized mass balance at building scale and becomes the likelihood in the Bayesian fusion of Subtask 1.3, the statistical model of how ICEYE's measured duration relates to the true duration being estimated, used to update the mass-balance prior.
+PI Wauthier processes ICEYE commercial SAR data for the 271 downtown Montpelier buildings across both flood events, extracting building-level peak depth and per-overpass wet/dry status, and validating building footprint attribution against ground-referenced building inventory.
+Because duration is inferred from wet/dry status across successive overpasses, each building's inundation duration is delivered not as a point value but as a bracket between the last overpass observed wet and the first observed dry, with bracket width set by the acquired revisit cadence (as fine as six hours where the acquisition sequence is dense); this bracket is carried through the framework as an explicit measurement interval rather than collapsed to a false point estimate.
+The key scientific outputs of this subtask are the per-building duration brackets and peak depths for both events, together with per-scene wet/dry classification error rates; once Subtask~1.2 delivers $\hat{\tau}_k$ estimates, comparing mass balance predictions against the 2023 brackets calibrates the building-scale error variance $\sigma_{\mathrm{MB}}^2$ of the GIS-parameterized model in Subtask~1.3.
 Open Sentinel-1 imagery will also be processed for both events to provide broader flood-extent context; its ~10\,m resolution is too coarse to resolve individual buildings in the downtown core, so it supports interpretation and cross-checking of the ICEYE-derived building classifications rather than feeding the building-level likelihood directly.
 
 \textbf{Subtask 1.2: GIS-Parameterizable Mass Balance Model (lead: Busse).}
@@ -608,15 +612,21 @@ gauge ID and access to standard national GIS layers can parameterize it without
 field data collection.
 Inundation duration at building $i$ in sub-basin $k$ is modeled as:
 \begin{equation}
-  T_i \sim \operatorname{LogNormal}(\mu_i,\; \sigma^2)
+  T_i \sim \operatorname{LogNormal}(\mu_i,\; \sigma_{\mathrm{MB}}^2)
 \end{equation}
 where the log-scale prior mean is:
 \begin{equation}
   \mu_i \;=\; \log \hat{\tau}_k \;+\; \delta_i^{\mathrm{comm}}
 \end{equation}
 $\hat{\tau}_k$ is the mass balance drainage timescale for sub-basin $k$ and
-$\sigma^2$ captures residual local drainage uncertainty quantified from historical
-Winooski gauge variability.
+$\sigma_{\mathrm{MB}}^2$ is the building-scale error variance of the
+GIS-parameterized mass balance: it absorbs both residual local drainage
+variability and the model's systematic limitations at building scale, so that
+all model error lives on the prior side of the framework rather than being
+attributed to the sensing data.
+$\sigma_{\mathrm{MB}}^2$ is pre-estimated from historical Winooski gauge
+variability and then calibrated against the 2023 SAR duration observations in
+Subtask~1.3.
 Subtask~1.2 delivers the GIS-only prior: setting $\delta_i^{\mathrm{comm}} = 0$
 gives the baseline model parameterized entirely from national GIS layers, which
 constitutes both the operational system for transfer communities and the comparison
@@ -637,51 +647,63 @@ produce appropriately wider credible intervals on predicted duration.
 
 \textbf{Subtask 1.3: Bayesian Fusion Framework (leads: Napolitano, Wauthier,
 and Busse).}
-The Bayesian fusion framework integrates the mass balance prior from Subtask~1.2
-with the ICEYE-calibrated likelihood from Subtask~1.1 to produce posterior duration
-distributions at each building.
-The likelihood characterizes the empirical error between mass balance predictions
-and ICEYE ground truth on the log scale, learned from the 2023 calibration event:
+The Bayesian framework rests on two information sources with two distinct error
+structures: the mass balance model, whose building-scale prediction error is
+carried by the prior variance $\sigma_{\mathrm{MB}}^2$, and the SAR observations,
+whose uncertainty is a sampling property of the acquisition schedule rather than
+an instrument noise floor.
+A building's inundation duration is never observed directly: each SAR overpass
+records only whether the building is inundated at that instant, so the
+observations constrain the true duration to a bracket,
 \begin{equation}
-  \log T_i^{\mathrm{ICEYE}} \mid T_i \;\sim\;
-    \mathcal{N}\!\left(\log T_i,\; \sigma_{\mathrm{error}}^2\right)
+  T_i \;\in\; [L_i,\; U_i]
 \end{equation}
-where $\sigma_{\mathrm{error}}^2$ is the variance of log-scale mass balance prediction
-errors, estimated from the 2023 scatter of $\log\hat{\tau}_k$ versus
-$\log T_i^{\mathrm{ICEYE}}$ across all 271 buildings; working on the log scale
-maintains dimensional consistency with the LogNormal prior and ensures all duration
-quantities remain strictly positive.
-$\sigma^2$ and $\sigma_{\mathrm{error}}^2$ are separately identifiable: $\sigma^2$
-is pre-estimated from historical Winooski gauge variability independently of the
-271-building calibration dataset, while $\sigma_{\mathrm{error}}^2$ is estimated
-from the 2023 ICEYE scatter; the two sources are therefore distinct.
-Because both the prior and likelihood are Gaussian on the log scale, the posterior
-is conjugate and exact: $T_i \mid \log T_i^{\mathrm{ICEYE}} \sim
-\operatorname{LogNormal}(\mu_i^*,\; \sigma^{*2})$, where:
+where $L_i$ is the elapsed time to the last overpass at which building $i$ is
+observed inundated and $U_i$ the elapsed time to the first overpass at which it
+is observed dry; the bracket width is the revisit spacing of the acquired scenes.
+The likelihood of the observed wet/dry sequence is the prior probability mass on
+the bracket,
+$\Phi\!\left(\tfrac{\ln U_i - \mu_i}{\sigma_{\mathrm{MB}}}\right) -
+ \Phi\!\left(\tfrac{\ln L_i - \mu_i}{\sigma_{\mathrm{MB}}}\right)$,
+and the posterior is the prior truncated to it:
 \begin{equation}
-  \sigma^{*2} \;=\; \left(\frac{1}{\sigma^2} + \frac{1}{\sigma_{\mathrm{error}}^2}
-    \right)^{-1}, \qquad
-  \mu_i^* \;=\; \sigma^{*2}\!\left(\frac{\mu_i}{\sigma^2}
-    + \frac{\log T_i^{\mathrm{ICEYE}}}{\sigma_{\mathrm{error}}^2}\right)
+  T_i \mid [L_i, U_i] \;\sim\;
+  \operatorname{LogNormal}(\mu_i,\; \sigma_{\mathrm{MB}}^2)
+  \ \text{truncated to}\ [L_i,\; U_i]
 \end{equation}
-The posterior mean is a precision-weighted average of the prior mean and the
-log-scale SAR observations; buildings in sub-basins where the mass balance has
-larger error receive smaller weight on the prior and larger weight on the
-observation, and the posterior variance $\sigma^{*2}$ is always narrower than
-either variance alone.
+This interval-censored formulation treats the sensing layer honestly: with a
+dense acquisition sequence the brackets are hours wide and the posterior is
+sharply localized; with sparse acquisitions the brackets widen and the SAR data
+constrain the posterior only weakly.
+Nothing in the framework requires commercial SAR to be treated as exact ground
+truth, and the same formulation accepts brackets of any width, so the framework
+is robust to whatever acquisition cadence a given event actually received;
+per-scene wet/dry classification error, characterized by PI Wauthier in
+Subtask~1.1, can be incorporated by softening the truncation boundaries without
+changing the structure.
+$\sigma_{\mathrm{MB}}^2$ is calibrated on the 2023 event by maximum likelihood
+over the 271 interval-censored observations with the GIS-only prior
+($\delta_i^{\mathrm{comm}} = 0$), standard machinery from survival analysis;
+working on the log scale maintains dimensional consistency with the LogNormal
+prior and keeps all duration quantities strictly positive.
+Within this framework, the fusion that defines the cyber layer is between the
+physically grounded mass balance prior and the community knowledge adjustments
+$\delta_i^{\mathrm{comm}}$ of Equation~(2); the SAR brackets calibrate the error
+model on 2023 and adjudicate between prior variants on 2024, but the operational
+system never depends on them.
 Posteriors are computed independently per building; this is a simplification of
 the within-sub-basin spatial correlation of inundation durations, and its practical
 consequence is that portfolio-level uncertainty across neighboring buildings in the
 same sub-basin may be marginally underestimated; for the retrofit ranking decisions
 this proposal targets, priority rankings are robust to this approximation.
 For operational deployment without SAR imagery, the predictive distribution is
-$T_i \sim \operatorname{LogNormal}(\mu_i,\; \sigma^2 + \sigma_{\mathrm{error}}^2)$,
-combining prior uncertainty and calibrated mass balance error into a single honest
-predictive variance; this wider distribution reflects the full uncertainty of the
-system when operating on free data alone.
+the prior itself, $T_i \sim \operatorname{LogNormal}(\mu_i,\;
+\sigma_{\mathrm{MB}}^2)$, whose calibrated variance carries the full
+building-scale error of the GIS-parameterized system; this is the honest
+predictive uncertainty of the system when operating on free data alone.
 The 2024 Montpelier event is the held-out test: the calibrated framework, with
 all parameters fixed from 2023, is applied to 2024 gauge and NOAA forecast data
-and compared against independently collected ICEYE 2024 measurements.
+and scored against the independently acquired 2024 SAR duration brackets.
 
 \textbf{Subtask 1.4: Duration-Dependent Fragility Surface Development
 (lead: Napolitano).}
@@ -724,8 +746,7 @@ two-component design mitigates this identification problem by anchoring
 $\lambda_0$ and $\gamma$ to the physical component's material-science-derived
 functional form rather than fitting them from the correlated observations alone.
 % becca/napolitano: confirm the identification-strategy specifics before submission -- is a variance inflation factor (VIF) check on the 2023 duration-depth relationship the right diagnostic to report alongside the bivariate-vs-depth-only comparison? Given the 271 buildings are geographically clustered within one downtown core rather than independently sampled, should the comparison use cluster-robust standard errors instead of treating buildings as independent observations? Both are common approaches but need Napolitano's sign-off, not a default insertion.
-The posterior $T_i \mid \log T_i^{\mathrm{ICEYE}} \sim
-\operatorname{LogNormal}(\mu_i^*, \sigma^{*2})$ from Subtask~1.3 propagates through
+The posterior duration distribution from Subtask~1.3 (Equation~(4)) propagates through
 Equation~(5) by Monte Carlo integration, producing a building-specific damage state
 probability distribution that carries the full inferential uncertainty of the mass
 balance and likelihood into the decision layer.
@@ -765,7 +786,8 @@ quality and what actionable lead time the system can reliably provide.
 
 \textbf{Key outcomes:} RO1 produces three primary scientific outputs: a validated
 Bayesian framework fusing a GIS-parameterizable mass balance model with community
-knowledge priors and an ICEYE-calibrated likelihood, with characterized
+knowledge priors and an error model calibrated on interval-censored ICEYE
+observations, with characterized
 decision-adequacy across all three operational modes (Subtask~1.5); the first
 empirically derived, duration-dependent fragility surfaces for pre-code
 load-bearing masonry archetypes, calibrated on 271 buildings from the 2023
@@ -1017,7 +1039,7 @@ imagery does not close this gap, since its coarser resolution cannot support
 building-level calibration, so credible intervals remain at the transferred
 default width regardless of whether open SAR imagery is available locally.
 The expected interval widths,
-derived from the $\sigma_{\mathrm{error}}^2$ characterization in Subtask~1.1, are
+derived from the $\sigma_{\mathrm{MB}}^2$ characterization in Subtask~1.3, are
 reported as part of the protocol documentation so communities can assess
 decision-adequacy before committing to adoption, and intervals narrow with each
 community observation cycle.
