@@ -130,3 +130,25 @@ All ten concerns plus the nits in `adversarialReview.md` are now addressed in th
 - Review 5 residual / item 4: Christelle/Young scene list still pending; determines bracket widths and prelim cadence language.
 - 20% elicitation KPI rate and the ten-to-twenty sub-basin count are PI-judgment numbers inserted today; Becca should sanity-check both (sub-basin count is also flagged to Maggie implicitly via her Subtask 1.2 comment block).
 - Known-incomplete list unchanged: field damage subsection, Prior NSF stub (Napolitano), PhD counts, CPS/Gantt/photo figures, RMSE threshold sensitivity analysis.
+
+## Session 2026-07-22 (late): sensitivity studies on the two PI-judgment numbers
+
+Becca asked for pythonic sensitivity studies on the two judgment calls inserted during the adversarial-review pass. Both ran as seeded, reproducible scripts in analysis/ (run commands in each script header; note `uv run --with ...` is required, system pythons lack packages, and subbasin needs numpy<2 for pysheds).
+
+### Sub-basin count (analysis/subbasin_sensitivity.py, .md, .png)
+- D8 delineation on the 3DEP DEM swept from K=3 to K=106 sub-basins; 176 OSM-proxy flood-exposed buildings (order-of-magnitude proxy for the curated 271).
+- Raw groupwise R2 is mechanically inflated as K grows, so the study uses a permutation-null-corrected gap (verified against the exact analytic E[R2]=(k-1)/(n-1) to within 0.004).
+- Verdict: **ten-to-twenty holds**; the null-corrected gap is flat (~0.65-0.69) across K=3-22 and declines steadily to 0.32 by K=106, so the claimed range sits inside the information plateau and finer partitioning adds parameters, not signal.
+- Correction adopted in the tex: "each containing tens of buildings" was wrong; counts are strongly skewed (one ~60-building main-corridor sub-basin, many single-digit tributary basins). Subtask 1.2 now says so and cites the archived sensitivity analysis.
+- Caveats: terrain-depth proxy (not a drainage-timescale simulation); OSM building set; 2m DEM (1m returned HTTP 500 at the enlarged bbox); permutation null is non-contiguous, so the gap partly reflects generic spatial autocorrelation (does not affect the granularity claim).
+
+### Elicitation KPI rate (analysis/elicitation_power.py, .md, .png, 3 csv grids)
+- Monte Carlo power study of the Subtask 2.3 community-vs-GIS comparison: 271 buildings, 15 skewed clusters, interval-censored scoring, cluster bootstrap; sweeps p_elicit x bracket width x sigma_MB x elicitation quality q.
+- Verdict: **20% is defensible but not lavish**: ~70% power centrally (62-77% across cadence); 30% clears 80%. The aggregate test used is stricter than the proposal's literal "at least one sub-group" KPI, so these are conservative.
+- The vacuity check validates the KPI restatement: at q<=0.5 (elicited volume mostly wrong), power sits at the false-positive floor at every rate up to 50%, and the community prior is on average worse than GIS-only. Mechanism attribution is load-bearing, exactly as the restated KPI claims.
+- Structural fragilities worth knowing: power collapses when p_elicit approaches 2x the true anomaly prevalence (correct and spurious calls balance out), and sparse cadence (weekly brackets) or sigma_MB=0.8 pulls 20% down to 43-62%.
+- Tex updated: Subtask 2.3 now cites the archived power study (70-80% power at 20-30% mechanism-attributed rates, cadence dependence, volume-without-quality contributes nothing).
+
+### For Becca
+- If she wants more headroom on the KPI, moving 20% to 25-30% buys real power under the central assumptions; left at 20% since the sub-group KPI it feeds is less strict than the simulated aggregate test.
+- The one-dominant-sub-basin skew also means cluster-robust inference at sub-basin level leans on ~15 clusters with one heavy one; consistent with the 1.4/1.5 text as written, but worth a look from Napolitano's stats side before submission.

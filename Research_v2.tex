@@ -725,7 +725,12 @@ gauge ID and access to standard national GIS layers can parameterize it without
 field data collection.
 Sub-basins are delineated from 3DEP flow paths at the scale where storage and
 conveyance properties are resolvable from national layers, on the order of ten to
-twenty sub-basins across the flood-exposed core, each containing tens of buildings;
+twenty sub-basins across the flood-exposed core; a terrain-partition sensitivity
+analysis archived with the project repository indicates this granularity sits
+inside the plateau where finer partitioning adds degrees of freedom without
+adding explained building-level variation.
+Building counts per sub-basin are strongly skewed, from a dominant main-corridor
+sub-basin holding tens of buildings down to single-building tributary sub-basins;
 the model is deliberately lumped at this scale, and per-building variation within a
 sub-basin is carried by the community adjustment $\delta_i^{\mathrm{comm}}$ and the
 error variance rather than by finer hydraulics.
@@ -1189,6 +1194,14 @@ can resolve: an adjustment smaller than the bracket width for a given building
 cannot be adjudicated by that event's acquisition sequence, and the reported
 characterization states explicitly, per sub-group, what magnitude of
 $\delta_i^{\mathrm{comm}}$ effect the available cadence can detect.
+A pre-submission simulation power study (archived with the project repository)
+supports the design targets: under central assumptions the aggregate
+community-versus-GIS comparison reaches roughly 70 to 80 percent power at
+mechanism-attributed elicitation rates of 20 to 30 percent of the 271 buildings,
+power degrades with sparse acquisition cadence exactly as the bracket-width
+bound predicts, and elicited volume without mechanism quality contributes no
+power at any rate, confirming that the mechanism-attribution requirement in
+Subtask~2.1, not raw elicitation coverage, is what makes RQ2 testable.
 Cases where community knowledge and mass balance predictions conflict and community
 knowledge proves correct are the most scientifically informative outcomes; they
 identify where GIS cannot see the infrastructure conditions that drive local

@@ -1,0 +1,2 @@
+p_elicit,w_hours,sigma_mb,q,p_true,n_reps,power,mean_point_estimate,frac_capped
+0.2,72,0.5,0.8,0.1,500,0.032,-0.0018872726913576208,0.0
