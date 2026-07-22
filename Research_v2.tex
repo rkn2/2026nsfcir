@@ -108,11 +108,13 @@ Across the northeastern United States and Appalachian corridor, thousands of tow
 share this profile: riverine flood exposure with multi-day inundation durations,
 dense historic cores of load-bearing masonry and timber construction built before
 modern building codes, and institutional capacity below the threshold required for
-hydrodynamic simulation \cite{placeholder_nfip}.
-FEMA's National Flood Insurance Program enrolls over 22,000 communities nationwide;
+hydrodynamic simulation \cite{smith2013statecapacity,horney2012ruralstatus}.
+FEMA's National Flood Insurance Program enrolls over 22,000 communities nationwide
+\cite{horn2024nfip};
 the subset in this region with significant pre-1940 building stock, no sustained
 in-house hydraulic modeling capacity, and a history of repeated riverine flooding
-numbers in the thousands \cite{placeholder_acs}.
+numbers in the thousands; in Vermont alone, over a quarter of the housing stock
+predates 1939 \cite{census2017b25034,vhfa2020housingneeds}.
 For these communities, every flood event surfaces the same unresolved question:
 where do limited retrofit dollars belong?
 
@@ -424,13 +426,15 @@ hardening on the same probabilistic basis for a municipality facing a constraine
 allocation decision.
 Federal frameworks address adjacent pieces of this problem in isolation, the FEMA
 benefit-cost analysis toolkit supports cost-effectiveness evaluation of individual
-mitigation projects against grant criteria \cite{placeholder_fema_bca}; the NIST
+mitigation projects against grant criteria \cite{fema2019bcatoolkit}; the NIST
 Community Resilience Planning Guide provides a community-level framework for
-resilience-focused capital planning \cite{placeholder_nist_crhp}; federal hazard
+resilience-focused capital planning \cite{mcallister2015nist1190v1,mcallister2015nist1190v2}; federal hazard
 mitigation grant programs govern community-scale drainage and structural mitigation
 investments without connecting those investments to building damage probabilities
-\cite{placeholder_fema_hmgp}.
-% becca: do you want to cite FEMA P-2055 here? Note that P-2055 is a rapid post-disaster occupancy safety evaluation guide, not a retrofit decision framework -- it may be the wrong reference!!!!!should it be FEMA P-2078 (Flood Hazard Mitigation Handbook) or FEMA Hazard Mitigation Assistance guidance instead. Also: IBHS Fortified is a construction standard not adecision framework remember!!; if you want to reference it, the physical layer or broader impacts discussion is a better fit than here. otherthings you can look at becca: FEMA P-2078, FEMA HMA guidance, or a review paper on community flood mitigation decision-making.
+\cite{fema2023hmaguide}; and FEMA's flood retrofit guidance addresses
+building-by-building protective measures without a community-scale decision
+framework \cite{fema2014p312,fema2012p259}.
+% resolved 2026-07-22: P-2055 and P-2078 both dropped. Verified: P-2078 is a seismic response-spectra document, not a flood handbook. P-312 (homeowner retrofit guide) and P-259 (engineering retrofit practices) are the correct FEMA flood retrofit citations and are now in the sentence above. IBHS Fortified left out per the original note. HMA guide cited as the 2023 edition; a v2.1 took effect Jan 2025, so update to the version current at submission.
 None couples drainage investment outcomes to building damage probabilities through
 a physical model of the affected building stock, and none allows community-scale
 drainage investment and distributed building hardening to be compared on the same
@@ -438,8 +442,10 @@ probabilistic basis.
 None is designed for small municipalities with limited institutional capacity and
 no sustained technical staff; NIST SP~1310 explicitly acknowledges this limitation
 and calls for simplified analogs appropriate to smaller organizations
-\cite[Sec.~6.1.3]{davis2024nist}.
-% becca: add 1-2 papers documenting the institutional capacity gap for small municipalities in flood mitigation decision-making, if available.
+\cite[Sec.~6.1.3]{davis2024nist}, and the hazard mitigation planning literature
+documents that plan quality and implementation capacity fall systematically with
+municipal size and rural status
+\cite{smith2013statecapacity,horney2012ruralstatus,smith2026ruralcapacity}.
 The fragility gap identified in the preceding subsection propagates directly into
 these decision frameworks: none addresses pre-code load-bearing masonry or
 duration-dependent damage states, because no such fragility surfaces exist to
@@ -553,8 +559,59 @@ is held out and not used in any model fitting.}
 \subsection{Preliminary results: field damage assessment, Montpelier 2023}
 % becca: describe the 2023 field campaign: when it was conducted, the damage state taxonomy (number of states, definitions), methodology for damage state assignment in the field, and the distribution of 271 buildings across damage states. A bar chart of damage state counts and a map of damage state by building footprint would be the strongest figures here.
 
-\subsection{Preliminary results: Winooski mass balance model}
-% maggie: describe any preliminary mass balance results for the Winooski watershed that we could cook up: online told me that maybe this would be good but idk what any of this is so its your call--> sub-basin delineation, estimated drainage timescales from the 2023 or 2024 events, comparison of mass balance predictions against USGS gauge records. Order-of-magnitude drainage timescale estimates and a sub-basin map 
+\subsection{Preliminary results: Winooski watershed drainage timescale}
+To establish that the drainage timescale at the center of the mass balance model
+is recoverable from free gauge data at the order of magnitude the fragility layer
+requires, we performed a recession analysis of USGS gauge 04286000 (Winooski River
+at Montpelier; drainage area 397\,mi\textsuperscript{2}) for both study events,
+using 15-minute instantaneous discharge records (Fig.~\ref{fig:recession}).
+The July 2023 event peaked at 23{,}100\,cfs (stage 21.3\,ft, more than 6\,ft above
+the NWS minor flood stage of 15\,ft); fitting an exponential recession
+$Q(t) = Q_p\, e^{-t/\tau}$ to the first 60 hours of the falling limb yields
+$\tau = 37$\,h with $R^2 = 0.91$ on the log-linear fit.
+The July 2024 event peaked at 11{,}900\,cfs and yields $\tau = 45$\,h with
+$R^2 = 0.96$.
+Three observations from this analysis anchor the research plan.
+First, the watershed-scale drainage timescale is stable across the two events
+(37 and 45 hours) at the day-to-multi-day order over which duration-governed
+masonry degradation operates, and it is recoverable from the gauge record alone;
+this is the quantity Subtask~1.2 disaggregates to sub-basin scale using storage
+and conveyance properties from national GIS layers.
+Second, the 2023 recession departs from a single exponential beyond roughly
+60 hours (extending the fit window to the full falling limb degrades $R^2$ to
+0.73), consistent with a transition from channel drainage to slower storage
+release; local drainage of standing water in low-lying sub-basins outlasts the
+river recession, which is precisely the behavior that motivates sub-basin
+$\hat{\tau}_k$ estimates rather than a single watershed constant.
+Third, the two events differ in peak magnitude by nearly a factor of two, and the
+2024 peak stage of 14.5\,ft remained below the gauge's minor flood stage even as
+low-lying downtown parcels took water; the 2023-calibrated, 2024-validated design
+therefore tests transfer across event magnitudes rather than replication of a
+single event size.
+Discharge remained above twice pre-event baseflow for roughly 19 days in 2023 and
+10 days in 2024, reflecting the sustained wet regime of both months; these gauge
+durations bound the window within which building-level standing water drained and
+are consistent with the multi-day inundation persistence that defines the
+framework's scope conditions.
+The analysis script and gauge records are archived with the project repository
+for reproducibility; discharge values are USGS provisional.
+% maggie: this is a first-pass PI recession analysis (script in analysis/winooski_recession.py) so you have real numbers to build from. Your call on: sub-basin delineation and a sub-basin map, the functional form for tau_k_hat, and whether to redo the fit with your preferred recession method. Replace or extend freely; the figure regenerates from the script.
+
+\begin{figure}[h]
+\vspace{-0.2cm}
+\centering
+\includegraphics[width=\textwidth]{images/winooski_recession.pdf}
+\captionsetup{font=small}
+\vspace{-0.5cm}
+\caption{Recession analysis of USGS gauge 04286000 (Winooski River at
+Montpelier) for the July 2023 (left) and July 2024 (right) flood events,
+from 15-minute instantaneous discharge records. Dashed lines show exponential
+recession fits over the shaded 60-hour windows, yielding watershed drainage
+timescales of $\tau = 37$\,h ($R^2 = 0.91$) and $\tau = 45$\,h
+($R^2 = 0.96$) respectively.}
+\label{fig:recession}
+\vspace{-0.3cm}
+\end{figure}
 
 % ============================================================
 %  RESEARCH PLAN
@@ -612,7 +669,8 @@ Montpelier, estimating the drainage timescale $\hat{\tau}_k$ for each building-s
 sub-basin from nationally available GIS layers: watershed delineation and contributing
 area from USGS 3DEP and NHD StreamStats, effective impervious fraction from NLCD,
 soil infiltration rates from SSURGO, and real-time discharge from USGS station
-04288000.
+04286000.
+% corrected 2026-07-22: the tex previously said 04288000, which is the Mad River near Moretown; 04286000 is the Winooski River at Montpelier (verified against the USGS NWIS site record).
 The drainage timescale $\hat{\tau}_k$ represents the expected duration of standing
 water under gravitational drainage and serves as the physically grounded prior mean
 on inundation duration; the model is designed so that any municipality with a USGS
@@ -846,8 +904,11 @@ Building owners participate as primary knowledge sources throughout, not merely 
 recipients of decision outputs: their direct observations of which structures held
 water longest, which basement entries backed up, and which drainage paths ran clear
 constitute the granular building-level knowledge that GIS cannot capture and that
-drives the $\delta_i^{\mathrm{comm}}$ adjustments in Equation~(2).
-% becca: find 2-3 NSF SCC papers establishing that individuals closest to the problem produce the most actionable knowledge for community technology co-design. The gun violence reduction project (UIUC/City of Champaign, NSF SCC) found that working with youth directly affected by violence, rather than only government stakeholders,  fundamentally changed what the tool needed to do. Similar pattern in the STEM ports  project (rural Maine, NSF SCC): community organizations closest to learners redirected the content focus entirely. Cite 2-3 SCC papers on this from that youtube channel.
+drives the $\delta_i^{\mathrm{comm}}$ adjustments in Equation~(2); community-engaged
+flood modeling research likewise finds that tools succeed when anchored in local
+experiential knowledge and that stakeholder observations should trigger review of
+model assumptions \cite{skilton2022dontwant,habib2026sustaining}.
+% resolved with a caveat 2026-07-22: the Champaign gun-violence SCC project (#2125389) has no peer-reviewed publication yet (manuscript was in preparation per its 2023 NSF report) and the Maine STEM project is AISL-funded, so neither is citable here. Cited instead: Skilton 2022 (SCC #2125472) and Habib 2026 (same team's EPSCoR-funded follow-on, #2418434), which directly support local-knowledge-as-model-input.
 
 \textit{Year~1} workshops begin with a demonstration phase before any knowledge
 elicitation.
@@ -862,12 +923,14 @@ what partners know from direct experience; this demonstration-first structure is
 designed to earn the trust required for meaningful knowledge elicitation, and the
 co-development of the full interface in Subtask~2.2 begins from this baseline
 in the same Year~1 workshops.
-NSF SCC-funded community technology projects have consistently documented that
-communities with repeated exposure to tools that promised to help but required ongoing
-effort develop skepticism toward new technical systems; addressing that skepticism
+Community-engaged flood technology research has documented that residents of
+repeatedly flooded communities approach new technical tools with skepticism
+shaped by prior tools that promised help but required ongoing effort, and that
+tool perceptions must be surfaced and addressed before engagement deepens;
+addressing that skepticism
 before asking for knowledge commitments is a necessary precondition for genuine
-co-development \cite{placeholder_scc_trust}.
-% becca: find 2-3 NSF SCC papers documenting technology fatigue and trust-building in community technology adoption. The nutrient management project (Purdue/Illinois Farm Bureau, NSF SCC) found farmers skeptical of "yet another technology" due to  fatigue from prior tools; focus groups revealed this before the team could proceed. The STEM ports project (rural Maine, NSF SCC) found initial partner resistance to  technology in outdoor learning spaces, overcome only after demonstrating that the  tool enhanced rather than replaced existing practice. Cite these and 1-2 others.
+co-development \cite{skilton2022dontwant,habib2023anchoring}.
+% resolved with a caveat 2026-07-22: verified there is NO peer-reviewed NSF SCC paper for the technology-fatigue claim as originally framed (the Purdue nutrient project's SCC award #2125626 has only agronomy outputs; the Maine STEM project is AISL-funded, not SCC; the on-topic Gardezi 2023 trust paper is FW-HTF-funded). Sentence reworded from "NSF SCC-funded projects" to "community-engaged flood technology research" and cited to the Lafayette Parish SCC project's papers (award #2125472), which document tool skepticism/perception barriers in a flood context.
 
 Following the demonstration phase, Year~1 surfaces locally held knowledge about which
 buildings held water longest, which drainage routes are historically slow, and which
@@ -924,11 +987,11 @@ The decision interface co-developed with community partners supports three opera
 modes without requiring any knowledge of mass balance hydrology or Bayesian inference.
 Each mode produces two output tiers designed for distinct audiences, a design principle
 supported by both NSF SCC-funded community decision support research
-\cite{placeholder_scc_twotier} and federal guidance: NIST SP~1310 explicitly identifies
+\cite{skilton2022dontwant,habib2023anchoring} and federal guidance: NIST SP~1310 explicitly identifies
 the need for guidance that translates complex infrastructure assessments into simpler
 terms for decisionmakers and stakeholders who lack the technical background to interpret
 them directly \cite[Sec.~6.1.7.4]{davis2024nist}.
-% becca: find 2-3 NSF SCC papers documenting the need for two-tier output design in community technology systems. The human-AI teaming for flood evacuation project  (Clemson/South Carolina, NSF SCC) explicitly found that community members wanted simple binary guidance ("should I evacuate?") while emergency managers wanted technical predictive intelligence with enough depth to brief their superiors.  The Lafayette Parish flood engagement project (NSF SCC) found that simply  providing flood risk information in innovative ways was not enough without also designing for different communication needs across stakeholder groups. Cite these and 1-2 additional SCC papers on differentiated output design.
+% resolved 2026-07-22: both cites are from the Lafayette Parish SCC planning grant (#2125472); Habib 2023 explicitly recommends "at least two classes of hydroinformatic tools," a simplified public tier and an advanced tier for emergency responders, which is exactly this design principle. The Clemson human-AI evacuation candidate produced no verifiable SCC-attributed paper for this claim, so it is not cited.
 The \textit{technical tier} presents probabilistic damage state distributions,
 credible intervals on duration estimates, ranked retrofit lists, and what-if
 simulation outputs for emergency managers and planning commission staff who brief
@@ -1127,6 +1190,7 @@ A new community needs a gauge ID, standard GIS access, and one community worksho
 to elicit local drainage knowledge; no commercial SAR purchase, no hydrologist, and no
 hydraulic model is required.
 % becca: quantify the transferable community count using FEMA NFIP enrollment data (riverine flood communities), ACS table B25035 (pre-1940 housing stock),   USGS NWIS (gauge coverage), and FEMA DFIRM (communities without hydraulic   models). Convert the implied "thousands of towns" claim into a bounded, citable estimate.
+% note 2026-07-22: the citable inputs are now in biblio.bib: horn2024nfip (22,000+ NFIP communities), census2017b25034 (B25034 year-built), vhfa2020housingneeds (25.7 percent of VT stock pre-1939). The bounded estimate itself still needs the cross-tabulation.
 
 Emergency managers, historic preservation officials, and planning commission staff
 gain structured capacity to interpret probabilistic damage assessments, use forecast
