@@ -66,7 +66,7 @@ the \textbf{physical layer} (pre-code load-bearing masonry and timber structures
 absent from existing fragility frameworks);
 the \textbf{sensing layer} (USGS stream gauges and NOAA precipitation for operational
 use, with ICEYE commercial Synthetic Aperture Radar (SAR) providing building-level inundation duration and depth for one-time model calibration, and open Sentinel-1 SAR providing broader flood-extent context);
-the \textbf{cyber layer} (a Bayesian framework fusing a GIS-parameterizable hydrological
+the \textbf{cyber layer} (a Bayesian uncertainty-quantification framework fusing a GIS-parameterizable hydrological
 mass balance model with community-elicited priors on inundation duration, alongside a
 gauge-stage-to-terrain projection supplying building-level depth); and
 the \textbf{decision layer} (a co-developed three-mode interface supporting retrofit
@@ -655,7 +655,7 @@ knowledge elicitation (Napolitano), three-mode decision interface co-development
 (Napolitano), comparative assessment of community knowledge contribution (all
 PIs), and closed-loop validation and protocol transfer (all PIs).
 
-The CPS loop in this system deliberately closes at three distinct timescales rather
+This CPS's dynamics, estimation, and control close at three distinct timescales rather
 than through continuous automated actuation: hours before a flood peak, when
 pre-storm mode converts NOAA forecasts into staging decisions; per event, when
 post-event observations update the community priors and the error model; and years,
@@ -807,8 +807,10 @@ produce appropriately wider credible intervals on predicted duration.
 
 \textbf{Subtask 1.3: Bayesian Fusion Framework (leads: Napolitano, Wauthier,
 and Busse).}
-The Bayesian framework rests on two information sources with two distinct error
-structures: the mass balance model, whose building-scale prediction error is
+Subtask~1.3 formulates building-level inundation duration as a state-estimation
+problem, recovering a latent physical quantity from two information sources with
+two distinct error structures: the mass balance model, whose building-scale
+prediction error is
 carried by the prior variance $\sigma_{\mathrm{MB}}^2$, and the SAR observations,
 whose uncertainty is a sampling property of the acquisition schedule rather than
 an instrument noise floor.
