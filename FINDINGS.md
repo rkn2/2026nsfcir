@@ -196,3 +196,9 @@ Also: cameron2008bootstrap added to root biblio.bib (verified); historical_tau.m
 - PDF is now 28 pages (was 26); the fixes cost ~1.5 body pages. The 15-page cut pass is still pending and now has to absorb this too.
 - q (Kalman step variance) is committed as a swept design hyperparameter, only coarsely bounded by a 2023-2024 pair; if Napolitano prefers a fixed q, the delta_filter study shows mismatch is benign (no cliff, always at/below fixed-gain RMSE).
 - Blockers unchanged: Christelle/Young scene list, 2024 field damage distribution, Prior NSF stub, PhD counts, CPS/Gantt figures, summary.tex rewrite.
+
+## Session 2026-07-23 (evening): page-cut round 1 executed
+
+Plan and decisions in pageCutPlan.md (committed). Becca's calls: skip Tier 3 (reviewer-facing defenses stay), Table 1 cells compressed in place, goals box + contributions compressed, vt.pdf photo kept, both img.jpg placeholder figures (precode photo, Gantt) removed. ~60 cuts applied via Sonnet executor agents from Opus/Sonnet scout lists; Opus diff review found one broken seam (restored lead-in sentence); all protected content verified intact (12 equations, 24 percent-comments, archived-study numbers, math-review fixes).
+
+**Body: 23.3 -> 20.0 pages against the 15-page limit.** Scout estimates overpredicted ~2x. The remaining ~5 pages need PI-level content decisions (see pageCutPlan.md "Remaining gap" for the ranked levers; the summary table is the largest single object left).

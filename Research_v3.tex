@@ -64,16 +64,17 @@
 Small, repeatedly-flooded municipalities with pre-code building stock have no
 engineering tool to evaluate whether community-scale drainage investment or distributed
 building hardening better reduces flood damage.
-Here, we propose a closed-loop cyber-physical system (CPS) organized around the following four coupled layers:
+Here, we propose a closed-loop cyber-physical system (CPS) with four coupled layers:
 the \textbf{physical layer} (pre-code load-bearing masonry and timber structures,
 absent from existing fragility frameworks);
-the \textbf{sensing layer} (USGS stream gauges and NOAA precipitation for operational
-use, with ICEYE commercial Synthetic Aperture Radar (SAR) providing building-level inundation duration and depth for one-time model calibration, and open Sentinel-1 SAR providing broader flood-extent context);
-the \textbf{cyber layer} (a Bayesian uncertainty-quantification framework fusing a GIS-parameterizable hydrological
-mass balance model with community-elicited priors on inundation duration, alongside a
-gauge-stage-to-terrain projection supplying building-level depth); and
-the \textbf{decision layer} (a co-developed three-mode interface supporting retrofit
-planning, pre-storm resource staging, and post-event model updating).
+the \textbf{sensing layer} (USGS gauges and NOAA precipitation operationally,
+ICEYE commercial Synthetic Aperture Radar (SAR) for one-time building-level
+duration and depth calibration, open Sentinel-1 SAR for flood-extent context);
+the \textbf{cyber layer} (a Bayesian uncertainty-quantification framework fusing a
+GIS-parameterizable mass balance model with community-elicited duration priors,
+plus a gauge-stage-to-terrain projection for building-level depth); and
+the \textbf{decision layer} (a co-developed three-mode interface for retrofit
+planning, pre-storm staging, and post-event updating).
 \textbf{RQ1} (Napolitano, Wauthier, and Busse) asks whether this CPS provides
 decision-adequate probabilistic flood damage assessments for small municipalities
 with pre-code building stock, enabling evaluation of building-specific hardening
@@ -109,26 +110,24 @@ Small, aging communities at the confluence of riverine flood hazard and pre-code
 building stock face a resilience challenge that no existing engineering framework
 is designed to address.
 Across the northeastern United States and Appalachian corridor, thousands of towns
-share this profile: riverine flood exposure with multi-day inundation durations,
-dense historic cores of load-bearing masonry and timber construction built before
-modern building codes, and institutional capacity below the threshold required for
-hydrodynamic simulation \cite{smith2013statecapacity,horney2012ruralstatus}.
-FEMA's National Flood Insurance Program enrolls over 22,000 communities nationwide
-\cite{horn2024nfip};
-the subset in this region with significant pre-1940 building stock, no sustained
-in-house hydraulic modeling capacity, and a history of repeated riverine flooding
-numbers in the thousands; in Vermont alone, over a quarter of the housing stock
-predates 1939 \cite{census2017b25034,vhfa2020housingneeds}.
+share this profile: multi-day riverine flood exposure, pre-code load-bearing masonry
+and timber cores, and institutional capacity below the threshold for hydrodynamic
+simulation \cite{smith2013statecapacity,horney2012ruralstatus}.
+Of the more than 22,000 communities FEMA's National Flood Insurance Program enrolls
+nationwide \cite{horn2024nfip}, thousands in this region combine significant
+pre-1940 building stock, no in-house hydraulic modeling capacity, and repeated
+riverine flooding; in Vermont alone, over a quarter of the housing stock predates
+1939 \cite{census2017b25034,vhfa2020housingneeds}.
 For these communities, every flood event surfaces the same unresolved question:
 where do limited retrofit dollars belong?
 
 That question splits into two decisions existing frameworks cannot compare on the
 same probabilistic basis.
 The first is the building-scale question: which structures sustain damage severe enough
-to justify investment in flood barriers, foundation waterproofing, or structural
+to justify investment in flood barriers or structural
 hardening?
 The second is the community-scale question: would a drainage investment, such as a
-retention basin, channel improvement, or permeable infrastructure upgrade, reduce
+retention basin or channel improvement, reduce
 building damage enough across the community to justify its cost over distributed
 individual retrofits?
 Answering the second question requires connecting upstream drainage decisions to
@@ -150,24 +149,12 @@ SP~1310 \cite{davis2024nist}, explicitly acknowledges that its framework is too
 complex for smaller agencies with limited resources and funding, and calls for
 simplifications that can be implemented at the capacity levels of smaller
 organizations \cite[Sec.~6.1.3]{davis2024nist}.
-Emergency managers, historic preservation officials, and building owners in these
-communities have no engineering tool that translates a flood event into building-specific
-guidance on where limited retrofit dollars belong.
+Emergency managers, historic preservation officials, and building owners have no
+engineering tool translating a flood event into building-specific retrofit guidance.
 
-\begin{wrapfigure}{r}{0.38\textwidth}
-\vspace{-0.4cm}
-\includegraphics[width=0.38\textwidth]{images/img.jpg}
-\captionsetup{justification=centering,singlelinecheck=false,font=small}
-\vspace{-0.9cm}
-\caption{\placeholder{Pre-code load-bearing masonry buildings in Montpelier.}}
-\label{fig:precode}
-\vspace{-0.3cm}
-\end{wrapfigure}
-
-Extended inundation degrades these buildings through mortar softening, masonry
-saturation, and rising-damp cohesion loss, none of which current assessment tools
-observe or model
-\cite{hall2009water,franzoni2015compressive,sathiparan2018effect}.
+Extended inundation degrades these buildings through mechanisms current assessment
+tools do not observe or model, mechanisms reviewed with citations in the fragility
+state of the art below.
 Existing community flood resilience frameworks are predominantly top-down in design,
 built around standardized data collection and technical modeling pipelines that
 resource-constrained localities cannot sustain.
@@ -195,14 +182,13 @@ These questions together span three scientific contributions, summarized with th
 gaps, objectives, approaches, and outcomes in Table~\ref{tab:research_summary}: a
 generalizable CPS architecture principle demonstrating that free, nationally
 available geospatial data fused with community knowledge is sufficient for the
-investment decisions small municipalities face, including pre-storm decisions made
-before water rises; the first empirically derived, duration-dependent fragility
-surfaces for pre-code load-bearing masonry archetypes, addressing existing
-frameworks' structural incompatibility with a CPS cyber layer that produces duration
-rather than depth estimates; and a characterization of the conditions under which
-locally held community knowledge, entered as Bayesian priors, improves model accuracy
-and calibration relative to a GIS-only baseline, and where community knowledge and
-geospatial data function as substitutes versus complements in CPS calibration.
+investment decisions small municipalities face; the first empirically derived,
+duration-dependent fragility surfaces for pre-code load-bearing masonry archetypes,
+addressing the cyber layer's incompatibility with depth-only fragility frameworks;
+and a characterization of the conditions under which locally held community
+knowledge, entered as Bayesian priors, improves model accuracy and calibration
+relative to a GIS-only baseline, and where the two function as substitutes versus
+complements.
 
 \begingroup
 \fontsize{10}{12}\selectfont
@@ -233,17 +219,16 @@ decisions without hydraulic model calibration is unknown &
 framework fusing a GIS-parameterizable mass balance model with community knowledge
 priors and an error model calibrated on interval-censored ICEYE observations &
 GIS-parameterized mass balance model (USGS 3DEP, NLCD, SSURGO, NHD StreamStats);
-community knowledge priors from Subtask~2.1 workshops; Bayesian fusion of mass
-balance prior with community priors, error-calibrated on interval-censored ICEYE
-2023 duration brackets (Sentinel-1 providing broader flood-extent context);
-2024 held-out validation against ICEYE measurements and field damage observations &
+community knowledge priors from Subtask~2.1 workshops; Bayesian fusion
+error-calibrated on interval-censored ICEYE 2023 duration brackets; 2024 held-out
+validation against ICEYE and field damage observations &
 Validated Bayesian framework with characterized decision-adequacy and identified
 conditions under which the GIS-parameterized system is and is not sufficient \\
 \hline
-\textbf{Physical layer:} The relationship between inundation duration, depth, and
-damage state in pre-code load-bearing masonry archetypes is not characterized;
-existing fragility frameworks assume depth as the governing input and cannot serve
-as the physical layer of a CPS whose cyber layer produces duration estimates &
+\textbf{Physical layer:} Duration-depth-damage relationships for pre-code
+load-bearing masonry are uncharacterized; existing fragility frameworks assume
+depth as the governing input and cannot serve a cyber layer that produces
+duration &
 \textbf{RO1} (Napolitano): Develop empirically derived, duration-dependent fragility
 surfaces for pre-code load-bearing masonry archetypes, calibrated on 271 buildings
 from the 2023 Montpelier flood and validated on the held-out 2024 event &
@@ -255,10 +240,9 @@ on the held-out 2024 event; quantified additional explanatory power of duration
 beyond depth \\
 \hline
 \textbf{Cyber and CIR layers:} Community knowledge is structurally excluded from
-CPS calibration frameworks, used for post-hoc validation rather than as quantitative
-model input; the conditions under which it improves probabilistic assessments
-relative to a GIS-only baseline, and whether it functions as a substitute for or
-complement to geospatial data, are entirely uncharacterized &
+CPS calibration, used post hoc rather than as quantitative model input; when it
+improves assessments relative to a GIS-only baseline, and whether it substitutes
+for or complements geospatial data, is uncharacterized &
 \textbf{RO2} (Napolitano with all PIs): Characterize conditions under which community
 knowledge, operationalized as Bayesian priors, improves assessment accuracy and
 calibration relative to GIS-only model runs, disaggregated by building type and
@@ -284,13 +268,11 @@ Three-mode decision interface independently operated by Montpelier community par
 transferable minimum-pathway protocol for new communities requiring no commercial SAR purchase \\
 \end{tabularx}
 \vspace{2pt}
-\fontsize{10}{12}\selectfont\textit{\textbf{Sensing layer} (underpins all rows): USGS stream
-gauges and NOAA precipitation provide free, nationally maintained operational
-inputs requiring no local deployment or community maintenance; ICEYE commercial
-SAR provides building-level inundation duration as one-time calibration ground
-truth (2023) and held-out validation (2024), with open Sentinel-1 SAR providing
-broader flood-extent context. No research gap: the sensing
-layer is a deliberate design choice, not an unknown.}
+\fontsize{10}{12}\selectfont\textit{\textbf{Sensing layer} (underpins all rows):
+free, nationally maintained USGS gauge and NOAA precipitation inputs
+operationally; ICEYE commercial SAR as one-time calibration ground truth (2023)
+and held-out validation (2024); open Sentinel-1 SAR for broader flood-extent
+context. No research gap: the sensing layer is a deliberate design choice.}
 \endgroup
 \normalsize
 
@@ -301,36 +283,25 @@ layer is a deliberate design choice, not an unknown.}
 \vspace{-5pt}
 \section{Current state-of-the-art}
 
-Integrating these four domains creates two scientific tests that neither domain
-could pose in isolation.
-The first is whether a GIS-parameterizable mass balance model, fused with community
-knowledge in a Bayesian framework, produces duration estimates that are
-decision-adequate for retrofit allocation and pre-storm resource staging without
-hydraulic simulation; this test is only possible because the integration couples a
-hydrological prior, a community knowledge mechanism, empirical ground truth, and a
-physical damage model into a single evaluable system with real flood outcomes as the
-arbiter.
-The second is whether locally held community knowledge, structured as Bayesian
-calibration priors, measurably improves duration estimation relative to a GIS-only
-baseline; this test requires a framework that holds the mass balance model constant
-and varies only the priors, with independent ICEYE ground truth to adjudicate, and
-271 buildings with both sensor-measured durations and field-recorded damage states
-to evaluate the downstream consequence.
-Neither test exists within any single domain; both require the coupling.
+Integrating these four domains creates two scientific tests neither domain poses
+alone, mirroring RQ1 and RQ2: whether the fused mass balance and community
+knowledge model is decision-adequate without hydraulic simulation, and whether
+community knowledge measurably improves duration estimation over a GIS-only
+baseline. Both tests require coupling a hydrological prior, a community knowledge
+mechanism, empirical ground truth, and a physical damage model into one evaluable
+system, arbitrated by real flood outcomes across 271 buildings with sensor-measured
+durations and field-recorded damage states. Neither test exists within any single
+domain.
 
-The broader CPS literature does not fill this gap.
-Community sensing architectures for flood monitoring have advanced around dense IoT
-sensor networks, SAR-based inundation pipelines, and participatory sensing platforms, each assuming local sensing infrastructure, proprietary data contracts, or sustained
-community observation effort that resource-constrained municipalities cannot maintain
-after a grant ends.
-These architectures cannot produce the tests above: they lack either the community
-knowledge mechanism, the independent empirical ground truth, or the physical model
-of the relevant building stock.
-The sensing layer in this proposal, USGS stream gauges, NOAA precipitation data, and SAR imagery, is the
-design choice that makes both tests tractable and transferable to any municipality with
-a gauge; community knowledge enters the cyber layer as Bayesian calibration priors,
-where its epistemic contribution is directly measurable against the geospatial baseline
-rather than treated as supplementary narrative input.
+The broader CPS literature does not fill this gap: community sensing architectures
+for flood monitoring assume local sensor infrastructure, proprietary data
+contracts, or sustained community effort that resource-constrained municipalities
+cannot maintain after a grant ends, and lack the community knowledge mechanism,
+independent ground truth, or physical damage model either test requires. This
+proposal's sensing layer, USGS stream gauges, NOAA precipitation, and SAR imagery,
+makes both tests tractable and transferable to any gauged municipality, with
+community knowledge entering the cyber layer as measurable Bayesian priors rather
+than supplementary narrative.
 
 \subsection{Hydrological mass balance modeling and flood duration estimation}
 Hydrological mass balance models estimate flood volume, storage, and drainage
@@ -346,11 +317,9 @@ Prior work has applied these methods to estimate peak discharge and flood extent
 at community scale; their application to building-level inundation duration
 estimation, the input required by duration-dependent fragility models, has not
 been characterized.
-The gap motivating Subtask~1.2 is that it is not known whether a mass balance
-model parameterized entirely from nationally available GIS layers can produce
-building-scale drainage timescale estimates of sufficient accuracy for retrofit
-allocation decisions in small municipalities where calibrated hydraulic models
-are unavailable.
+Whether a GIS-only mass balance model can produce building-scale drainage timescale
+estimates accurate enough for retrofit allocation where calibrated hydraulic models
+are unavailable is unknown (Subtask~1.2).
 % maggie: expand with key references supporting the linear-reservoir form with fractional-storage closure now committed in eq:tau (or your preferred alternative). 1-2 additional paragraphs.
 
 \subsection{Fragility and vulnerability frameworks for flood damage}
@@ -380,11 +349,9 @@ duration than by depth alone
 \cite{kelman2004overview,schwarz2008damage,milanesi2018vulnerability}, but no empirically derived, duration-dependent
 fragility surface exists for pre-code load-bearing masonry archetypes of the type
 that dominate repeatedly-flooded northeastern American historic cores.
-The absence of such surfaces has a direct consequence for CPS design: a cyber layer
-that produces duration estimates cannot be connected to a physical damage model
-unless that model takes duration as a governing input; no existing fragility
-framework satisfies this requirement for the building stock central to this
-proposal.
+This absence blocks CPS integration: a duration-producing cyber layer needs a
+duration-input physical layer, which no existing fragility framework provides for
+this building stock.
 % resolved 2026-07-22: HAZUS manual, JRC/Gerl depth-damage databases, European masonry duration studies (Kelman & Spence 2004, Schwarz & Maiwald 2008, Milanesi 2018), and degradation mechanism refs (Hall & Hoff, Franzoni 2015, Sathiparan 2018) all added, verified against publisher records.
 
 \subsection{Community knowledge in probabilistic risk assessment}
@@ -398,43 +365,30 @@ populations, and infrastructure conditions that national datasets do not capture
 \cite{twigg2015disaster}.
 In flood risk specifically, participatory GIS methods and volunteered geographic
 information platforms have been used to map inundation extents, document damage,
-and supplement remotely sensed observations \cite{goodchild2007citizens,assumpcao2018citizen}; social media and crowdsourced reporting
-have been applied to near-real-time flood monitoring.
-However, existing approaches use community knowledge predominantly for post-hoc
-validation, qualitative prioritization of risk areas, or supplementary narrative
-input to technical assessments; no existing framework operationalizes community
-knowledge as a structural, quantitative calibration input to a probabilistic
-building damage model.
+and supplement remotely sensed observations \cite{goodchild2007citizens,assumpcao2018citizen}.
+Existing approaches use community knowledge for post-hoc validation, qualitative
+prioritization, or supplementary narrative input; none operationalizes it as a
+structural, quantitative calibration input to a probabilistic building damage
+model.
 The Bayesian prior elicitation literature provides a principled mechanism for
 translating expert and stakeholder judgment into probability distributions
-\cite{ohagan2006uncertain,garthwaite2005statistical};
-applications in environmental risk, public health, and engineering reliability
-demonstrate that informative priors can substantially improve model calibration
-when observational data are sparse, but this mechanism has not been applied to
-locally held community flood knowledge.
-The conditions under which community knowledge improves probabilistic flood damage
-assessments relative to a geospatial data baseline are entirely uncharacterized;
-it is not known whether community knowledge and GIS data function as substitutes,
-complements, or redundant sources across different building and drainage contexts,
-and no framework exists for directly testing that question.
+\cite{ohagan2006uncertain,garthwaite2005statistical}, shown elsewhere to improve
+model calibration when data are sparse, but not yet applied to community flood
+knowledge.
+Whether community knowledge and GIS data function as substitutes, complements, or
+redundant sources across building and drainage contexts remains entirely untested.
 % resolved 2026-07-22 except SCC papers: Sendai, CBDRR (Twigg 2015), PGIS/VGI (Goodchild 2007, Assumpcao 2018), and elicitation (O'Hagan 2006, Garthwaite 2005) added, verified. SCC community-knowledge papers still pending, tracked with the other SCC placeholder comments.
 
 \subsection{Flood decision support for resource-constrained municipalities}
-No existing retrofit decision framework connects community-scale drainage investments
-to building-level damage probabilities across a specific building stock, and none
-provides a mechanism for placing drainage investment and distributed building
-hardening on the same probabilistic basis for a municipality facing a constrained
-allocation decision.
-Federal frameworks address adjacent pieces of this problem in isolation, the FEMA
-benefit-cost analysis toolkit supports cost-effectiveness evaluation of individual
-mitigation projects against grant criteria \cite{fema2019bcatoolkit}; the NIST
-Community Resilience Planning Guide provides a community-level framework for
-resilience-focused capital planning \cite{mcallister2015nist1190v1,mcallister2015nist1190v2}; federal hazard
-mitigation grant programs govern community-scale drainage and structural mitigation
-investments without connecting those investments to building damage probabilities
+Federal frameworks address adjacent pieces of this problem in isolation: the FEMA
+benefit-cost toolkit evaluates individual mitigation projects against grant
+criteria \cite{fema2019bcatoolkit}; the NIST Community Resilience Planning Guide
+supports capital planning \cite{mcallister2015nist1190v1,mcallister2015nist1190v2};
+federal hazard mitigation grant programs govern drainage and structural
+investments without linking them to building damage probabilities
 \cite{fema2023hmaguide}; and FEMA's flood retrofit guidance addresses
-building-by-building protective measures without a community-scale decision
-framework \cite{fema2014p312,fema2012p259}.
+building-by-building measures without a community-scale framework
+\cite{fema2014p312,fema2012p259}.
 % resolved 2026-07-22: P-2055 and P-2078 both dropped. Verified: P-2078 is a seismic response-spectra document, not a flood handbook. P-312 (homeowner retrofit guide) and P-259 (engineering retrofit practices) are the correct FEMA flood retrofit citations and are now in the sentence above. IBHS Fortified left out per the original note. HMA guide cited as the 2023 edition; a v2.1 took effect Jan 2025, so update to the version current at submission.
 None couples drainage investment outcomes to building damage probabilities through
 a physical model of the affected building stock, and none allows community-scale
@@ -447,10 +401,8 @@ and calls for simplified analogs appropriate to smaller organizations
 documents that plan quality and implementation capacity fall systematically with
 municipal size and rural status
 \cite{smith2013statecapacity,horney2012ruralstatus,smith2026ruralcapacity}.
-The fragility gap identified in the preceding subsection propagates directly into
-these decision frameworks: none addresses pre-code load-bearing masonry or
-duration-dependent damage states, because no such fragility surfaces exist to
-connect duration estimates to damage probabilities.
+The fragility gap above propagates directly into these decision frameworks: none
+addresses pre-code masonry or duration-dependent damage states.
 No existing framework provides building-level inundation risk predictions from
 forecast precipitation for pre-storm emergency resource staging; flood decision
 support has been designed for post-event or inter-event planning contexts, not
@@ -487,41 +439,32 @@ Montpelier community since 2023. % becca add lara paper
 \vspace{-0.3cm}
 \end{wrapfigure}
 \normalsize
-Montpelier, Vermont's capital city, experienced catastrophic flooding in July 2023,
-with 80\% of its National Register Historic District sustaining damage; it sustained
-significant flood damage again in 2024.
-The city has experienced over 45 flooding events since 1900 at the confluence of
-the Winooski and North Branch rivers.
-Its dense downtown core of 19th-century load-bearing masonry commercial buildings,
-many pre-dating the 1933 ANSI building code, is the pre-code archetype central to
-this proposal.
-As Vermont's capital, Montpelier has moderate institutional capacity relative to
-comparable communities: a professional emergency manager, Vermont State Historic
-Preservation Office support, and a planning department, yet lacks the technical
-infrastructure for hydrodynamic simulation.
-The framework transfers to any municipality meeting four scope conditions: riverine
-flood exposure in which building-level standing water persists long enough for
-duration-governed degradation and meaningful drainage timescale estimation,
-approximately five or more days; pre-1940 construction representing a
-meaningful share of the flood-exposed building inventory; no sustained in-house
-hydraulic modeling capacity; and USGS streamflow gauge coverage on the primary
-watershed.
+Montpelier, Vermont's capital, sustained catastrophic flooding in July 2023
+(80\% of its National Register Historic District damaged) and again in 2024, one
+of over 45 such events since 1900 at the Winooski/North Branch confluence.
+Its downtown core of 19th-century load-bearing masonry, largely pre-dating the
+1933 ANSI code, is this proposal's pre-code archetype: moderate institutional
+capacity (emergency manager, SHPO support, planning department) but no
+hydrodynamic simulation infrastructure.
+The framework transfers to any municipality meeting four conditions: riverine
+flooding with building-level standing water persisting roughly five or more days;
+pre-1940 construction as a meaningful share of the flood-exposed inventory; no
+sustained in-house hydraulic modeling capacity; and USGS gauge coverage on the
+primary watershed.
 The first condition is defined on standing-water persistence in the building stock,
-not on river-stage exceedance, which is typically far shorter: in Montpelier in 2023
-the gauge stood above flood stage for roughly a day, while water impounded in the
-low-lying downtown core and building interiors persisted for days afterward (see the
-preliminary results below); it is this slow local drainage, not the river crest, that
-drives duration-governed masonry degradation and that the mass balance model targets.
+not on the shorter river-stage exceedance (Preliminary Results below): it is this
+slow local drainage, not the river crest, that drives duration-governed masonry
+degradation and that the mass balance model targets.
 % resolved 2026-07-22: five-or-more-day threshold kept but explicitly redefined on building-level standing water rather than river stage, so the 28-hour flood-stage exceedance in the 2023 gauge record is not a counterexample to the scope condition.
 
 \vspace{-10pt}
 \subsection{Preliminary results: SAR building-level data, Montpelier 2023 and 2024}
 
-SAR imagery allows us to study flood events, map flooded areas and other surface changes occurring overnight or during storms with dense cloud cover where optical imagery would fail. To properly image transient flood events in detail, we need high spatial (~meter-scale or better) and temporal (a few hours) SAR resolution imagery. Open Sentinel-1 (C-band, wavelength of ~6cm, ~10 meters spatial resolution) and ICEYE (X-band, wavelength of ~3cm, <1m of spatial resolution) data are available over the two Vermont events.
+SAR imagery captures flood extent through cloud cover and at night, when optical imagery fails. Open Sentinel-1 (C-band, ~10\,m resolution) and commercial ICEYE (X-band, $<$1\,m resolution) both cover the two Vermont events at the meter-scale, few-hour cadence this framework requires (Subtask~1.1).
 In particular, ICEYE commercial SAR provides building-level flood depth and inundation maps fusing SAR amplitude imagery with LIDAR and water gauge measurements, at revisit cadences as fine as six hours during dense acquisition sequences, across the inundation and recovery period of both Montpelier flood events.
 % becca: waiting on Christelle/Young's file list (item 4 in FINDINGS.md) to confirm the actual 2023/2024 scene cadence before this paragraph gets more specific.
 % christelle: uncertainty of flood level -- Katie/ICEYE input? other caveats CW needs to mention?
-PI Wauthier will process and interpret available SAR imagery from these two sensors, using ICEYE for building-level quantitative measurements and Sentinel-1 for broader flood-extent context given its coarser resolution.  Through an NDA data access agreement, ICEYE data for 271 downtown pre-code masonry buildings, each with ICEYE-measured duration, ICEYE-measured peak depth, and field-recorded damage state, will be analyzed for both the 2023 and 2024 events.
+Through an NDA data access agreement, ICEYE data for 271 downtown pre-code masonry buildings, each with ICEYE-measured duration, peak depth, and field-recorded damage state, will be analyzed for both the 2023 and 2024 events (Subtask~1.1).
 % see with ICEYE what text they want us to add and I think your preliminary screenshots are sufficient for the proposal but we should ask them if OK to include or if they prefer us to include something else with their logo super visible etc. TODO 
 The 271-building dataset constitutes the empirical foundation for fragility surface calibration (2023) and held-out validation (2024); the 2024 data is not used in any model fitting (Fig.~\ref{fig:iceye}).
 
@@ -545,11 +488,9 @@ The 271-building dataset constitutes the empirical foundation for fragility surf
 \vspace{-0.3cm}
 \caption{ICEYE building-level flood depth, Montpelier downtown core, for both
 study events. Building footprints are colored by peak inundation depth (yellow:
-$<$2\,ft; orange: 2--5\,ft; red: 5--8\,ft; dark red: $>$8\,ft). PI Wauthier
-has separately extracted building-level inundation \textit{duration} brackets
-from successive overpasses (as fine as six hours during dense acquisition)
-for all 271 buildings across both events; the 2024 event
-is held out and not used in any model fitting.}
+$<$2\,ft; orange: 2--5\,ft; red: 5--8\,ft; dark red: $>$8\,ft). Duration
+brackets, as fine as six hours between successive overpasses, were extracted
+separately for all 271 buildings across both events (Subtask~1.1).}
 \label{fig:iceye}
 \vspace{-0.3cm}
 \end{figure}
@@ -562,10 +503,10 @@ is held out and not used in any model fitting.}
 % becca: describe the 2023 field campaign: when it was conducted, the damage state taxonomy (number of states, definitions), methodology for damage state assignment in the field, and the distribution of 271 buildings across damage states. A bar chart of damage state counts and a map of damage state by building footprint would be the strongest figures here.
 
 \subsection{Preliminary results: Winooski watershed drainage timescale}
-To test whether the mass balance model's drainage timescale is recoverable from
-free gauge data at the accuracy the fragility layer requires, we ran a recession
-analysis of USGS gauge 04286000 (Winooski River at Montpelier; 397\,mi\textsuperscript{2})
-for both events, using 15-minute discharge records (Fig.~\ref{fig:recession}):
+To test whether the mass balance timescale is recoverable from free gauge data at
+fragility-layer accuracy, we ran a recession analysis of USGS gauge 04286000
+(Winooski River at Montpelier; 397\,mi\textsuperscript{2}) for both events using
+15-minute discharge records (Fig.~\ref{fig:recession}):
 fitting $Q(t) = Q_p\, e^{-t/\tau}$ to the first 60 hours of the falling limb gives
 $\tau = 37$\,h ($R^2 = 0.91$) for July 2023 (peak 23{,}100\,cfs, stage 21.3\,ft,
 6+\,ft above the 15\,ft NWS minor flood stage) and $\tau = 45$\,h ($R^2 = 0.96$)
@@ -573,30 +514,26 @@ for July 2024 (peak 11{,}900\,cfs).
 Three observations anchor the research plan.
 First, the watershed-scale timescale (37, 45\,h) is stable across events, at the
 day-to-multi-day order masonry degradation operates on, and recoverable from the
-gauge record alone, the quantity Subtask~1.2 disaggregates to sub-basin scale from
-national GIS layers.
+gauge record alone; Subtask~1.2 disaggregates this quantity to sub-basin scale
+from national GIS layers.
 Second, the 2023 recession departs from a single exponential beyond roughly
-60 hours ($R^2$ falls to 0.73 over the full falling limb), consistent with a
-channel-to-storage drainage transition: local standing water in low-lying
-sub-basins outlasts the river recession, motivating sub-basin $\hat{\tau}_k$
-estimates over a single watershed constant.
+60 hours ($R^2$ falls to 0.73), consistent with a channel-to-storage transition:
+standing water in low-lying sub-basins outlasts the river recession, motivating
+sub-basin $\hat{\tau}_k$ estimates over one watershed constant.
 Third, the events differ nearly twofold in peak magnitude, and the 2024 peak
 stage (14.5\,ft) stayed below minor flood stage even as downtown parcels took
 water, so the 2023-calibrated, 2024-validated design tests transfer across event
 magnitudes rather than replicating one event size.
 Extending the analysis across the gauge's full 1990--2026 record strengthens this
 anchor: fifteen well-fit events give $\hat{\tau}$ between 36 and 96 hours
-(median 51), $\mathrm{sd}(\ln \hat{\tau}) = 0.30$ across events (the
-event-to-event anchor $\sigma_{\mathrm{event}}$ for the Subtask~1.3 calibration), and a quantified
-antecedent-moisture signal: wetter pre-event conditions correlate with slower
-recession (roughly a 33-hour shift from driest to wettest antecedent state,
-predicted by pre-event baseflow), so the antecedent state pre-storm mode must
-account for is observable from the same gauge the operational system already
+(median 51), $\mathrm{sd}(\ln \hat{\tau}) = 0.30$ (the event-to-event anchor
+$\sigma_{\mathrm{event}}$ for the Subtask~1.3 calibration), and a quantified
+antecedent-moisture signal, a roughly 33-hour shift from driest to wettest
+antecedent state, observable from the same gauge the operational system already
 reads.
 Discharge stayed above twice pre-event baseflow for roughly 19 days in 2023 and
-10 days in 2024, bounding the window within which building-level standing water
-drained, consistent with the multi-day inundation persistence in the framework's
-scope conditions.
+10 in 2024, bounding the window within which building-level standing water
+drained, consistent with the framework's multi-day scope conditions.
 A stage-threshold analysis makes the standing-water distinction concrete: the
 2023 gauge stood above NWS minor flood stage for 28 hours and above action stage
 for 47 hours, yet building interiors were still being pumped days later, the
@@ -604,24 +541,20 @@ State Street office complex took four to five days to clear
 \cite{vermontpublic2023stateflood}, the Montpelier High School basement five to
 six days \cite{vtdigger2023schools}, and downtown streets roughly two days
 \cite{vermontpublic2023recede}.
-Building-level standing water, the quantity $T_i$ the framework models and the
-SAR brackets measure, thus outlasted river-stage exceedance by days in 2023,
-exactly the separation the sub-basin timescales $\hat{\tau}_k$ are designed to
-capture and why the scope conditions are defined on standing-water persistence
-rather than river-stage duration.
+Building-level standing water, the quantity $T_i$ the framework models, thus
+outlasted river-stage exceedance by days in 2023, the separation sub-basin
+timescales $\hat{\tau}_k$ are designed to capture.
 A first prototype of the Subtask~1.2 stage-to-DEM projection (1\,m 3DEP terrain;
-gauge datum 499.87\,ft NAVD88) tests the depth pathway: projecting the 2023
-crest as a flat water surface reproduces river-corridor inundation through
-downtown ($\sim$92 hydraulically connected acres) but underpredicts the flooded
-core, with Main Street landmarks 0.8 to 1.5\,m above the projected surface,
-1.2 to 1.5\,km upstream of the gauge, consistent with a water-surface slope of
-roughly 0.6 to 1.0\,m/km, the single parameter the 2023 ICEYE depth field
-calibrates.
+gauge datum 499.87\,ft NAVD88) tests the depth pathway: a flat-surface
+projection of the 2023 crest reproduces river-corridor inundation
+($\sim$92 hydraulically connected acres) but underpredicts the flooded core,
+with Main Street landmarks 0.8 to 1.5\,m above the projected surface, 1.2 to
+1.5\,km upstream, implying a water-surface slope of 0.6 to 1.0\,m/km, the
+single parameter the 2023 ICEYE depth field calibrates.
 A complementary sweep of that slope against documented 2023 outcomes (Main
-Street flooded, the State House dry) brackets the admissible slope at
-0.9\,m/km or above, predicting 234 inundated buildings at that lower bound,
-the same order as the 271-building empirical set that the ICEYE depth field
-pins precisely.
+Street flooded, the State House dry) brackets it at 0.9\,m/km or above,
+predicting 234 inundated buildings at that lower bound, the same order as
+the 271-building empirical set the ICEYE depth field pins precisely.
 The analysis scripts and gauge records are archived with the project repository
 for reproducibility; discharge values are USGS provisional.
 % becca: images/stage_dem_depth.pdf (depth map with gauge and landmarks marked) exists if you want a figure for the stage-to-DEM prototype; left out of the text for space. Script: analysis/stage_to_dem.py, writeup: analysis/stage_dem.md.
@@ -634,11 +567,9 @@ for reproducibility; discharge values are USGS provisional.
 \captionsetup{font=small}
 \vspace{-0.5cm}
 \caption{Recession analysis of USGS gauge 04286000 (Winooski River at
-Montpelier) for the July 2023 (left) and July 2024 (right) flood events,
-from 15-minute instantaneous discharge records. Dashed lines show exponential
-recession fits over the shaded 60-hour windows, yielding watershed drainage
-timescales of $\tau = 37$\,h ($R^2 = 0.91$) and $\tau = 45$\,h
-($R^2 = 0.96$) respectively.}
+Montpelier), July 2023 (left) and July 2024 (right), from 15-minute discharge
+records. Dashed lines show exponential fits over the shaded 60-hour windows:
+$\tau = 37$\,h ($R^2 = 0.91$) and $\tau = 45$\,h ($R^2 = 0.96$).}
 \label{fig:recession}
 \vspace{-0.3cm}
 \end{figure}
@@ -648,30 +579,9 @@ timescales of $\tau = 37$\,h ($R^2 = 0.91$) and $\tau = 45$\,h
 % ============================================================
 
 \section{Research plan}
-RO1 (Napolitano, Wauthier, and Busse) addresses RQ1 through five coupled subtasks:
-SAR data processing, interpretation, and error characterization (Wauthier), GIS-parameterizable
-mass balance model development (Busse), Bayesian fusion framework development (all
-PIs), duration-dependent fragility surface development (Napolitano), and
-system validation (all PIs).
-RO2 (Napolitano with all PIs) addresses RQ2 through community co-development and
-knowledge elicitation (Napolitano), three-mode decision interface co-development
-(Napolitano), comparative assessment of community knowledge contribution (all
-PIs), and closed-loop validation and protocol transfer (all PIs).
+RO1 (Napolitano, Wauthier, Busse) addresses RQ1 through five coupled subtasks (1.1 to 1.5); RO2 (Napolitano with all PIs) addresses RQ2 through four (2.1 to 2.4). Leads and dependencies are given in each subtask header below and in the Project Timeline section.
 
-This CPS's dynamics, estimation, and control close at three distinct timescales rather
-than through continuous automated actuation: hours before a flood peak, when
-pre-storm mode converts NOAA forecasts into staging decisions; per event, when
-post-event observations update the community priors and the error model; and years,
-when retrofit decisions actuate on the built environment through the
-$\hat{\tau}_k$ and fragility parameter updates of Subtask~2.4.
-Human decisions are the actuators in all three loops; this human-in-the-loop
-actuation, in which the community is a functional component of the control loop
-rather than a recipient of its outputs, is the connected-communities reading of
-CPS that the CIR track invites.
-The research questions themselves carry the same signature: they emerged from
-PI Napolitano's post-2023 engagement with Montpelier partners, whose question,
-where limited retrofit dollars belong, defined the decision problem the CPS is
-built to answer.
+This CPS's dynamics, estimation, and control close at three timescales rather than through continuous automated actuation: hours before a flood peak (pre-storm staging from NOAA forecasts), per event (post-event updating of community priors and the error model), and years (retrofit actuation through the $\hat{\tau}_k$ and fragility updates of Subtask~2.4). Human decisions are the actuators in all three loops, so the community is a functional component of the control loop rather than a recipient of its outputs, the connected-communities reading of CPS the CIR track invites. The research questions emerged from PI Napolitano's post-2023 Montpelier engagement, whose partners' question, where limited retrofit dollars belong, defined the decision problem.
 
 % ── RO1 BOX ──────────────────────────────────────────────────────────────────
 \begin{tcolorbox}[colback=mycmykcolor,colframe=black,boxrule=1pt,coltext=black,
@@ -685,14 +595,7 @@ hydraulic simulation, calibrated on Montpelier 2023 and validated on the held-ou
 2024 event.}
 \end{tcolorbox}
 
-RO1 builds and validates the technical CPS by coupling four components: SAR imagery,
-ICEYE commercial SAR for building-level data processing, interpretation,
-and error characterization, with open Sentinel-1 SAR for broader flood-extent
-context (Subtask~1.1), a
-GIS-parameterizable mass balance model (Subtask~1.2), a Bayesian fusion framework
-integrating the mass balance prior with community knowledge, error-calibrated
-against interval-censored ICEYE duration brackets (Subtask~1.3), and duration-dependent fragility surfaces connecting
-duration estimates to building damage state probabilities (Subtask~1.4).
+RO1 couples four components across Subtasks~1.1 to~1.4: building-level ICEYE SAR processing (with open Sentinel-1 for flood-extent context), a GIS-parameterizable mass balance model, a Bayesian fusion framework, and duration-dependent fragility surfaces.
 ICEYE provides the one-time calibration data, delivered as interval-censored
 duration brackets with characterized classification error, for both the framework's
 error model and the fragility surface; the operational system runs entirely on USGS
@@ -702,12 +605,12 @@ characterizes decision-adequacy across all three operational modes.
 
 \textbf{Subtask 1.1: SAR Data Processing, Interpretation, and Likelihood Characterization
 (lead: Wauthier).}
-Subtasks 1.1 and 1.2 run in parallel in Year 1: PI Wauthier extracts building-level inundation measurements from ICEYE commercial SAR while PI Busse develops the GIS-parameterized mass balance model; neither depends on the other's output until both feed into the Bayesian fusion framework in Subtask 1.3.
+Subtasks~1.1 and~1.2 run in parallel in Year~1 and are independent until both feed the Bayesian fusion framework in Subtask~1.3.
 PI Wauthier processes ICEYE commercial SAR data for the 271 downtown Montpelier buildings across both flood events, extracting building-level peak depth and per-overpass wet/dry status, and validating building footprint attribution against ground-referenced building inventory.
 Because duration is inferred from wet/dry status across successive overpasses, each building's inundation duration is delivered not as a point value but as a bracket between the last overpass observed wet and the first observed dry, with bracket width set by the acquired revisit cadence (as fine as six hours where the acquisition sequence is dense); this bracket is carried through the framework as an explicit measurement interval rather than collapsed to a false point estimate.
 The key scientific outputs of this subtask are the per-building duration brackets and peak depths for both events, together with per-scene wet/dry classification error rates; once Subtask~1.2 delivers $\hat{\tau}_k$ estimates, comparing mass balance predictions against the 2023 brackets calibrates the building-scale error variance $\sigma_{\mathrm{MB}}^2$ of the GIS-parameterized model in Subtask~1.3.
-An archived pre-submission cadence simulation shows that scenes spaced across the multi-day drainage window contribute substantially more calibration information than additional scenes clustered near the flood peak; this spacing criterion guides which acquisitions are prioritized for processing.
-Open Sentinel-1 imagery will also be processed for both events to provide broader flood-extent context; its ~10\,m resolution is too coarse to resolve individual buildings in the downtown core, so it supports interpretation and cross-checking of the ICEYE-derived building classifications rather than feeding the building-level likelihood directly.
+An archived cadence simulation shows that scenes spread across the multi-day drainage window carry substantially more calibration information than scenes clustered near the peak, and this criterion prioritizes which acquisitions are processed.
+Open Sentinel-1 imagery is processed for both events for broader flood-extent context; at ~10\,m resolution it cannot resolve individual downtown buildings, so it supports cross-checking of the ICEYE classifications rather than feeding the building-level likelihood.
 
 \textbf{Subtask 1.2: GIS-Parameterizable Mass Balance Model (lead: Busse).}
 PI Busse develops a hydrological mass balance model for the Winooski watershed above
@@ -748,11 +651,7 @@ twenty sub-basins across the flood-exposed core; a terrain-partition sensitivity
 analysis archived with the project repository indicates this granularity sits
 inside the plateau where finer partitioning adds degrees of freedom without
 adding explained building-level variation.
-Building counts per sub-basin are strongly skewed, from a dominant main-corridor
-sub-basin holding tens of buildings down to single-building tributary sub-basins;
-the model is deliberately lumped at this scale, and per-building variation within a
-sub-basin is carried by the community adjustment $\delta_i^{\mathrm{comm}}$ and the
-error variance rather than by finer hydraulics.
+Building counts per sub-basin are strongly skewed, from a dominant main-corridor sub-basin holding tens of buildings to single-building tributary sub-basins; the model is deliberately lumped at this scale, with per-building variation carried by the community adjustment $\delta_i^{\mathrm{comm}}$ and the error variance rather than by finer hydraulics.
 Inundation duration at building $i$ in sub-basin $k$ is modeled as:
 \begin{equation}\label{eq:prior}
   T_i \sim \operatorname{LogNormal}(\mu_i,\; \sigma_{\mathrm{MB}}^2)
@@ -791,12 +690,7 @@ The building-level adjustment $\delta_i^{\mathrm{comm}}$, elicited from communit
 knowledge in Subtask~2.1 (locally known drainage obstructions, historically slow
 routes, anomalous building conditions), augments this baseline in Subtask~1.3;
 community knowledge improves the system but is not required to run it.
-The LogNormal family is appropriate because duration is strictly positive and
-right-skewed; it also maintains dimensional consistency with the interval-censored
-bracket likelihood in Subtask~1.3, which is evaluated on the log scale.
-All duration quantities are conditional on inundation: $T_i$ is the standing-water
-duration at building $i$ given that building $i$ floods, and the error model in
-Subtask~1.3 characterizes duration error, not flood/no-flood classification.
+The LogNormal family is appropriate because duration is strictly positive and right-skewed and keeps the log-scale consistency used by the Subtask~1.3 bracket likelihood. All duration quantities are conditional on inundation: $T_i$ is the standing-water duration at building $i$ given that it floods, and the Subtask~1.3 error model characterizes duration error, not flood/no-flood classification.
 Whether a building floods, and to what peak depth, is supplied by a second,
 deliberately simple cyber-layer component, a stage-to-DEM mapping that projects
 gauge crest stage onto the USGS 3DEP terrain model along a reach-scale
@@ -868,10 +762,7 @@ This interval-censored formulation treats the sensing layer honestly: with a
 dense acquisition sequence the brackets are hours wide and the posterior is
 sharply localized; with sparse acquisitions the brackets widen and the SAR data
 constrain the posterior only weakly.
-Nothing in the framework requires commercial SAR to be treated as exact ground
-truth, and the same formulation accepts brackets of any width, so the framework
-is robust to whatever acquisition cadence a given event actually received;
-per-scene wet/dry classification error $\epsilon_j$, characterized by PI Wauthier
+Per-scene wet/dry classification error $\epsilon_j$, characterized by PI Wauthier
 in Subtask~1.1, generalizes the hard bracket to a product of per-overpass
 observation probabilities,
 \begin{equation}\label{eq:softbracket}
@@ -927,14 +818,8 @@ and scored against the independently acquired 2024 SAR duration brackets.
 
 \textbf{Subtask 1.4: Duration-Dependent Fragility Surface Development
 (lead: Napolitano).}
-Subtask~1.4 requires the processed ICEYE measurements from Subtask~1.1 (building-level
-duration and depth for all 271 buildings) and runs in parallel with Subtasks~1.2
-and~1.3; it does not depend on the mass balance model.
-Duration and peak flood depth are correlated in observational data; this
-collinearity is apparent in the Montpelier 2023 dataset and is consistent with
-building owner accounts of which structures sustained the most persistent damage
-after the July 2023 flood, motivating a two-component approach that separates
-the duration effect physically before fitting it statistically.
+Subtask~1.4 uses the processed ICEYE duration and depth for all 271 buildings (Subtask~1.1), runs in parallel with Subtasks~1.2 and~1.3, and does not depend on the mass balance model.
+Duration and peak depth are correlated in the Montpelier 2023 data and in owner accounts of which structures sustained the most persistent damage, motivating a two-component approach that separates the duration effect physically before fitting it statistically.
 The \textit{physical component} grounds the duration claim in material science:
 component-based analysis of duration-governed degradation mechanisms in pre-code
 load-bearing masonry, including mortar softening rate, brick saturation curves,
@@ -968,14 +853,7 @@ $\lambda_{0,ds}$ and $\gamma$ centered at the material-science-derived values an
 their prior variances set from the published curves' specimen-to-specimen scatter,
 updated by the interval-censored 2023 field-damage likelihood. The resulting
 posterior surface is applied unchanged to 2024 for held-out validation.
-Concretely, published saturation-strength and capillary absorption curves for
-historic brick and lime mortar give the immersion time at which strength loss
-crosses the level associated with each damage state
-\cite{hall2009water,franzoni2015compressive,sathiparan2018effect}; those crossing
-times, evaluated at a reference depth, anchor the ordered $\lambda_{0,ds}$, the
-rate at which deeper immersion (a greater saturated wall height) accelerates the
-crossing anchors the shared $\gamma$, and the specimen-to-specimen scatter of the
-published curves anchors the shared $\zeta$.
+Concretely, published saturation-strength and capillary absorption curves for historic brick and lime mortar \cite{hall2009water,franzoni2015compressive,sathiparan2018effect} give the immersion time at which strength loss crosses each damage state: those crossing times at a reference depth anchor the ordered $\lambda_{0,ds}$, the rate at which deeper immersion accelerates the crossing anchors the shared $\gamma$, and the specimen-to-specimen scatter anchors the shared $\zeta$.
 The claim under test is that duration adds explanatory power beyond depth alone.
 Because duration and depth are collinear in the 271-building sample, this claim is
 posed not as a naive coefficient $t$-test on the correlated data but as a
@@ -1052,14 +930,7 @@ of lead time to characterize how forecast uncertainty degrades pre-storm predict
 quality and what actionable lead time the system can reliably provide.
 % becca: confirm that 2024 field damage observations will be available for the damage state comparison. Confirm the rank correlation metric for decision-adequacy validation and the composition of the expert panel.
 
-\textbf{Key outcomes:} RO1 produces three primary scientific outputs, detailed with
-approaches and outcomes in Table~\ref{tab:research_summary}: a validated Bayesian
-framework with characterized decision-adequacy across all three operational modes
-(Subtask~1.5); the first empirically derived, duration-dependent fragility surfaces
-for pre-code load-bearing masonry archetypes (Subtask~1.4); and a characterization
-of the conditions under which the GIS-parameterized system is and is not
-decision-adequate, including the range of forecast lead times over which pre-storm
-predictions remain actionable (Subtask~1.5).
+\textbf{Key outcomes:} RO1 produces three primary outputs (Table~\ref{tab:research_summary}): a validated Bayesian framework with characterized decision-adequacy across all three modes (Subtask~1.5); the first empirically derived duration-dependent fragility surfaces for pre-code load-bearing masonry (Subtask~1.4); and a characterization of when the GIS-parameterized system is decision-adequate, including the forecast lead times over which pre-storm predictions remain actionable (Subtask~1.5).
 
 % ── RO2 BOX ──────────────────────────────────────────────────────────────────
 \vspace{5pt}
@@ -1076,16 +947,6 @@ transferable protocol for independent community use.}
 RO2 addresses RQ2 by characterizing the conditions under which community knowledge,
 entered as structural calibration input rather than post-hoc validation, improves
 the CPS outputs developed in RO1.
-Annual co-development workshops in Montpelier (Subtask~2.1) surface locally held
-flood knowledge operationalized as Bayesian priors on inundation duration via
-$\delta_i^{\mathrm{comm}}$ in Equation~\eqref{eq:mu}.
-Subtask~2.2 co-develops the three-mode decision interface with community partners,
-shaping criteria, weighting structure, and output format in Year~1 workshops rather
-than validating a team-built tool.
-Subtask~2.3 runs comparative model versions with and without community-informed
-priors to directly quantify the epistemic contribution of community knowledge.
-Subtask~2.4 closes the loop through prior updating across events and produces the
-transferable protocol.
 
 \textbf{Subtask 2.1: Community Co-Development and Knowledge Elicitation
 (lead: Napolitano).}
@@ -1095,36 +956,11 @@ Community partners include Vermont State Historic Preservation Office representa
 the Montpelier planning commission, the city emergency manager, and building owners
 in the historic downtown core; letters of collaboration from all partners are included
 in the supplementary materials.
-Building owners participate as primary knowledge sources throughout, not merely as
-recipients of decision outputs: their direct observations of which structures held
-water longest, which basement entries backed up, and which drainage paths ran clear
-constitute the granular building-level knowledge that GIS cannot capture and that
-drives the $\delta_i^{\mathrm{comm}}$ adjustments in Equation~\eqref{eq:mu}; community-engaged
-flood modeling research likewise finds that tools succeed when anchored in local
-experiential knowledge and that stakeholder observations should trigger review of
-model assumptions \cite{skilton2022dontwant,habib2026sustaining}.
+Building owners participate as primary knowledge sources: their observations of which structures held water longest, which basement entries backed up, and which drainage paths ran clear constitute the building-level knowledge GIS cannot capture and that drives the $\delta_i^{\mathrm{comm}}$ adjustments in Equation~\eqref{eq:mu}; community-engaged flood modeling likewise finds that tools succeed when anchored in local experiential knowledge \cite{skilton2022dontwant,habib2026sustaining}.
 % resolved with a caveat 2026-07-22: the Champaign gun-violence SCC project (#2125389) has no peer-reviewed publication yet (manuscript was in preparation per its 2023 NSF report) and the Maine STEM project is AISL-funded, so neither is citable here. Cited instead: Skilton 2022 (SCC #2125472) and Habib 2026 (same team's EPSCoR-funded follow-on, #2418434), which directly support local-knowledge-as-model-input.
 
-\textit{Year~1} workshops begin with a demonstration phase before any knowledge
-elicitation.
-Prior to the first workshop, the research team builds a working prototype of the
-planning-mode interface using the GIS-only mass balance output from Subtask~1.2
-and the 2023 ICEYE measurements from Subtask~1.1; this prototype is not the
-co-developed interface but the baseline system that shows what GIS data alone
-can and cannot predict.
-The research team presents this prototype to community partners, showing what the
-GIS-only model already knows and, critically, where it visibly errs relative to
-what partners know from direct experience; this demonstration-first structure is
-designed to earn the trust required for meaningful knowledge elicitation, and the
-co-development of the full interface in Subtask~2.2 begins from this baseline
-in the same Year~1 workshops.
-Community-engaged flood technology research has documented that residents of
-repeatedly flooded communities approach new technical tools with skepticism
-shaped by prior tools that promised help but required ongoing effort, and that
-tool perceptions must be surfaced and addressed before engagement deepens;
-addressing that skepticism
-before asking for knowledge commitments is a necessary precondition for genuine
-co-development \cite{skilton2022dontwant,habib2023anchoring}.
+\textit{Year~1} workshops begin with a demonstration phase before elicitation. The team builds a working prototype of the planning-mode interface from the Subtask~1.2 GIS-only output and the 2023 ICEYE measurements, and presents it to partners to show what the GIS-only model knows and, critically, where it visibly errs relative to their direct experience; this demonstration-first structure earns the trust required for meaningful elicitation, and Subtask~2.2 interface co-development begins from this baseline in the same Year~1 workshops.
+Community-engaged flood technology research documents that residents of repeatedly flooded communities approach new tools with skepticism shaped by prior tools that promised help but required ongoing effort, and that these perceptions must be surfaced before engagement deepens; the demonstration-first structure addresses that skepticism before any knowledge commitment is asked \cite{skilton2022dontwant,habib2023anchoring}.
 % resolved with a caveat 2026-07-22: verified there is NO peer-reviewed NSF SCC paper for the technology-fatigue claim as originally framed (the Purdue nutrient project's SCC award #2125626 has only agronomy outputs; the Maine STEM project is AISL-funded, not SCC; the on-topic Gardezi 2023 trust paper is FW-HTF-funded). Sentence reworded from "NSF SCC-funded projects" to "community-engaged flood technology research" and cited to the Lafayette Parish SCC project's papers (award #2125472), which document tool skepticism/perception barriers in a flood context.
 
 Following the demonstration phase, Year~1 surfaces locally held knowledge about which
@@ -1159,19 +995,7 @@ Subtask~2.2 decision interface and its two output tiers, shaping which investmen
 outcomes matter most and what level of detail each audience needs; community-identified
 priorities are documented in structured form at Year~1 close to enable assessment
 of incorporation in subsequent years.
-\textit{Year~2} cross-references community-observed building damage reports against
-2023 field damage states as a validity check on elicitation, validates framework
-outputs against Year~1 stated priorities, and documents discrepancies used to update
-the framework architecture.
-Year~2 workshops include structured interpretation training in which emergency
-managers and planning commission staff learn to read probabilistic damage outputs,
-run what-if simulations across the two investment decisions, and interpret pre-storm
-risk maps; the training also covers how to present plain-language summaries from the
-interface to elected officials and residents without researcher support.
-\textit{Year~3} stress-tests the decision interface for independent use across both
-output tiers, reassesses whether community priorities have shifted over the project
-period, and evaluates whether emergency managers can explain framework outputs to
-elected officials and residents without researcher involvement.
+\textit{Year~2} cross-references community-observed damage against 2023 field damage states as an elicitation validity check, validates outputs against Year~1 stated priorities, and adds structured interpretation training so emergency managers and planning staff can read probabilistic outputs, run what-if simulations, interpret pre-storm risk maps, and present plain-language summaries to officials and residents without researcher support. \textit{Year~3} stress-tests the interface for independent use across both tiers, reassesses whether community priorities have shifted, and evaluates whether managers can explain outputs without researcher involvement.
 This structured process constitutes the \textbf{CIR} component required by NSF~25-543:
 locally held knowledge enters the CPS as structural calibration input, community
 partners co-develop the framework architecture, and the process is assessed against
@@ -1188,43 +1012,15 @@ the need for guidance that translates complex infrastructure assessments into si
 terms for decisionmakers and stakeholders who lack the technical background to interpret
 them directly \cite[Sec.~6.1.7.4]{davis2024nist}.
 % resolved 2026-07-22: both cites are from the Lafayette Parish SCC planning grant (#2125472); Habib 2023 explicitly recommends "at least two classes of hydroinformatic tools," a simplified public tier and an advanced tier for emergency responders, which is exactly this design principle. The Clemson human-AI evacuation candidate produced no verifiable SCC-attributed paper for this claim, so it is not cited.
-The \textit{technical tier} presents probabilistic damage state distributions,
-credible intervals on duration estimates, ranked retrofit lists, and what-if
-simulation outputs for emergency managers and planning commission staff who brief
-agency stakeholders, prepare grant applications, and make resource allocation
-decisions.
-The \textit{plain-language tier} translates the same analysis into a one-page
-building risk summary for individual building owners and a district-level investment
-comparison for elected officials and residents: for example, "Buildings on Main Street
-between Bridge and State have a 67\% probability of damage requiring more than
-\$15,000 in repairs in a flood similar to 2023; the proposed retention basin upstream
-reduces that probability to 43\% across the district at a cost of \$X per protected
-building."
-Community partners co-design both tiers in Year~1 workshops, specifying what
-information each audience needs to act, not merely what the technical team thinks
-should be communicated.
+The \textit{technical tier} presents probabilistic damage state distributions, credible intervals, ranked retrofit lists, and what-if outputs for emergency managers and planning staff; the \textit{plain-language tier} translates the same analysis into a one-page building risk summary and a district-level investment comparison, for example, ``Buildings on Main Street between Bridge and State have a 67\% probability of damage requiring more than \$15,000 in repairs in a flood similar to 2023; the proposed upstream retention basin reduces that to 43\% across the district.'' Community partners co-design both tiers in Year~1 workshops.
 
-In \textit{planning mode} (always on, no flood required), the technical tier presents
-the ranked retrofit priority list and what-if simulations; the plain-language tier
-produces the one-page comparisons that emergency managers can hand to elected
-officials and building owners without further translation.
-In \textit{pre-storm mode} (triggered by incoming NOAA forecast), the mass balance
-model runs with forecast precipitation inputs while the stage-to-DEM projection of
-Subtask~1.2 runs on the NWS forecast crest, giving predicted inundation extent and
-depth alongside predicted duration; the technical tier outputs a
-building-level inundation risk map with credible intervals; the plain-language tier
-outputs a simple color-coded street map and a prioritized resource staging list.
-Emergency managers use these outputs to pre-position flood barriers, issue targeted
-warnings to specific building owners, and stage response resources before water rises.
+In \textit{planning mode} (always on, no flood required) the technical tier presents the ranked retrofit list and what-if simulations and the plain-language tier the one-page district comparisons. In \textit{pre-storm mode} (triggered by NOAA forecast) the mass balance model and the Subtask~1.2 stage-to-DEM projection run on the NWS forecast crest, and the tiers output a building-level inundation risk map with credible intervals and a color-coded street map with a prioritized staging list that emergency managers use to pre-position barriers and issue targeted warnings.
 In \textit{post-event mode} (after a flood), community members submit structured
 damage and drainage observations through the interface; these observations update
 $\delta_i^{\mathrm{comm}}$ for the next event, and confirmed drainage retrofits
 trigger a recalculation of the affected sub-basin timescale $\hat{\tau}_k$ in the
 mass balance model.
-The planning and pre-storm modes are prototyped in Year~1 using the GIS-only
-prior; the full probabilistic loss calculations below become operational in
-Year~2 once the fragility surfaces from Subtask~1.4 and the calibrated posteriors
-from Subtask~1.3 are available.
+The planning and pre-storm modes are prototyped in Year~1 on the GIS-only prior; the probabilistic loss calculations below become operational in Year~2 once the Subtask~1.4 fragility surfaces and Subtask~1.3 posteriors are available.
 For each retrofit action $a$ under consideration, the framework computes expected
 loss as a sum over buildings and damage states, each damage-state probability
 obtained by integrating the fragility surface of Equation~\eqref{eq:fragility}
@@ -1242,17 +1038,7 @@ damage-state-specific loss ratio from HAZUS flood damage functions and FEMA
 benefit-cost damage ratios \cite{fema2025hazus,fema2019bcatoolkit}, and the
 bracketed difference of successive exceedance probabilities is the probability
 that building $i$ ends in exactly damage state $ds$, with the highest state $D$
-carrying no survivor term. Each $P(DS_i \geq ds \mid a)$ is computed per building
-by Monte Carlo integration of Equation~\eqref{eq:fragility} over building $i$'s
-own duration posterior $p(T_i \mid a)$ jointly with its calibrated depth
-distribution from the Subtask~1.2 stage-to-DEM projection under the stage
-scenario evaluated (for planning mode, a recurrence of the 2023 crest or a
-design recurrence stage), with draws in which the building is not inundated
-contributing no loss; the outer sum runs over buildings with nonzero inundation
-probability under that scenario. The action $a$ modifies
-both the fragility (building hardening raises the capacity threshold
-$\lambda_{0,ds}$) and the duration posterior (drainage investment reduces
-$\hat{\tau}_k$ through the mass balance model).
+carrying no survivor term. Each $P(DS_i \geq ds \mid a)$ is computed per building by Monte Carlo integration of Equation~\eqref{eq:fragility} over building $i$'s duration posterior jointly with its Subtask~1.2 depth distribution under the stage scenario evaluated, draws with no inundation contributing no loss; the outer sum runs over buildings with nonzero inundation probability under that scenario. The action $a$ modifies both the fragility (building hardening raises the capacity threshold $\lambda_{0,ds}$) and the duration posterior (drainage investment reduces $\hat{\tau}_k$ through the mass balance model).
 Expected loss reduction is one criterion in the multi-criteria decision analysis
 score:
 \begin{equation}\label{eq:mcda}
@@ -1276,11 +1062,7 @@ Subtask~2.3 directly addresses RQ2 by running the full CPS under two conditions:
 with community-informed priors ($\delta_i^{\mathrm{comm}}$ from Subtask~2.1
 workshops) and with GIS-only priors ($\delta_i^{\mathrm{comm}} = 0$), across
 all 271 buildings for both flood events.
-Predictive duration distributions under each condition are scored against the
-SAR-derived duration brackets on three metrics: the interval-censored log
-predictive score, empirical consistency of 90\% credible intervals with the
-observed brackets (calibration), and damage state prediction
-accuracy against 2024 field observations.
+Predictive duration distributions under each condition are scored against the SAR brackets on the three Subtask~1.5 metrics (interval-censored log predictive score, 90\% credible-interval consistency, and 2024 damage state accuracy).
 Because Year~1 elicitation deliberately shows partners the 2023 SAR map
 (Subtask~2.1), the 2023 comparison cannot distinguish independently held
 knowledge from accurate recall of the displayed error pattern; it is therefore
@@ -1291,17 +1073,7 @@ drainage anomalies persist across events, so cross-event persistence, evaluated
 separately for mechanism-attributed and unexplained adjustments, is the
 criterion that separates structural community knowledge from recall of what the
 research team displayed.
-Results are disaggregated by building type, drainage sub-basin, and 2023 damage
-state to characterize the conditions under which community knowledge and geospatial
-data are substitutes versus complements; a building is classified as
-community-knowledge-dominant if the $\delta_i^{\mathrm{comm}}$ adjustment moves
-the 2024 predictive distribution meaningfully toward the observed brackets, and
-GIS-dominant if the community adjustment adds no predictive value.
-The width of the SAR brackets bounds the community knowledge signal this test
-can resolve: an adjustment smaller than the bracket width for a given building
-cannot be adjudicated by that event's acquisition sequence, and the reported
-characterization states explicitly, per sub-group, what magnitude of
-$\delta_i^{\mathrm{comm}}$ effect the available cadence can detect.
+Results are disaggregated by building type, drainage sub-basin, and 2023 damage state to characterize where community knowledge and geospatial data are substitutes versus complements: a building is community-knowledge-dominant if its $\delta_i^{\mathrm{comm}}$ adjustment moves the 2024 predictive distribution meaningfully toward the observed brackets, GIS-dominant if it adds no value. The SAR bracket width bounds the signal this test can resolve, and the reported characterization states, per sub-group, what magnitude of $\delta_i^{\mathrm{comm}}$ effect the available cadence can detect.
 A pre-submission simulation power study (archived with the project repository)
 supports the design targets: under central assumptions the aggregate
 community-versus-GIS comparison reaches roughly 70 to 80 percent power at
@@ -1310,15 +1082,7 @@ power degrades with sparse acquisition cadence exactly as the bracket-width
 bound predicts, and elicited volume without mechanism quality contributes no
 power at any rate, confirming that the mechanism-attribution requirement in
 Subtask~2.1, not raw elicitation coverage, is what makes RQ2 testable.
-Cases where community knowledge and mass balance predictions conflict and community
-knowledge proves correct are the most scientifically informative outcomes; they
-identify where GIS cannot see the infrastructure conditions that drive local
-drainage behavior, and they constitute the primary evidence for the value of
-elicitation investment in future CPS transfer.
-Cases where community knowledge underperforms the GIS-only baseline are reported
-in full; the conditions under which elicitation adds no value are a scientific
-finding, and they directly inform the transfer protocol in Subtask~2.4 by
-identifying community contexts where elicitation effort is not warranted.
+Cases where community knowledge conflicts with mass balance predictions and proves correct are the most informative outcomes: they identify where GIS cannot see the infrastructure conditions driving local drainage and constitute the primary evidence for elicitation value in future transfer. Cases where community knowledge underperforms the GIS-only baseline are reported in full, since the conditions under which elicitation adds no value are themselves a finding that informs the Subtask~2.4 transfer protocol.
 % becca: confirm that the full substitutes-versus-complements results, including null findings, will be published. (CRPS suggestion resolved 2026-07-22: the interval-censored log predictive score now serves as the proper scoring rule in the metric set.)
 
 \textbf{Subtask 2.4: Closed-Loop Validation and Transferable Protocol
@@ -1368,16 +1132,7 @@ known storage volume and outlet capacity changes the drainage timescale by a
 calculable amount, so the parameter is updated from design drawings rather than
 a full GIS model re-run; after building hardening retrofits, the fragility
 capacity threshold $\lambda_{0,ds}$ is updated for the retrofitted structures.
-No drainage retrofits are currently planned in Montpelier; Montpelier community
-partners are open to investment based on the findings of this research, and the
-Year~3 decision interface is designed to produce the probabilistic comparison of
-drainage investment versus distributed building hardening that would inform that
-decision.
-The retrofit update pathway is therefore demonstrated computationally within the
-grant period: the research team will simulate a plausible drainage investment
-scenario in Subtask~2.4, update $\hat{\tau}_k$ from the engineering
-specifications of that scenario, and show the resulting change in posterior
-duration distributions and retrofit priority rankings.
+No drainage retrofits are currently planned in Montpelier; partners are open to investment based on this research, and the Year~3 interface is designed to produce the drainage-versus-hardening comparison that would inform it. The retrofit update pathway is therefore demonstrated computationally within the grant: the team simulates a plausible drainage investment, updates $\hat{\tau}_k$ from its engineering specifications, and shows the resulting change in posterior durations and retrofit rankings.
 The 2024 event provides the first empirical test of whether one event cycle of
 community observation updates measurably improves posterior accuracy relative to
 the 2023-only calibration baseline.
@@ -1388,35 +1143,11 @@ $\delta_i^{\mathrm{comm}}$ values, optionally supported by free Sentinel-1 image
 as a rough visual aid for flood-extent discussion where local recall is difficult,
 combined with the open-source software package
 initialized from Montpelier-derived mass balance and fragility parameters.
-A community operating under this protocol will have wider credible intervals than
-Montpelier because it lacks local ICEYE calibration; access to free Sentinel-1
-imagery does not close this gap, since its coarser resolution cannot support
-building-level calibration, so credible intervals remain at the transferred
-default width regardless of whether open SAR imagery is available locally.
-The expected interval widths,
-derived from the $\sigma_{\mathrm{MB}}^2$ characterization in Subtask~1.3
-together with the elicitation-initialized adjustment uncertainty $P_i^{(0)}$, are
-reported as part of the protocol documentation so communities can assess
-decision-adequacy before committing to adoption, and intervals narrow with each
-community observation cycle.
+A community operating under this protocol has wider credible intervals than Montpelier because it lacks local ICEYE calibration, and free Sentinel-1 imagery does not close this gap. The expected interval widths, derived from the Subtask~1.3 $\sigma_{\mathrm{MB}}^2$ characterization and the elicitation-initialized $P_i^{(0)}$, are reported in the protocol documentation so communities can assess decision-adequacy before adoption, and intervals narrow with each observation cycle.
 % becca / maggie confirm the engineering specification approach for updating tau_k_hat -- what inputs does Maggie need from a retrofit design drawing  to compute the change in drainage timescale? Storage volume + outlet capacity? Confirm the computational scenario for Subtask 2.4 (what  retention basin size / location is plausible for Montpelier based on   the watershed geometry?).
 
-\textbf{Key outcomes:} RO2 produces three primary outputs, detailed in
-Table~\ref{tab:research_summary}: a three-mode decision interface independently
-operated by Montpelier community partners in Year~3 (Subtask~2.2); a direct
-characterization of the conditions under which community knowledge and geospatial
-data are substitutes versus complements, including cases where community knowledge
-adds no value (Subtask~2.3); and a transferable co-design protocol enabling any
-municipality with a USGS gauge to initialize the system from one workshop without
-a commercial SAR purchase (Subtask~2.4).
+\textbf{Key outcomes:} RO2 produces three primary outputs (Table~\ref{tab:research_summary}): a three-mode interface independently operated by Montpelier partners in Year~3 (Subtask~2.2); a characterization of when community knowledge and geospatial data are substitutes versus complements, including cases where community knowledge adds no value (Subtask~2.3); and a transferable protocol enabling any municipality with a USGS gauge to initialize the system from one workshop without a commercial SAR purchase (Subtask~2.4).
 % resolved 2026-07-22 per Christelle: Sentinel-1's resolution is too coarse for building-level detail but fine for rough/qualitative flood-extent context. Added as an optional workshop visual aid in the transferable-protocol paragraph above (Subtask~2.4).
-
-\begin{figure}
-\includegraphics[width=0.5\textwidth]{images/img.jpg}
-\captionsetup{justification=centering,singlelinecheck=false,font=small}
-\caption{\placeholder{Project timeline (Gantt chart) with PI assignments.}}
-\label{fig:timeline}
-\end{figure}
 
 % ============================================================
 %  BROADER IMPACTS
@@ -1424,19 +1155,15 @@ a commercial SAR purchase (Subtask~2.4).
 
 \section{Broader impacts}
 
-The closed-loop CPS framework transforms how flood-affected communities interact
-with infrastructure risk, providing the probabilistic damage assessments and
-pre-storm decision support that small, resource-constrained municipalities need
-to evaluate building retrofits and drainage investments where no such pathway
-currently exists.
-By enabling better-informed retrofit investment decisions, the framework directly
-improves the quality of life of residents who live, work, and rebuild in
-repeatedly-flooded historic communities, reducing the flood damage burden that
-falls disproportionately on towns with the fewest resources to recover.
-The planning mode is available from the day of deployment, before a new flood
-occurs; the pre-storm mode provides actionable building-level risk information
-before water rises; the post-event mode makes the system more accurate with each
-event, all without any proprietary data or ongoing research support.
+The closed-loop CPS framework gives small, resource-constrained municipalities
+probabilistic damage assessments and pre-storm decision support for retrofit and
+drainage investment decisions, a pathway that does not currently exist.
+By enabling better-informed retrofit decisions, the framework reduces the flood
+damage burden that falls disproportionately on towns with the fewest resources
+to recover.
+The planning mode is available at deployment; pre-storm mode delivers actionable
+building-level risk before water rises; post-event mode improves accuracy with
+each event, all without proprietary data or ongoing research support.
 
 The framework's operational sensing layer requires only USGS gauge data and NOAA
 precipitation, both free and nationally available;
@@ -1449,15 +1176,14 @@ hydraulic model is required.
 % becca: quantify the transferable community count using FEMA NFIP enrollment data (riverine flood communities), ACS table B25035 (pre-1940 housing stock),   USGS NWIS (gauge coverage), and FEMA DFIRM (communities without hydraulic   models). Convert the implied "thousands of towns" claim into a bounded, citable estimate.
 % note 2026-07-22: the citable inputs are now in biblio.bib: horn2024nfip (22,000+ NFIP communities), census2017b25034 (B25034 year-built), vhfa2020housingneeds (25.7 percent of VT stock pre-1939). The bounded estimate itself still needs the cross-tabulation.
 
-Emergency managers, historic preservation officials, and planning commission staff
-gain structured capacity to interpret probabilistic damage assessments, use forecast
-inputs for pre-event resource staging, and run what-if simulations for investment
-decisions independently.
+Emergency managers, historic preservation officials, and planning staff gain
+structured capacity to interpret probabilistic damage assessments, use forecast
+inputs for pre-event staging, and run what-if investment simulations
+independently.
 The CIR co-development methodology, documented as a transferable protocol, advances
-CPS practice by establishing how structured elicitation of locally held flood
-knowledge can be translated into informative Bayesian prior distributions, making
-resident knowledge measurably load-bearing in model calibration rather than
-supplementary narrative input.
+CPS practice by showing how structured elicitation of locally held flood knowledge
+translates into informative Bayesian priors, making resident knowledge measurably
+load-bearing in model calibration rather than supplementary narrative.
 Graduate students will receive cross-disciplinary training spanning
 SAR imagery data processing (Co-PI Wauthier), hydrological mass balance modeling
 and GIS-parameterized watershed analysis (Co-PI Busse), and probabilistic structural
@@ -1466,18 +1192,15 @@ assessment and community-engaged research (PI Napolitano).
 
 \vspace{-10pt}
 \subsection{Potential for transformative impact}
-This framework is the first to place community-scale drainage investments and
+This framework is the first to place community-scale drainage investment and
 individual building retrofits on the same probabilistic basis for small historic
-municipalities, resolving an investment allocation problem that annually re-injures
-these communities without resolution.
-The generalizable CPS architecture principle, that free geospatial data fused with
-community knowledge is sufficient for the specific investment decisions
-resource-constrained municipalities face, applies beyond flood resilience to any
-infrastructure domain where national data layers and community knowledge are available
-but simulation is not.
-The characterization of when community knowledge and geospatial data are substitutes
-versus complements has direct implications for how CPS research treats locally held
-knowledge across socio-technical systems far beyond flood risk.
+municipalities, resolving an allocation problem that annually re-injures them.
+Its generalizable principle, that free geospatial data fused with community
+knowledge suffices for the investment decisions these municipalities face, extends
+beyond flood resilience to any infrastructure domain with national data layers and
+community knowledge but no simulation capacity, and its substitutes-versus-complements
+characterization (Key Outcomes, RO2) informs how CPS research treats locally held
+knowledge more broadly.
 
 \vspace{-10pt}
 \subsection{Education and broadening participation}
@@ -1493,13 +1216,11 @@ Engineering Seminal Undergraduate Research Experience (BESURE) program at Penn S
 \vspace{-10pt}
 \subsection{Open science and transferability}
 The Bayesian fusion code, mass balance parameterization pipeline, and decision
-interface will be released on GitHub under an MIT license, with full documentation
+interface will be released on GitHub under an MIT license, with documentation
 enabling any municipality to initialize the system from national GIS data layers.
 Derived SAR imagery, codes, and building-level inundation products for Montpelier will be shared on
 DesignSafe-CI; field damage state observations and community workshop documentation
 will be shared on the Open Science Framework with appropriate anonymization.
-The community knowledge elicitation protocol will be released alongside the technical
-software as a transferable co-design artifact: gauge ID, GIS downloads, one workshop.
 
 % ============================================================
 %  PROJECT TIMELINE AND EVALUATION
@@ -1507,58 +1228,50 @@ software as a transferable co-design artifact: gauge ID, GIS downloads, one work
 
 \section{Project timeline and evaluation}
 
-Progress will be monitored through monthly PI team meetings and annual project
-reviews.
-The three-year project runs RO1 technical development (Subtasks~1.1 through~1.4)
-in Years~1 and~2 in parallel with RO2 Year~1 co-development workshops and
-decision interface construction; system validation (Subtask~1.5) and comparative
-assessment (Subtask~2.3) run in Year~2 following 2023 calibration; closed-loop
-validation and protocol transfer (Subtask~2.4) conclude in Year~3 concurrent with
-Year~3 independent-use stress testing.
-The project includes a formal assessment component evaluating success across three
-dimensions, with the following key performance indicators.
+Progress is monitored through monthly PI meetings and annual reviews. RO1
+technical development (Subtasks~1.1 to~1.4) runs in Years~1 and~2 parallel to
+RO2 Year~1 co-development and interface construction; validation (Subtask~1.5)
+and comparative assessment (Subtask~2.3) follow in Year~2; closed-loop
+validation, protocol transfer (Subtask~2.4), and Year~3 independent-use stress
+testing conclude in Year~3.
+Success is evaluated across three dimensions via the following key performance
+indicators:
 \begin{itemize}[leftmargin=1.5em,itemsep=2pt,topsep=2pt]
 \item \textit{Technical KPIs} (Subtask~1.5):
   \begin{itemize}[leftmargin=1.5em,itemsep=1pt,topsep=1pt]
-  \item Building-level duration estimation error against the 2024 SAR duration
-  brackets at or below the ranking-stability threshold established by a
-  pre-submission sensitivity analysis (archived with the project repository):
-  approximately 0.4 log-units, $\sim$70 h RMSE over the building portfolio, below
-  which the top-20 retrofit priority set retains at least 80\% overlap with the
-  error-free ranking across fragility parameter variants.
+  \item Building-level duration error against 2024 SAR brackets at or below the
+  ranking-stability threshold (pre-submission sensitivity analysis, archived with
+  the repository): $\sim$0.4 log-units / $\sim$70\,h RMSE, below which the top-20
+  retrofit ranking retains $\geq$80\% overlap with the error-free ranking.
   \item Empirical consistency of 90\% credible intervals with the observed
   brackets between 0.85 and 0.95 across 271 buildings.
-  \item Damage state prediction accuracy of the duration-depth bivariate model
-  exceeding the depth-only baseline by a margin statistically significant under
-  the cluster-bootstrap comparison of per-building predictive scores in
-  cross-validation on 2023, with the same comparison reported on the 2024
-  held-out event relative to the damage variation that smaller event produced.
+  \item Duration-depth bivariate model accuracy exceeding the depth-only baseline
+  by a margin statistically significant under cluster-bootstrap comparison of
+  per-building predictive scores, in 2023 cross-validation and on the 2024
+  held-out event relative to that event's smaller damage variation.
   \item Pre-storm mode producing actionable building-level risk rankings at
   48-hour forecast lead time.
   \end{itemize}
 \item \textit{Community engagement KPIs} (Subtask~2.1):
   \begin{itemize}[leftmargin=1.5em,itemsep=1pt,topsep=1pt]
-  \item Proportion of Year~1 stated community priorities reflected in Year~2
-  framework outputs, evaluated by community partners in Year~2 workshops with
-  all discrepancies documented and addressed before Year~3.
-  \item Structured elicitation sessions covering all 271 buildings by end of
-  Year~1, yielding nonzero, mechanism-attributed $\delta_i^{\mathrm{comm}}$
-  adjustments for at least 20\% of buildings (design target 30\%, at which the
-  archived pre-submission power study indicates the aggregate community-versus-GIS
-  comparison exceeds 80\% power under central assumptions), with zero defaults
-  recorded as explicit no-knowledge outcomes rather than counted as elicited
-  values.
+  \item Proportion of Year~1 community priorities reflected in Year~2 framework
+  outputs, evaluated by community partners in Year~2 workshops, with
+  discrepancies documented and addressed before Year~3.
+  \item Structured elicitation covering all 271 buildings by end of Year~1,
+  yielding nonzero, mechanism-attributed $\delta_i^{\mathrm{comm}}$ adjustments
+  for at least 20\% of buildings (target 30\%, the power threshold established
+  in Subtask~2.3); zero defaults are recorded as explicit no-knowledge outcomes,
+  not elicited values.
   \end{itemize}
 \item \textit{Community knowledge contribution KPIs} (Subtask~2.3): community-informed
 model achieves a better interval-censored log predictive score and better
 calibration than the GIS-only baseline on at least one disaggregated sub-group;
 substitutes-versus-complements characterization published with full results
 including null findings.
-\item \textit{Adoption KPIs} (Year~3): emergency managers successfully operate all
-three decision interface modes without researcher support in the Year~3 stress
-test, and demonstrate ability to explain pre-storm risk maps and planning-mode
-retrofit comparisons to elected officials and residents without researcher
-involvement.
+\item \textit{Adoption KPIs} (Year~3): emergency managers operate all three
+decision interface modes without researcher support in the Year~3 stress test,
+and demonstrate they can explain pre-storm risk maps and planning-mode retrofit
+comparisons to elected officials and residents unaided.
 \end{itemize}
 % resolved 2026-07-22: the sensitivity analysis was worth it and is done (analysis/ranking_sensitivity.py/.md): on a synthetic 271-building portfolio with anchored fragility parameters, top-20 overlap stays >= 0.8 up to sigma_est ~ 0.40-0.44 log-units (70-78 h portfolio-wide RMSE) across gamma/zeta variants; Spearman >= 0.9 holds to ~0.5 log-units. Threshold above uses the stricter overlap criterion. Caveats in the .md: synthetic portfolio, duration channel only; redo on real 2023 data once ICEYE durations are in hand.
 
