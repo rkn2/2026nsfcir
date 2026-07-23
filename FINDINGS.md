@@ -168,3 +168,18 @@ All seven existing equations converted to \label/\eqref (references were hardcod
 - Wild cluster bootstrap committed in Subtask 1.4 text (consequence of the dominant-cluster skew), inline comment asks Napolitano to confirm.
 - eq:tau linear-reservoir form and the AMC formulation are still Maggie's calls; both flagged inline with the new empirical numbers attached.
 - Unchanged blockers: 2024 damage distribution, Christelle scene list, Prior NSF stub, PhD counts, figures.
+
+## Session 2026-07-23: Research_v3.tex branched, title decided, FY2028-memo framing pass
+
+Branched `Research_v3.tex` from the frozen `Research_v2.tex` (commit ff6895b) as the new working file. Also resolved an Overleaf/repo sync scare: the freshly-downloaded Overleaf copy (`Research_vold.tex`, untracked) turned out to match the repo exactly at commit 9cb7b76, the point right before the 2026-07-22 editing session -- Overleaf was simply never updated after that session, nothing was lost or overwritten. Needs pushing back up to Overleaf when convenient.
+
+Read `Science-A-New-Golden-Age.md` (OSTP/OMB FY2028 R&D priorities memo) and layered in three small, page-neutral framing edits tying the existing methodology to named memo priorities (not adding new claims, just naming what the framework already does): "Bayesian uncertainty-quantification framework" in the goals box (line 69), "state-estimation problem" opening Subtask 1.3 (line 808), and "dynamics, estimation, and control" reframing the closed-loop-timescales paragraph (line 658). Explicitly steered away from claiming "AI" anywhere -- the memo itself warns reviewers to screen out AI-labeling without justification, and this framework is Bayesian statistics, not ML.
+
+**Title decided**: CPS-CIR: Closing the Cyber-Physical Loop between Community Knowledge and Hydrological Modeling for Flood-Resilient Historic Communities. Drafted in the style of funded S&CC/CIR titles (checked via web search against real awards, including #2125472, the Lafayette Parish project already cited elsewhere in this tex for its two-tier design and tech-skepticism findings). Recorded as a comment at the top of Research_v3.tex; needs entering on the actual Research.gov submission form since it isn't part of the typeset Project Description.
+
+### Still open
+- Page limit: body is 22 pages against the 15-page target, unaddressed since the last tightening pass.
+- Prior-NSF stub for PI Napolitano still empty.
+- Placeholder figures: CPS architecture diagram, Gantt chart.
+- Blocked on others: 2024 field damage distribution, Christelle/Young ICEYE scene list.
+- latex/summary.tex is stale relative to Research_v3.tex (still describes a two-site Montpelier+Marshall design and Capella X-band SAR that no longer match the current framework) -- needs a rewrite pass before submission, not touched this session.
