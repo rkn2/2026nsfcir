@@ -236,3 +236,24 @@ computable as written; the "Bayesian" update not having the properties
 claimed for it). Items 4-6 matter most for the RQ1/RQ2 identification
 claims specifically. Items 7-8 are lower risk but cheap to fix or cheap to
 cut.
+
+---
+
+# Resolution status (2026-07-23, revision pass + adversarial re-review)
+
+All items were fixed in `Research_v3.tex`, then independently re-reviewed by a fresh adversarial pass; the re-review confirmed every item and surfaced four residuals (a Bayesian/frequentist paradigm clash on the duration-beats-depth claim, depth point-collapsing in the loss layer, P_i tracked but not propagated to predictive/transfer intervals, and cosmetic wording), all of which were then fixed. Per item:
+
+- **Umbrella (sigma_MB four jobs) — RESOLVED.** sigma_event named for the 15-event sd(ln tau)=0.30, demoted to an order-of-magnitude regularizing anchor; sigma_MB now purely cross-sectional, calibrated on the 271 brackets; delta_comm uncertainty tracked explicitly as P_i and folded into predictive variance (sigma_MB^2 + P_i) and transfer-protocol interval widths. Anchor robustness quantified in `analysis/regularizer_misscale.*`: a 2x anchor mis-scale moves the calibrated sigma_MB by <0.01 under realistic cadences; even a single post-peak scene leaves >80% of identifying weight with the brackets at nominal prior strength (worst-case bias -0.096 nominal, -0.188 only if the prior is set strong, an argument against tightening it). `historical_tau.md` line 45 conflation corrected.
+- **1 (eq:tau ODE mismatch) — RESOLVED.** Fractional-storage outflow closure Q_k = C_k S_k / S_k^max makes tau_k = S_k^max/C_k the genuine e-folding constant of the stated ODE, consistent with the 37/45 h empirical recessions. Both % maggie comments updated; still her call to confirm or replace.
+- **2 (loss integral) — RESOLVED.** PEER/PBEE form: per-building sum over damage states, successive-exceedance differences times loss ratio c_ds (HAZUS/FEMA BCA cited) times L_i; per-building Monte Carlo over each building's own T_i posterior jointly with its depth distribution; non-inundated draws contribute no loss.
+- **3 (fixed-gain mislabeled Bayesian) — RESOLVED.** Random-walk Kalman recursion with tracked P_i and process noise q^2; steady-state fixed gain now derived, not assumed. Validated in `analysis/delta_filter.*`, which also forced two honesty edits: P converges to a q-set steady state (does not universally "shrink"), and a two-event pair bounds q only coarsely (factor ~10), so q is a swept design hyperparameter.
+- **4 (fragility monotonicity) — RESOLVED.** Ordered probit: shared gamma and zeta, ordered lambda_0,ds; non-crossing by construction ("horizontal translates along ln T").
+- **5 (estimation machinery) — RESOLVED** (re-review initially PARTIAL). Explicit Bayesian estimation with physics-centered informative priors; the paradigm clash the re-review caught (posterior-predictive framing vs cluster-robust SEs vs "statistically significant margin" KPI) unified as: Bayesian models, frequentist wild-cluster-bootstrap test on per-building held-out predictive score differences, at all three sites.
+- **6 (depth uncertainty asymmetry) — RESOLVED** (re-review initially PARTIAL). Depth distribution sampled jointly with duration in both the fragility calibration MC and the eq:loss decision-layer MC (the re-review caught the loss layer still using point d_i). Quantified in `analysis/depth_uncertainty.*`: depth error is ~4% median share of damage-probability uncertainty under the on-file 2023 cadence but dominant (86-97%) under dense 6h brackets, and 7-18% of buildings have flood/no-flood status genuinely uncertain across the admissible beta range, so propagation (fix a) was the only defensible option.
+- **7 (soft bracket unused) — RESOLVED.** sigma_MB calibration now uses the eq:softbracket likelihood with Subtask 1.1 per-scene error rates; reduces to hard brackets as eps -> 0.
+- **8 (MCDA commensurability) — RESOLVED.** Min-max normalization to [0,1] over the candidate action set before weighting; compensatory nature stated.
+- **Minor a (beta resolution) — RESOLVED.** Reach-property justification sentence added, citing the archived slope study for the admissible range.
+- **Minor b (wild bootstrap citation) — RESOLVED.** cameron2008bootstrap verified (RePEc + DOI + NBER) and cited.
+- **Minor (eq:lps)** — untouched, was already correct.
+
+Page cost: 26 -> 28 PDF pages (body grew ~1.5 pages); absorbing this is the job of the separate page-cut pass, out of scope for this session.

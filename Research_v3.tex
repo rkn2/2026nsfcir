@@ -351,7 +351,7 @@ model parameterized entirely from nationally available GIS layers can produce
 building-scale drainage timescale estimates of sufficient accuracy for retrofit
 allocation decisions in small municipalities where calibrated hydraulic models
 are unavailable.
-% maggie: expand with key references. Describe the functional form you intend to use for tau_k_hat and the prior work that supports it. 1-2 additional paragraphs.
+% maggie: expand with key references supporting the linear-reservoir form with fractional-storage closure now committed in eq:tau (or your preferred alternative). 1-2 additional paragraphs.
 
 \subsection{Fragility and vulnerability frameworks for flood damage}
 Flood fragility and vulnerability assessment relies predominantly on depth-damage
@@ -587,7 +587,7 @@ magnitudes rather than replicating one event size.
 Extending the analysis across the gauge's full 1990--2026 record strengthens this
 anchor: fifteen well-fit events give $\hat{\tau}$ between 36 and 96 hours
 (median 51), $\mathrm{sd}(\ln \hat{\tau}) = 0.30$ across events (the
-$\sigma_{\mathrm{MB}}$ pre-estimate for Subtask~1.2), and a quantified
+event-to-event anchor $\sigma_{\mathrm{event}}$ for the Subtask~1.3 calibration), and a quantified
 antecedent-moisture signal: wetter pre-event conditions correlate with slower
 recession (roughly a 33-hour shift from driest to wettest antecedent state,
 predicted by pre-event baseflow), so the antecedent state pre-storm mode must
@@ -720,7 +720,9 @@ soil infiltration rates from SSURGO, and real-time discharge from USGS station
 Each sub-basin is modeled as a linear reservoir, the storage-discharge form whose
 signature is the exponential recession observed in the preliminary gauge analysis:
 \begin{equation}\label{eq:tau}
-  \frac{dS_k}{dt} \;=\; I_k(t) \;-\; \frac{S_k}{\hat{\tau}_k},
+  \frac{dS_k}{dt} \;=\; I_k(t) \;-\; Q_k,
+  \qquad
+  Q_k \;=\; C_k\,\frac{S_k}{S_k^{\mathrm{max}}} \;=\; \frac{S_k}{\hat{\tau}_k},
   \qquad
   \hat{\tau}_k \;=\; \frac{S_k^{\mathrm{max}}}{C_k}
 \end{equation}
@@ -728,8 +730,13 @@ where $S_k$ is stored floodwater volume in sub-basin $k$, $I_k(t)$ is inflow fro
 precipitation and upstream routing, $S_k^{\mathrm{max}}$ is the storage capacity
 of the sub-basin's low-lying terrain from 3DEP, and $C_k$ is its effective
 conveyance and infiltration capacity from NHD channel properties, NLCD
-imperviousness, and SSURGO infiltration rates.
-% maggie: this linear-reservoir form is a placeholder anchor consistent with the exponential recessions in the preliminary results; replace with your preferred tau_k_hat formulation if different, and adjust the S_k^max / C_k parameterization language to match.
+imperviousness, and SSURGO infiltration rates. Outflow is closed as a linear
+function of fractional storage, $Q_k = C_k\,S_k/S_k^{\mathrm{max}}$, so once
+inflow subsides the storage decays exponentially and $\hat{\tau}_k =
+S_k^{\mathrm{max}}/C_k$ is the genuine e-folding recession constant, consistent
+with the exponential falling limbs fit in the preliminary gauge analysis
+($\hat{\tau} = 37$ and $45$~h).
+% maggie: linear-reservoir form with a fractional-storage outflow closure (Q_k = C_k S_k / S_k^max) that makes tau_k_hat = S_k^max / C_k the genuine e-folding recession constant and reproduces the exponential falling limbs in the preliminary results; replace with your preferred tau_k_hat formulation if different, and adjust the closure and S_k^max / C_k parameterization language to match.
 The drainage timescale $\hat{\tau}_k$ represents the expected duration of standing
 water under gravitational drainage and serves as the physically grounded prior mean
 on inundation duration; the model is designed so that any municipality with a USGS
@@ -760,11 +767,22 @@ GIS-parameterized mass balance: it absorbs both residual local drainage
 variability and the model's systematic limitations at building scale, so that
 all model error lives on the prior side of the framework rather than being
 attributed to the sensing data.
-$\sigma_{\mathrm{MB}}^2$ is pre-estimated from historical Winooski gauge
-variability and then calibrated against the 2023 SAR duration observations in
-Subtask~1.3; a recession analysis of fifteen well-fit flood events in the
-gauge's 1990--2026 instantaneous record (archived with the project repository)
-gives $\mathrm{sd}(\ln \hat{\tau}) = 0.30$ as that pre-estimate.
+$\sigma_{\mathrm{MB}}^2$ is a cross-sectional quantity, the building-to-building
+spread of durations within a single event, and it is estimated from the 2023 SAR
+brackets in Subtask~1.3, with the gauge record supplying only a weak regularizing
+anchor. A recession analysis of fifteen well-fit flood events in the gauge's
+1990 to 2026 instantaneous record (archived with the project repository) gives an
+event-to-event variability of the watershed timescale,
+$\sigma_{\mathrm{event}} = \mathrm{sd}(\ln \hat{\tau}) = 0.30$. This is a
+storm-to-storm variability of one aggregate parameter, physically distinct from
+the within-event, building-to-building heterogeneity that $\sigma_{\mathrm{MB}}$
+measures, so $\sigma_{\mathrm{event}}$ is not used as $\sigma_{\mathrm{MB}}$
+itself but only as an order-of-magnitude anchor keeping the Subtask~1.3
+calibration in a plausible range; an archived sensitivity study confirms the
+calibration is robust to mis-scaling of this anchor, with a factor-of-two
+mis-scaling moving the calibrated $\sigma_{\mathrm{MB}}$ by less than 0.01 under
+realistic acquisition cadences, and the 271 brackets carrying over 80 percent of
+the identifying weight even with a single usable post-peak scene.
 Subtask~1.2 delivers the GIS-only prior: setting $\delta_i^{\mathrm{comm}} = 0$
 gives the baseline model parameterized entirely from national GIS layers, which
 constitutes both the operational system for transfer communities and the comparison
@@ -796,13 +814,20 @@ stage, for example a recurrence of the 2023 crest; in pre-storm mode it takes th
 NWS river-stage forecast for the gauge.
 The 2023 ICEYE depth measurements calibrate the mapping's water-surface slope
 $\beta$ and bound its building-level error in
-the same way the 2023 duration brackets calibrate the mass balance error, and the
-depth input $d_i$ required by the fragility surface of Subtask~1.4 in every
+the same way the 2023 duration brackets calibrate the mass balance error, and that
+calibrated error defines a distribution over $d_i$ rather than a single point
+value; the depth input required by the fragility surface of Subtask~1.4 in every
 operational mode is produced by this component, not by the mass balance model.
+A single reach-scale $\beta$ is appropriate here even though the duration model
+resolves ten to twenty sub-basins: the flood water surface along the downtown
+reach is a smooth, hydraulically connected profile, a property of the reach as a
+whole rather than of any individual sub-basin, and a slope sensitivity analysis
+archived with the project repository bounds the admissible range of $\beta$ from
+documented 2023 flood outcomes ahead of the ICEYE-based calibration.
 For pre-storm prediction, NOAA forecast precipitation replaces observed discharge
 as the model input; forecast uncertainty is propagated through the mass balance to
 produce appropriately wider credible intervals on predicted duration.
-% maggie: specify the functional form for tau_k_hat (ratio of stored flood volume to effective channel capacity? Unit hydrograph lag? Something else?). Describe the spatial discretization (approximate sub-basin size), and whether this uses an existing Winooski model or requires new development.
+% maggie: eq:tau now commits to tau_k_hat = S_k^max / C_k under the fractional-storage closure; confirm or replace with your preferred formulation. Still needed from you: the spatial discretization (approximate sub-basin size), and whether this uses an existing Winooski model or requires new development.
 %
 % maggie -- IMPORTANT FOR PRE-STORM MODE: Drainage timescale is substantially shorter under dry  conditions than saturated ones; if the mass balance model does  not account for this, pre-storm duration predictions will carry large uncharacterized uncertainty and reviewers may challenge the resource-staging claim in RQ1. Please address explicitly: (1) does the model include an antecedent moisture condition (AMC) input (e.g., AMC-I/II/III from TR-55, or a continuous soil moisture state from SSURGO + prior precipitation)? (2) how is antecedent moisture estimated operationally before a storm (NOAA QPF history? USGS soil moisture network?)? (3) how much does tau_k_hat vary between dry and saturated antecedent conditions for the Winooski if the range is large and the operational estimate is uncertain, the pre-storm credible intervals will be wide enough to limit actionability. If the model handles AMC well, say so since that would strengthens the pre-storm mode substantially. If not, we should narrow the pre-storm claim before submission prob.
 % maggie: verified refs already in biblio.bib you can use here: usdascs1986tr55 (TR-55 AMC classes) and kim2019assessment (antecedent moisture effect on flood frequency, Napa River basin).
@@ -860,22 +885,24 @@ Equation~\eqref{eq:bracket}, so classification error softens the truncation
 boundaries without changing the structure.
 $\sigma_{\mathrm{MB}}^2$ is calibrated on the 2023 event by maximum likelihood
 over the 271 interval-censored observations with the GIS-only prior
-($\delta_i^{\mathrm{comm}} = 0$), standard machinery from survival analysis;
-working on the log scale maintains dimensional consistency with the LogNormal
-prior and keeps all duration quantities strictly positive.
-The gauge-based pre-estimate serves as a regularizing prior in this calibration:
-where the acquired brackets are wide, the censored likelihood constrains
-$\sigma_{\mathrm{MB}}^2$ only weakly and the estimate falls back toward the
-pre-estimate rather than becoming unidentified, and the detectability statements
-reported in Subtask~2.3 make explicit what the acquired cadence can and cannot
-resolve.
+($\delta_i^{\mathrm{comm}} = 0$), using the classification-error-softened
+likelihood of Equation~\eqref{eq:softbracket} with the per-scene error rates
+$\epsilon_j$ characterized in Subtask~1.1; this reduces to the hard-bracket
+survival likelihood where those error rates are small. Working on the log scale
+maintains dimensional consistency with the LogNormal prior and keeps all duration
+quantities strictly positive.
+The $\sigma_{\mathrm{event}}$ anchor centers a weak regularizing prior on
+$\sigma_{\mathrm{MB}}$ in this calibration: where the acquired brackets are wide,
+the censored likelihood constrains $\sigma_{\mathrm{MB}}^2$ only weakly and the
+estimate falls back toward the anchor rather than becoming unidentified, and the
+detectability statements reported in Subtask~2.3 make explicit what the acquired
+cadence can and cannot resolve.
 A pre-submission simulation study (archived with the project repository)
 quantifies this graceful degradation: across acquisition cadences from uniform
 six-hourly coverage down to a single usable post-peak scene,
 $\sigma_{\mathrm{MB}}$ remains identified with estimation uncertainty that grows
 continuously rather than collapsing, and the regularizing prior narrows the
-estimate at every cadence at a bias cost bounded by the pre-estimate's own
-error.
+estimate at every cadence at a bias cost bounded by the anchor's own scale.
 Within this framework, the fusion that defines the cyber layer is between the
 physically grounded mass balance prior and the community knowledge adjustments
 $\delta_i^{\mathrm{comm}}$ of Equation~\eqref{eq:mu}; the SAR brackets calibrate the error
@@ -887,10 +914,13 @@ consequence is that portfolio-level uncertainty across neighboring buildings in 
 same sub-basin may be marginally underestimated; for the retrofit ranking decisions
 this proposal targets, priority rankings are robust to this approximation.
 For operational deployment without SAR imagery, the predictive distribution is
-the prior itself, $T_i \sim \operatorname{LogNormal}(\mu_i,\;
-\sigma_{\mathrm{MB}}^2)$, whose calibrated variance carries the full
-building-scale error of the GIS-parameterized system; this is the honest
-predictive uncertainty of the system when operating on free data alone.
+the prior with the adjustment uncertainty folded in, $T_i \sim
+\operatorname{LogNormal}(\mu_i,\; \sigma_{\mathrm{MB}}^2 + P_i)$, where $P_i$ is
+the tracked variance of the community adjustment from Subtask~2.4 and is zero in
+the GIS-only baseline; this variance carries the full building-scale error of
+the GIS-parameterized system together with the uncertainty of any elicited
+adjustment, the honest predictive uncertainty of the system when operating on
+free data alone.
 The 2024 Montpelier event is the held-out test: the calibrated framework, with
 all parameters fixed from 2023, is applied to 2024 gauge and NOAA forecast data
 and scored against the independently acquired 2024 SAR duration brackets.
@@ -920,41 +950,55 @@ of Equation~\eqref{eq:posterior}.
 The fragility surface for damage state $ds$ takes the form:
 \begin{equation}\label{eq:fragility}
   P(DS \geq ds \mid T_i,\; d_i) \;=\; \Phi\!\left(
-    \frac{\ln T_i - \lambda_{ds}(d_i)}{\zeta_{ds}}\right)
+    \frac{\ln T_i - \lambda_{0,ds} - \gamma \ln d_i}{\zeta}\right)
 \end{equation}
 where $T_i$ is inundation duration (hours), $d_i$ is peak inundation depth (m),
-$\lambda_{ds}(d_i) = \lambda_{0,ds} + \gamma_{ds} \ln d_i$ is the log-scale median
-duration capacity for damage state $ds$ (depth shifts the threshold at which
-duration governs damage), $\zeta_{ds}$
-is the log-standard deviation of capacity, and $\Phi$ is the standard normal
-cumulative distribution function.
-The physical component provides initial estimates of $\lambda_{0,ds}$,
-$\gamma_{ds}$, and
-$\zeta_{ds}$; the empirical component refines these parameters from 2023 observations,
-and the fitted surface is applied unchanged to 2024 for held-out validation.
+$\lambda_{0,ds}$ is the log-scale median duration capacity for damage state $ds$
+at reference depth, $\gamma$ is the shared depth sensitivity (depth shifts the
+threshold at which duration governs damage), $\zeta$ is the shared log-standard
+deviation of capacity, and $\Phi$ is the standard normal cumulative distribution
+function. This is an ordered-probit (cumulative-probit) surface: the thresholds
+are constrained to be ordered, $\lambda_{0,1} < \lambda_{0,2} < \cdots$, while
+$\gamma$ and $\zeta$ are shared across damage states, so the exceedance curves are
+horizontal translates of one another along the $\ln T_i$ axis and cannot cross at any $(T_i, d_i)$; their
+successive differences therefore define a valid ordinal damage-state distribution
+everywhere.
+Estimation is Bayesian: the physical component supplies informative priors, with
+$\lambda_{0,ds}$ and $\gamma$ centered at the material-science-derived values and
+their prior variances set from the published curves' specimen-to-specimen scatter,
+updated by the interval-censored 2023 field-damage likelihood. The resulting
+posterior surface is applied unchanged to 2024 for held-out validation.
 Concretely, published saturation-strength and capillary absorption curves for
 historic brick and lime mortar give the immersion time at which strength loss
 crosses the level associated with each damage state
-\cite{hall2009water,franzoni2015compressive,sathiparan2018effect}; that crossing
-time, evaluated at a reference depth, anchors the initial $\lambda_{0,ds}$, the
+\cite{hall2009water,franzoni2015compressive,sathiparan2018effect}; those crossing
+times, evaluated at a reference depth, anchor the ordered $\lambda_{0,ds}$, the
 rate at which deeper immersion (a greater saturated wall height) accelerates the
-crossing anchors $\gamma_{ds}$, and the specimen-to-specimen scatter of the
-published curves anchors $\zeta_{ds}$.
-The claim under test is that duration adds statistically significant explanatory
-power beyond depth alone, evaluated by comparing the bivariate model against a
-depth-only baseline using damage prediction accuracy on the 271-building 2024 event.
-Because duration and depth are correlated in the 271-building empirical sample, a
-depth-only model fit directly to the correlated data could appear competitive with
-the bivariate model even where duration has a real physical effect; the
-two-component design mitigates this identification problem by anchoring
-$\lambda_{0,ds}$ and $\gamma_{ds}$ to the physical component's material-science-derived
-functional form rather than fitting them from the correlated observations alone.
-The strength of the duration-depth collinearity is quantified and reported directly, using variance inflation factors computed on the 2023 covariate data, and the bivariate versus depth-only comparison uses cluster-robust standard errors at the drainage sub-basin level, reflecting that the 271 buildings are geographically clustered within one downtown core rather than independently sampled; because the number of sub-basins is modest and the archived terrain-partition analysis shows a single main-corridor sub-basin holding roughly a third of the buildings, cluster-robust inference is implemented by wild cluster bootstrap, which remains valid with few and unbalanced clusters.
+crossing anchors the shared $\gamma$, and the specimen-to-specimen scatter of the
+published curves anchors the shared $\zeta$.
+The claim under test is that duration adds explanatory power beyond depth alone.
+Because duration and depth are collinear in the 271-building sample, this claim is
+posed not as a naive coefficient $t$-test on the correlated data but as a
+comparison of posterior predictive accuracy on held-out 2024 damage between the
+bivariate model and a depth-only baseline. The Bayesian machinery makes both the
+identification and the significance claim coherent: the informative priors on
+$\lambda_{0,ds}$ and $\gamma$ carry the identification the collinear 2023
+covariates cannot, so the posterior shrinks toward the physical anchor where the
+empirical signal is weak and refines the anchored values in a genuinely
+data-driven way where it is strong.
+The strength of the duration-depth collinearity is quantified and reported directly, using variance inflation factors computed on the 2023 covariate data, and the bivariate versus depth-only comparison tests the difference in per-building held-out predictive scores with cluster-robust inference at the drainage sub-basin level, reflecting that the 271 buildings are geographically clustered within one downtown core rather than independently sampled; because the number of sub-basins is modest and the archived terrain-partition analysis shows a single main-corridor sub-basin holding roughly a third of the buildings, cluster-robust inference is implemented by wild cluster bootstrap, which remains valid with few and unbalanced clusters \cite{cameron2008bootstrap}.
 % becca/napolitano: wild cluster bootstrap proposed here as a consequence of the sub-basin sensitivity study (one dominant cluster); confirm this is the inference machinery you want to commit to before submission.
 The posterior duration distribution from Subtask~1.3 (Equation~\eqref{eq:posterior}) propagates through
-Equation~\eqref{eq:fragility} by Monte Carlo integration, producing a building-specific damage state
-probability distribution that carries the full inferential uncertainty of the mass
-balance and likelihood into the decision layer.
+Equation~\eqref{eq:fragility} by Monte Carlo integration, which samples $d_i$ jointly with $T_i$ from the
+calibrated depth distribution, so both fragility covariates carry quantified uncertainty into the decision
+layer and the resulting building-specific damage state probability distribution reflects the full
+inferential uncertainty of the mass balance, the depth projection, and the likelihood. A pre-submission
+sensitivity study (archived with the project repository) quantifies the relative contribution of
+depth-projection error and duration-bracket width to this uncertainty: the split is cadence dependent,
+with duration dominating where brackets are wide (depth error carries a median share of roughly four
+percent under the on-file 2023 acquisition) and depth-projection error becoming the dominant remaining
+source where dense six-hour brackets pin duration tightly, which is why both covariates carry propagated
+uncertainty rather than depth being treated as exact.
 % becca: describe the building archetypes (load-bearing brick URM, stone, timber frame, or combinations); the damage state definitions from 2023 field observations; and the distribution of 271 buildings across damage states.
 
 \textbf{Subtask 1.5: System Validation (leads: all three PIs).}
@@ -1102,10 +1146,11 @@ obstructed culvert, a below-grade entry, a historically slow drainage route),
 not only its magnitude; mechanism attribution is what allows Subtask~2.3 to
 distinguish durable structural knowledge from recall of the error pattern the
 research team displayed.
-Treating $\delta$ as a fixed constant rather than a distribution is an acknowledged
-simplification: uncertainty about the magnitude of the adjustment is absorbed into
-the prior's $\sigma_{\mathrm{MB}}^2$ term rather than modeled as a separate hyperprior, which
-is conservative and appropriate for a first characterization.
+The uncertainty in each adjustment's magnitude is not absorbed into the prior's
+$\sigma_{\mathrm{MB}}^2$ term but is tracked explicitly as the variance $P_i$ of
+the community adjustment, initialized from this elicitation and updated event by
+event through the closed-loop recursion of Subtask~2.4
+(Equation~\eqref{eq:deltaupdate}).
 The Year~2 cross-reference of community-stated adjustments against 2023 SAR actuals
 provides an empirical validity check on elicitation accuracy before the 2024 held-out
 test.
@@ -1181,23 +1226,33 @@ prior; the full probabilistic loss calculations below become operational in
 Year~2 once the fragility surfaces from Subtask~1.4 and the calibrated posteriors
 from Subtask~1.3 are available.
 For each retrofit action $a$ under consideration, the framework computes expected
-loss by integrating the building damage probability from Equation~\eqref{eq:fragility} over the
-calibrated duration distribution of Equation~\eqref{eq:posterior} in Montpelier, or the
-predictive distribution of Subtask~1.3 where no SAR calibration exists:
+loss as a sum over buildings and damage states, each damage-state probability
+obtained by integrating the fragility surface of Equation~\eqref{eq:fragility}
+over the calibrated duration posterior of Equation~\eqref{eq:posterior} in
+Montpelier, or the predictive distribution of Subtask~1.3 where no SAR
+calibration exists:
 \begin{equation}\label{eq:loss}
   E[\text{loss} \mid a] \;=\;
-  \int_0^\infty \sum_{i}
-    P(DS_i \geq ds \mid T,\; d_i,\; a)\cdot L_i
-    \cdot p(T \mid a)\; dT
+  \sum_{i} \sum_{ds=1}^{D}
+    \bigl[\,P(DS_i \geq ds \mid a) - P(DS_i \geq ds{+}1 \mid a)\,\bigr]\,
+    c_{ds}\, L_i
 \end{equation}
-where $L_i$ is the replacement value at building $i$, the sum runs over buildings
-predicted inundated under the stage scenario being evaluated, and $d_i$ is the
-building's depth from the Subtask~1.2 stage-to-DEM projection under that scenario
-(for planning mode, a recurrence of the 2023 crest or a design recurrence stage);
-the action $a$ modifies both
-the fragility (building hardening raises the capacity threshold $\lambda_{ds}$)
-and the duration posterior (drainage investment reduces $\hat{\tau}_k$ through
-the mass balance model).
+where $L_i$ is the replacement value at building $i$, $c_{ds}$ is the
+damage-state-specific loss ratio from HAZUS flood damage functions and FEMA
+benefit-cost damage ratios \cite{fema2025hazus,fema2019bcatoolkit}, and the
+bracketed difference of successive exceedance probabilities is the probability
+that building $i$ ends in exactly damage state $ds$, with the highest state $D$
+carrying no survivor term. Each $P(DS_i \geq ds \mid a)$ is computed per building
+by Monte Carlo integration of Equation~\eqref{eq:fragility} over building $i$'s
+own duration posterior $p(T_i \mid a)$ jointly with its calibrated depth
+distribution from the Subtask~1.2 stage-to-DEM projection under the stage
+scenario evaluated (for planning mode, a recurrence of the 2023 crest or a
+design recurrence stage), with draws in which the building is not inundated
+contributing no loss; the outer sum runs over buildings with nonzero inundation
+probability under that scenario. The action $a$ modifies
+both the fragility (building hardening raises the capacity threshold
+$\lambda_{0,ds}$) and the duration posterior (drainage investment reduces
+$\hat{\tau}_k$ through the mass balance model).
 Expected loss reduction is one criterion in the multi-criteria decision analysis
 score:
 \begin{equation}\label{eq:mcda}
@@ -1207,6 +1262,12 @@ where criteria $V_j$ include structural risk reduction (from Equation~\eqref{eq:
 cost, historic preservation value, and community equity; weights $w_j$ are
 co-developed with community partners in Year~1 workshops through structured pairwise
 comparison.
+Each $V_j$ is min-max normalized to a common $[0,1]$ scale over the candidate
+action set before weighting, so that $w_j$ encodes the community's trade-off
+preference rather than an artifact of the criterion's raw units; the weighted sum
+is a compensatory method (a strong score on one criterion can offset a weak one
+on another), which is the intended behavior for this screening-level ranking of
+retrofit actions.
 % becca cnfirm retrofit options in scope (retention basin, channel improvement, flood barriers, foundation waterproofing, masonry repointing?); cost data source (RS Means? FEMA benefit-cost tool?); and the output format co-developed with the community (ranked list, visual map, decision dashboard?).
 
 \textbf{Subtask 2.3: Comparative Assessment of Community Knowledge Contribution
@@ -1269,25 +1330,44 @@ post-event mode update $\delta_i^{\mathrm{comm}}$ for affected buildings;
 buildings whose observed durations consistently exceed or fall below mass balance
 predictions in the same direction receive updated prior means that carry forward
 to the next event.
-Formally, the per-event loop closes through a precision-weighted update of the
-community adjustment,
+Formally, the per-event loop closes through a random-walk Kalman recursion on the
+community adjustment. Between events $\delta_i^{\mathrm{comm}}$ follows a random
+walk with step variance $q^2$,
+$\delta_i^{\mathrm{comm}} \to \delta_i^{\mathrm{comm}} + \eta$,
+$\eta \sim \operatorname{Normal}(0,\, q^2)$, because local drainage conditions are
+non-stationary; each event then updates both the estimate and its tracked
+variance $P_i$,
 \begin{equation}\label{eq:deltaupdate}
-  \delta_i^{\mathrm{comm},(e+1)} \;=\;
+\begin{aligned}
+  \delta_i^{\mathrm{comm},(e+1)} &\;=\;
   \bigl(1 - w_i^{(e)}\bigr)\,\delta_i^{\mathrm{comm},(e)}
   \;+\; w_i^{(e)}\,\bigl(\widehat{\ln T_i^{(e)}} - \ln \hat{\tau}_k\bigr),
   \qquad
-  w_i^{(e)} \;=\; \frac{\sigma_{\mathrm{MB}}^{2}}{\sigma_{\mathrm{MB}}^{2} + v_i^{(e)}}
+  w_i^{(e)} \;=\; \frac{P_i^{(e)}}{P_i^{(e)} + v_i^{(e)}},\\[2pt]
+  P_i^{(e+1)} &\;=\; \bigl(1 - w_i^{(e)}\bigr)\,P_i^{(e)} \;+\; q^2
+\end{aligned}
 \end{equation}
 where $\widehat{\ln T_i^{(e)}}$ and $v_i^{(e)}$ are the posterior mean and
-variance of log duration for building $i$ from event $e$; wide SAR brackets or
-vague post-event observations produce small weights automatically, so the loop
-gains exactly as much per event as the event's evidence supports.
+variance of log duration for building $i$ from event $e$, $w_i^{(e)}$ is the
+Kalman gain, and $P_i^{(e)}$ is the tracked variance of the current adjustment,
+initialized at $P_i^{(0)}$ from the Subtask~2.1 elicitation (buildings with no
+elicited knowledge start at the prior spread). The tracked variance converges
+within a few events to a steady state set by $q$, so where drainage conditions
+are stable the estimate becomes increasingly certain, while wide SAR brackets or
+vague post-event observations still produce small gains automatically; in the
+steady state the recursion behaves as a recency-weighted update whose decay rate
+on old information is set by $q$, appropriate for non-stationary drainage. An
+archived pre-submission simulation of this recursion confirms the convergence
+behavior and shows that a single cross-event pair constrains $q$ only coarsely,
+so $q$ is treated as a design hyperparameter with results reported across a
+swept range, coarsely bounded by the 2023-to-2024 persistence of the
+adjustments.
 After drainage retrofit completion, Co-PI Busse updates $\hat{\tau}_k$ directly
 from the engineering specifications of the completed work: a retention basin of
 known storage volume and outlet capacity changes the drainage timescale by a
 calculable amount, so the parameter is updated from design drawings rather than
 a full GIS model re-run; after building hardening retrofits, the fragility
-capacity threshold $\lambda_{ds}$ is updated for the retrofitted structures.
+capacity threshold $\lambda_{0,ds}$ is updated for the retrofitted structures.
 No drainage retrofits are currently planned in Montpelier; Montpelier community
 partners are open to investment based on the findings of this research, and the
 Year~3 decision interface is designed to produce the probabilistic comparison of
@@ -1314,7 +1394,8 @@ imagery does not close this gap, since its coarser resolution cannot support
 building-level calibration, so credible intervals remain at the transferred
 default width regardless of whether open SAR imagery is available locally.
 The expected interval widths,
-derived from the $\sigma_{\mathrm{MB}}^2$ characterization in Subtask~1.3, are
+derived from the $\sigma_{\mathrm{MB}}^2$ characterization in Subtask~1.3
+together with the elicitation-initialized adjustment uncertainty $P_i^{(0)}$, are
 reported as part of the protocol documentation so communities can assess
 decision-adequacy before committing to adoption, and intervals narrow with each
 community observation cycle.
@@ -1448,7 +1529,8 @@ dimensions, with the following key performance indicators.
   \item Empirical consistency of 90\% credible intervals with the observed
   brackets between 0.85 and 0.95 across 271 buildings.
   \item Damage state prediction accuracy of the duration-depth bivariate model
-  exceeding the depth-only baseline by a statistically significant margin under
+  exceeding the depth-only baseline by a margin statistically significant under
+  the cluster-bootstrap comparison of per-building predictive scores in
   cross-validation on 2023, with the same comparison reported on the 2024
   held-out event relative to the damage variation that smaller event produced.
   \item Pre-storm mode producing actionable building-level risk rankings at

@@ -42,7 +42,7 @@ Across the **15 well-fit events** (R^2 >= 0.8; 2 of 17 total events excluded for
 - tau IQR: **44.4 - 70.7 h**
 - **sd(ln tau) = 0.298** (mean ln tau = 4.007; sample standard deviation, n=15)
 
-This sd(ln tau) is the direct empirical estimate of the LogNormal scale parameter the proposal pre-estimates as sigma_MB from "historical gauge variability" -- it should be compared against whatever sigma_MB value is currently written into the proposal text.
+This sd(ln tau) is an **event-to-event** variability of the watershed-scale timescale, named sigma_event in the proposal as of the 2026-07-23 revision. It is NOT a direct estimate of the cross-sectional, building-to-building sigma_MB (the two are driven by different physical mechanisms: storm-to-storm antecedent moisture and size vs. building-to-building foundation and elevation heterogeneity). The proposal uses it only as an order-of-magnitude regularizing anchor for the Subtask 1.3 calibration of sigma_MB; robustness of that calibration to mis-scaling of the anchor is quantified in analysis/regularizer_misscale.*.
 
 ## Antecedent-wetness relationship
 

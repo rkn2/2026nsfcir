@@ -183,3 +183,16 @@ Read `Science-A-New-Golden-Age.md` (OSTP/OMB FY2028 R&D priorities memo) and lay
 - Placeholder figures: CPS architecture diagram, Gantt chart.
 - Blocked on others: 2024 field damage distribution, Christelle/Young ICEYE scene list.
 - latex/summary.tex is stale relative to Research_v3.tex (still describes a two-site Montpelier+Marshall design and Capella X-band SAR that no longer match the current framework) -- needs a rewrite pass before submission, not touched this session.
+
+## Session 2026-07-23 (afternoon): math adversarial review fixed end to end
+
+All 8 items plus the sigma_MB-overloading umbrella in `mathAdversarialReview.md` are resolved in Research_v3.tex, verified by an independent adversarial re-review whose four residuals were also fixed. Full per-item log now lives at the bottom of `mathAdversarialReview.md`. Becca's two modeling calls going in: random-walk Kalman for the per-event delta update (tracked P_i, process noise q^2), ordered probit for the fragility surface (shared gamma/zeta, ordered lambda_0,ds).
+
+Three new reproducible studies in analysis/ (uv run commands in headers): `delta_filter` (validates the Kalman claims; forced honest softening of "P shrinks" and of q-from-two-events), `regularizer_misscale` (sigma_event anchor mis-scaling moves calibrated sigma_MB <0.01 at realistic cadence), `depth_uncertainty` (depth error ~4% of damage-probability uncertainty at 2023 cadence but dominant at dense 6h cadence; 7-18% of buildings flip flood/no-flood across the beta range — justified propagating depth everywhere).
+
+Also: cameron2008bootstrap added to root biblio.bib (verified); historical_tau.md sigma_MB conflation corrected; both % maggie eq:tau comments updated to reflect the committed fractional-storage closure (still her call).
+
+**New for Becca / watch items**
+- PDF is now 28 pages (was 26); the fixes cost ~1.5 body pages. The 15-page cut pass is still pending and now has to absorb this too.
+- q (Kalman step variance) is committed as a swept design hyperparameter, only coarsely bounded by a 2023-2024 pair; if Napolitano prefers a fixed q, the delta_filter study shows mismatch is benign (no cliff, always at/below fixed-gain RMSE).
+- Blockers unchanged: Christelle/Young scene list, 2024 field damage distribution, Prior NSF stub, PhD counts, CPS/Gantt figures, summary.tex rewrite.
