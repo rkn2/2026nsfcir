@@ -202,3 +202,5 @@ Also: cameron2008bootstrap added to root biblio.bib (verified); historical_tau.m
 Plan and decisions in pageCutPlan.md (committed). Becca's calls: skip Tier 3 (reviewer-facing defenses stay), Table 1 cells compressed in place, goals box + contributions compressed, vt.pdf photo kept, both img.jpg placeholder figures (precode photo, Gantt) removed. ~60 cuts applied via Sonnet executor agents from Opus/Sonnet scout lists; Opus diff review found one broken seam (restored lead-in sentence); all protected content verified intact (12 equations, 24 percent-comments, archived-study numbers, math-review fixes).
 
 **Body: 23.3 -> 20.0 pages against the 15-page limit.** Scout estimates overpredicted ~2x. The remaining ~5 pages need PI-level content decisions (see pageCutPlan.md "Remaining gap" for the ranked levers; the summary table is the largest single object left).
+
+**Next step (Becca, set 2026-07-23):** manual read-through of the round-1-cut Research_v3.pdf (committed at body 20pp). Watch especially the compressed Subtask 2.1/2.2 sections and Table 1 for voice/judgment; the remaining ~5-page gap waits on her PI-level lever decisions in pageCutPlan.md.
