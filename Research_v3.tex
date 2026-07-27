@@ -62,12 +62,12 @@
 
 \begin{tcolorbox}[colback=mycmykcolor, colframe=black, boxrule=1pt, coltext=black]
 \textbf{Project goals:}
-Small, repeatedly-flooded municipalities with pre-code building stock have no
+Small, repeatedly-flooded municipalities with older building stock have no
 engineering tool to evaluate whether community-scale drainage investment or distributed
 building hardening better reduces flood damage.
 Here, we propose a closed-loop cyber-physical system (CPS) with four coupled layers:
-the \textbf{physical layer} (pre-code load-bearing masonry and timber structures,
-absent from existing fragility frameworks);
+the \textbf{physical layer} (load-bearing masonry and timber structures built before
+modern building codes, absent from existing fragility frameworks);
 the \textbf{sensing layer} (USGS gauges and NOAA precipitation operationally,
 ICEYE commercial Synthetic Aperture Radar (SAR) for one-time building-level
 duration and depth calibration, open Sentinel-1 SAR for flood-extent context);
@@ -78,7 +78,7 @@ the \textbf{decision layer} (a co-developed three-mode interface for retrofit
 planning, pre-storm staging, and post-event updating).
 \textbf{RQ1} (Napolitano, Wauthier, and Busse) asks whether this CPS provides
 decision-adequate probabilistic flood damage assessments for small municipalities
-with pre-code building stock, enabling evaluation of building-specific hardening
+with older building stock, enabling evaluation of building-specific hardening
 and community-scale drainage investments without resource-intensive simulation,
 and pre-storm resource staging from forecast precipitation inputs.
 \textbf{RQ2} (Napolitano with input from all PIs) asks under what conditions locally held
@@ -107,62 +107,67 @@ broader flood-extent context.}
 % ============================================================
 
 \section{Status quo}
-Small, aging communities at the confluence of riverine flood hazard and pre-code
-building stock face a resilience challenge that no existing engineering framework
-is designed to address.
+Small communities at the confluence of riverine flood hazard and older building
+stock face a resilience challenge that no existing engineering framework is designed
+to address.
 Across the northeastern United States and Appalachian corridor, thousands of towns
-share this profile: multi-day riverine flood exposure, pre-code load-bearing masonry
+share this profile of multi-day riverine flood exposure, older load-bearing masonry
 and timber cores, and institutional capacity below the threshold for hydrodynamic
 simulation \cite{smith2013statecapacity,horney2012ruralstatus}.
 Of the more than 22,000 communities FEMA's National Flood Insurance Program enrolls
 nationwide \cite{horn2024nfip}, thousands in this region combine significant
 pre-1940 building stock, no in-house hydraulic modeling capacity, and repeated
-riverine flooding; in Vermont alone, over a quarter of the housing stock predates
-1939 \cite{census2017b25034,vhfa2020housingneeds}.
-For these communities, every flood event surfaces the same unresolved question:
-where do limited retrofit dollars belong?
+riverine flooding.
+In Vermont alone, over a quarter of the housing stock predates 1939
+\cite{census2017b25034,vhfa2020housingneeds}.
+For these communities, every flood event surfaces the same unresolved question.
+Where do limited flood-mitigation dollars belong?
 
-That question splits into two decisions existing frameworks cannot compare on the
-same probabilistic basis.
-The first is the building-scale question: which structures sustain damage severe enough
-to justify investment in flood barriers or structural
-hardening?
-The second is the community-scale question: would a drainage investment, such as a
-retention basin or channel improvement, reduce
-building damage enough across the community to justify its cost over distributed
-individual retrofits?
-Answering the second question requires connecting upstream drainage decisions to
-downstream building damage probabilities through a physical model of the relevant
-building stock. No such model exists for small communities with pre-code building
-stock, and no existing framework allows these two decisions to be compared on the same probabilistic basis.
+These communities face a menu of mitigation choices, most of them permanent
+investments and a few made in the hours before a storm.
+What they lack is any way to weigh those choices on a common probabilistic footing,
+using the assets they actually have, a handful of physical sensors, some public
+geospatial data, and a deep store of community memory.
+The sharpest case is the allocation question.
+Would a community-scale drainage investment, such as a retention basin, reduce damage
+enough to justify its cost over the same dollars spent hardening individual buildings?
+Answering it means linking an upstream drainage decision to downstream building
+damage probabilities, a comparison no existing framework lets a small community make.
 
-Existing flood damage assessment tools were designed for the resources and building
-stocks of larger municipalities.
+That comparison demands two things these communities do not have.
+The first is a model.
 Hydrodynamic simulation pipelines such as HEC-RAS and LISFLOOD-FP require calibrated
-hydraulic models, high spatial resolution topographic data, and sustained technical capacity
+hydraulic models, high-resolution topographic data, and sustained technical staff
 that small towns cannot maintain \cite{usace2024hecras,bates2000lisflood,fewtrell2011benchmarking}.
-Damage functions in HAZUS and FEMA P-58 are built around post-1945 construction
-archetypes; pre-code load-bearing masonry and timber structures, the dominant building
-type in repeatedly-flooded historic downtowns, are absent from existing fragility
-frameworks \cite{fema2025hazus,fema2018p58}.
-The most authoritative federal guidance on infrastructure functional recovery, NIST
-SP~1310 \cite{davis2024nist}, explicitly acknowledges that its framework is too
-complex for smaller agencies with limited resources and funding, and calls for
-simplifications that can be implemented at the capacity levels of smaller
-organizations \cite[Sec.~6.1.3]{davis2024nist}.
-Emergency managers, historic preservation officials, and building owners have no
-engineering tool translating a flood event into building-specific retrofit guidance.
+The second is data on how their own buildings fail.
+Damage functions in HAZUS and FEMA P-58 are built around post-1945 construction, so
+the load-bearing masonry and timber structures built before modern building codes
+(pre-code), the dominant type in repeatedly flooded historic downtowns, are absent
+from existing fragility frameworks \cite{fema2025hazus,fema2018p58}.
+Those frameworks also treat damage as a function of depth alone, not the
+extended-inundation degradation that governs older masonry, which we review in the
+fragility state of the art below.
+Even the most authoritative federal guidance on functional recovery, NIST SP~1310
+\cite{davis2024nist}, concedes that its framework is too complex for smaller agencies
+with limited resources and funding, and calls for simplifications that smaller
+organizations can actually implement \cite[Sec.~6.1.3]{davis2024nist}.
+The result is a dead end.
+Emergency managers, preservation officials, and building owners have no engineering
+tool that turns a flood event into building-specific guidance.
 
-Extended inundation degrades these buildings through mechanisms current assessment
-tools do not observe or model, mechanisms reviewed with citations in the fragility
-state of the art below.
-Existing community flood resilience frameworks are predominantly top-down in design,
-built around standardized data collection and technical modeling pipelines that
-resource-constrained localities cannot sustain.
-Community-generated data and locally held knowledge offer an underutilized pathway
-to resilience assessment in these settings; no existing framework provides a
-mechanism for communities to contribute that knowledge to engineering-grade
-probabilistic assessments.
+That dead end has one exception.
+What these towns lack in models and data, they hold in memory.
+Residents know how deep the water rose, how long it stayed, which buildings took the
+worst of it, and how often it returns.
+Existing community resilience frameworks are largely top-down, built around
+standardized data collection and modeling pipelines that resource-constrained
+localities cannot sustain, and none gives a community a way to put this knowledge
+into an engineering-grade probabilistic assessment.
+We treat that knowledge not as context but as a calibration input, locally held flood
+memory entered as Bayesian priors, whose contribution to a damage assessment can be
+measured directly against a baseline built from geospatial data alone.
+Measuring that contribution, and the conditions under which it holds, is the
+scientific core of the work that follows.
 
 \vspace{-10pt}
 \subsection{Research questions and intellectual merit}
@@ -817,6 +822,12 @@ The 2024 Montpelier event is the held-out test: the calibrated framework, with
 all parameters fixed from 2023, is applied to 2024 gauge and NOAA forecast data
 and scored against the independently acquired 2024 SAR duration brackets.
 
+% PROPORTION TODO (2026-07-27): trim the material-science prose density below
+% (mortar softening, brick saturation, rising damp) in the page-cut pass. This is
+% the PHYSICAL layer of the CPS and must stay, but the detail here can make the
+% proposal read as masonry science rather than community + CPS. Keep the equation,
+% the 2-component design, and the 2023/2024 validation; compress the material
+% detail so masonry reads as one layer serving the loop, not the subject.
 \textbf{Subtask 1.4: Duration-Dependent Fragility Surface Development
 (lead: Napolitano).}
 Subtask~1.4 uses the processed ICEYE duration and depth for all 271 buildings (Subtask~1.1), runs in parallel with Subtasks~1.2 and~1.3, and does not depend on the mass balance model.
