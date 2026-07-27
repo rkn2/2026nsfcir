@@ -184,14 +184,15 @@ damage assessment accuracy and calibration relative to a GIS-only baseline, and
 where does it function as a substitute versus complement to geospatial data?
 \end{itemize}
 
-These questions together span three scientific contributions, summarized with their
-gaps, objectives, approaches, and outcomes in Table~\ref{tab:research_summary}: a
-generalizable CPS architecture principle demonstrating that free, nationally
-available geospatial data fused with community knowledge is sufficient for the
-investment decisions small municipalities face; the first empirically derived,
-duration-dependent fragility surfaces for pre-code load-bearing masonry archetypes,
-addressing the cyber layer's incompatibility with depth-only fragility frameworks;
-and a characterization of the conditions under which locally held community
+These questions together span three scientific contributions, summarized in
+Table~\ref{tab:research_summary}. First, a generalizable CPS architecture principle
+demonstrating that free, nationally available geospatial data fused with community
+knowledge is sufficient for the investment decisions small municipalities face.
+Second, the physical layer existing frameworks omit, the first duration-dependent
+fragility surfaces for the older load-bearing masonry these communities are built
+from, so the cyber layer's duration output and the community's memory of how long
+water sits translate into damage rather than being discarded by depth-only models.
+Third, a characterization of the conditions under which locally held community
 knowledge, entered as Bayesian priors, improves model accuracy and calibration
 relative to a GIS-only baseline, and where the two function as substitutes versus
 complements.
@@ -831,12 +832,11 @@ and scored against the independently acquired 2024 SAR duration brackets.
 \textbf{Subtask 1.4: Duration-Dependent Fragility Surface Development
 (lead: Napolitano).}
 Subtask~1.4 uses the processed ICEYE duration and depth for all 271 buildings (Subtask~1.1), runs in parallel with Subtasks~1.2 and~1.3, and does not depend on the mass balance model.
-Duration and peak depth are correlated in the Montpelier 2023 data and in owner accounts of which structures sustained the most persistent damage, motivating a two-component approach that separates the duration effect physically before fitting it statistically.
-The \textit{physical component} grounds the duration claim in material science:
-component-based analysis of duration-governed degradation mechanisms in pre-code
-load-bearing masonry, including mortar softening rate, brick saturation curves,
-and rising damp penetration depth as a function of immersion time, provides the
-functional form of the duration effect independently of observational confounding.
+Duration and peak depth are correlated in the Montpelier 2023 data, motivating a two-component approach that separates the duration effect physically before fitting it statistically.
+The \textit{physical component} grounds the duration claim in the material science of
+how immersion time degrades older masonry, chiefly mortar softening, brick
+saturation, and rising damp, which sets the functional form of the duration effect
+independently of observational confounding.
 The \textit{empirical component} calibrates the fragility surface parameters from
 field damage observations from the 2023 Montpelier flood, using ICEYE-measured
 depth and interval-censored ICEYE duration brackets as covariates at building
@@ -860,12 +860,12 @@ $\gamma$ and $\zeta$ are shared across damage states, so the exceedance curves a
 horizontal translates of one another along the $\ln T_i$ axis and cannot cross at any $(T_i, d_i)$; their
 successive differences therefore define a valid ordinal damage-state distribution
 everywhere.
-Estimation is Bayesian: the physical component supplies informative priors, with
+Estimation is Bayesian. The physical component supplies informative priors, with
 $\lambda_{0,ds}$ and $\gamma$ centered at the material-science-derived values and
 their prior variances set from the published curves' specimen-to-specimen scatter,
 updated by the interval-censored 2023 field-damage likelihood. The resulting
 posterior surface is applied unchanged to 2024 for held-out validation.
-Concretely, published saturation-strength and capillary absorption curves for historic brick and lime mortar \cite{hall2009water,franzoni2015compressive,sathiparan2018effect} give the immersion time at which strength loss crosses each damage state: those crossing times at a reference depth anchor the ordered $\lambda_{0,ds}$, the rate at which deeper immersion accelerates the crossing anchors the shared $\gamma$, and the specimen-to-specimen scatter anchors the shared $\zeta$.
+Published saturation-strength and capillary-absorption curves for historic brick and lime mortar \cite{hall2009water,franzoni2015compressive,sathiparan2018effect} set these priors, with the immersion time at which strength loss crosses each damage state anchoring the ordered $\lambda_{0,ds}$, its acceleration with depth anchoring the shared $\gamma$, and specimen-to-specimen scatter anchoring the shared $\zeta$.
 The claim under test is that duration adds explanatory power beyond depth alone.
 Because duration and depth are collinear in the 271-building sample, this claim is
 posed not as a naive coefficient $t$-test on the correlated data but as a
@@ -1295,13 +1295,20 @@ comparisons to elected officials and residents unaided.
 \section{Results from prior NSF Support}
 
 \noindent\textbf{PI Napolitano:}
-% becca: add prior NSF support in this format:
-%   (a) award number, dollar amount, dates
-%   (b) title
-%   (c) intellectual merit (2-3 sentences), broader impacts (2-3 sentences)
-%   (d) publications (cite key list)
-%   (e) publicly shared datasets
-%   (f) renewal status
+PI Napolitano was PI on NSF CMMI-2222849 (\$131,317, 04/2022--02/2025):
+``RAPID: Examining the Performance of Historic Masonry Structures after the Midwest
+Tornadoes.'' Intellectual Merit: This project addressed building code gaps by
+analyzing historic masonry structures' performance under tornadic loading and
+assessing retrofitting efficacy, producing the first systematic dataset on tornado
+damage to unreinforced masonry heritage structures. Broader Impacts: The project
+enhanced understanding of historic masonry resilience under wind hazards, produced
+open datasets archived on DesignSafe, and integrated community-centered structural
+data into engineering education. Publications: \cite{kaushal2023understanding,
+kaushal2023structural, kaushal2023b, sskmgeometric, sskmdatacollection,
+sskmstructuralanalysis}. Undergraduate research presentations:
+\cite{patelski2022research, whitesides2023research}. Publicly shared datasets:
+\cite{steerquad, MapillaryDatasetSteer360, kaushal2023processed, kaushal2023raw}.
+Renewal: N/A.
 
 \noindent\textbf{Co-PI Wauthier:}
 Christelle Wauthier is the PI on NSF EAR-1945417 (\$499,999k, 08/01/20-07/31/26): “CAREER: Numerical Modeling of Volcanic Flank Instability Processes”. Intellectual Merit: This CAREER proposal addresses why the style, behavior, and timing of the cyclic growth then destruction of volcanic edifices varies across such a wide spectrum. It focuses on flank collapse on ocean island volcanoes and in using modeling to unravel the observed complexity in data sets representing a spectrum of type volcanoes. Broader Impacts: Graduate and undergraduate education, support for underrepresented undergraduate research interns, new educational activities, and FEM and other modeling training for graduate students. Research products: Cooper et al., 2023; Leeburn* et al., 2022; Gonzalez-Santana* et al., 2022, 2024; Gonzalez-Santana* and Wauthier, 2021; Poppe* et al., 2024; Kim* et al., 2024; Wauthier and Ho, 2024; Gonzalez-Santana* et al., 2025, all of which are listed in the References.
