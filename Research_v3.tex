@@ -76,11 +76,11 @@ GIS-parameterizable mass balance model with community-elicited duration priors,
 plus a gauge-stage-to-terrain projection for building-level depth); and
 the \textbf{decision layer} (a co-developed three-mode interface for retrofit
 planning, pre-storm staging, and post-event updating).
-\textbf{RQ1} (Napolitano, Wauthier, and Busse) asks whether this CPS provides
-decision-adequate probabilistic flood damage assessments for small municipalities
-with older building stock, enabling evaluation of building-specific hardening
-and community-scale drainage investments without resource-intensive simulation,
-and pre-storm resource staging from forecast precipitation inputs.
+\textbf{RQ1} (Napolitano, Wauthier, and Busse) asks to what extent this CPS,
+operating on free national data and community knowledge, can produce building-level
+damage assessments decision-adequate to weigh community-scale drainage against
+building-scale hardening on a common probabilistic basis, without hydraulic
+simulation.
 \textbf{RQ2} (Napolitano with input from all PIs) asks under what conditions locally held
 community knowledge, entered as Bayesian calibration priors, improves damage
 assessments relative to a GIS-only baseline, and where it functions as a substitute
@@ -173,29 +173,35 @@ scientific core of the work that follows.
 \subsection{Research questions and intellectual merit}
 
 \begin{itemize}[leftmargin=1.5em,itemsep=0pt]
-\item \textbf{RQ1 (Napolitano, Wauthier, and Busse):} Can a CPS coupling a
-GIS-parameterizable mass balance model with community knowledge provide
-decision-adequate building-level flood damage assessments for small municipalities
-with pre-code building stock, supporting both retrofit allocation and pre-storm
-resource staging without hydraulic simulation?
+\item \textbf{RQ1 (Napolitano, Wauthier, and Busse):} To what extent can a CPS
+operating on free national data and community knowledge, without hydraulic
+simulation, produce building-level damage assessments decision-adequate to weigh
+community-scale drainage against building-scale hardening on a common probabilistic
+basis?
 \item \textbf{RQ2 (Napolitano with input from all PIs):} Under what conditions does locally
 held community knowledge, entered as Bayesian calibration priors, improve flood
 damage assessment accuracy and calibration relative to a GIS-only baseline, and
 where does it function as a substitute versus complement to geospatial data?
 \end{itemize}
 
-These questions together span three scientific contributions, summarized in
-Table~\ref{tab:research_summary}. First, a generalizable CPS architecture principle
-demonstrating that free, nationally available geospatial data fused with community
-knowledge is sufficient for the investment decisions small municipalities face.
-Second, the physical layer existing frameworks omit, the first duration-dependent
-fragility surfaces for the older load-bearing masonry these communities are built
-from, so the cyber layer's duration output and the community's memory of how long
-water sits translate into damage rather than being discarded by depth-only models.
-Third, a characterization of the conditions under which locally held community
-knowledge, entered as Bayesian priors, improves model accuracy and calibration
-relative to a GIS-only baseline, and where the two function as substitutes versus
-complements.
+These questions span coupled contributions across the CPS layers, mapped to their
+gaps and outcomes in Table~\ref{tab:research_summary}. The \textbf{cyber layer} is
+the computational core, a Bayesian framework that infers building-level inundation
+depth and duration from sparse, indirect, interval-censored observations (gauge stage
+projected across terrain, SAR duration brackets), fuses them with a
+GIS-parameterizable mass balance model and community-elicited priors, and propagates
+uncertainty to a decision-adequate damage estimate without hydraulic simulation. The
+\textbf{physical layer} contributes the first duration-dependent fragility surfaces
+for the older load-bearing masonry these communities are built from, identified under
+depth-duration collinearity through material-science priors, so the cyber layer's
+duration output registers as damage rather than being discarded by depth-only models.
+The \textbf{community layer} is the defining novelty, a characterization of when
+locally held knowledge entered as Bayesian priors improves accuracy and calibration
+over a GIS-only baseline, and where it functions as a substitute versus a complement
+to geospatial data. Together these establish a generalizable CPS architecture
+principle, that free national data fused with community knowledge is sufficient for
+the investment decisions small municipalities face, transferable to any domain with
+national data and community knowledge but no simulation capacity.
 
 \begingroup
 \fontsize{10}{12}\selectfont
