@@ -174,23 +174,28 @@ damage assessment accuracy and calibration relative to a GIS-only baseline, and
 where does it function as a substitute versus complement to geospatial data?
 \end{itemize}
 
-These questions span three coupled contributions. The first is \textbf{computational}: a Bayesian
-framework that infers building-level inundation depth and duration from sparse,
-indirect, interval-censored observations (gauge stage projected across terrain, SAR
-duration brackets), fuses them with a GIS-parameterizable mass balance model and
-community-elicited priors, and propagates uncertainty to a decision-adequate damage
-estimate without hydraulic simulation. The second is \textbf{physical}: the first
-duration-dependent fragility surfaces for the older load-bearing masonry these
-communities are built from, identified under depth-duration collinearity through
-material-science priors, so the framework's duration output registers as damage
-rather than being discarded by depth-only models. The third, and the defining
-novelty, is treating locally held \textbf{community knowledge} as a structural
-calibration input: a characterization of when knowledge entered as Bayesian priors
-improves accuracy and calibration over a GIS-only baseline, and where it functions as
-a substitute versus a complement to geospatial data. Together these establish a
-generalizable principle, that free national data fused with community knowledge is
-sufficient for the investment decisions small municipalities face, transferable to
-any domain with national data and community knowledge but no simulation capacity.
+The central contribution is the closed loop these questions form, a working
+cyber-physical system in which free national data and locally held community memory
+together produce building-level damage assessments decision-adequate for real
+investment choices, with no hydraulic simulation anywhere in the loop. Realizing it
+required three advances that did not exist for this setting. The first is
+\textbf{computational}: a Bayesian framework that infers building-level inundation
+depth and duration from sparse, indirect, interval-censored observations (gauge stage
+projected across terrain, SAR duration brackets), fuses them with a
+GIS-parameterizable mass balance model and community-elicited priors, and propagates
+uncertainty to a decision-adequate damage estimate. The second is \textbf{physical}:
+the CPS couples to its environment on both ends, sensing physical flood signatures
+(inundation depth, how long the water stayed, resulting damage) and informing physical
+interventions (drainage retrofits that shorten a sub-basin's drainage timescale,
+building hardening that raises the masonry capacity threshold) whose effects reenter
+future flood behavior. The third is treating locally held \textbf{community knowledge}
+as a structural calibration input: a characterization of when knowledge entered as
+Bayesian priors improves accuracy and calibration over a GIS-only baseline, and where
+it functions as a substitute versus a complement to geospatial data. Together these
+establish a generalizable principle, that free national data fused with community
+knowledge is sufficient for the investment decisions small municipalities face,
+transferable to any domain with national data and community knowledge but no
+simulation capacity.
 
 
 % ============================================================
