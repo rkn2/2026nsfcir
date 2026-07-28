@@ -65,17 +65,17 @@
 Small, repeatedly-flooded municipalities with older building stock have no
 engineering tool to evaluate whether community-scale drainage investment or distributed
 building hardening better reduces flood damage.
-Here, we propose a closed-loop cyber-physical system (CPS) with four coupled layers:
-the \textbf{physical layer} (load-bearing masonry and timber structures built before
-modern building codes, absent from existing fragility frameworks);
-the \textbf{sensing layer} (USGS gauges and NOAA precipitation operationally,
-ICEYE commercial Synthetic Aperture Radar (SAR) for one-time building-level
-duration and depth calibration, open Sentinel-1 SAR for flood-extent context);
-the \textbf{cyber layer} (a Bayesian uncertainty-quantification framework fusing a
-GIS-parameterizable mass balance model with community-elicited duration priors,
-plus a gauge-stage-to-terrain projection for building-level depth); and
-the \textbf{decision layer} (a co-developed three-mode interface for retrofit
-planning, pre-storm staging, and post-event updating).
+Here we propose a closed-loop cyber-physical system (CPS) that couples the physical
+behavior of pre-code load-bearing masonry and timber, absent from existing fragility
+frameworks, with a computational core that turns free national data and community
+memory into building-level damage estimates. It senses through USGS gauges and NOAA
+precipitation operationally, with commercial ICEYE Synthetic Aperture Radar (SAR) for
+one-time building-level duration and depth calibration and open Sentinel-1 SAR for
+flood-extent context; its computational core is a Bayesian uncertainty-quantification
+framework fusing a GIS-parameterizable mass balance model with community-elicited
+duration priors and a gauge-stage-to-terrain projection for building-level depth; and
+the community closes the loop through a co-developed three-mode interface for retrofit
+planning, pre-storm staging, and post-event updating.
 \textbf{RQ1} (Napolitano, Wauthier, and Busse) asks to what extent this CPS,
 operating on free national data and community knowledge, can produce building-level
 damage assessments decision-adequate to weigh community-scale drainage against
@@ -90,16 +90,6 @@ calibration input whose epistemic contribution is directly measurable against a
 geospatial data baseline.
 \end{tcolorbox}
 \vspace{-0.5cm}
-
-\begin{wrapfigure}{r}{0.38\textwidth}
-\includegraphics[width=0.38\textwidth]{images/img.jpg}
-\captionsetup{justification=centering,singlelinecheck=false,font=small}
-\caption{Four-layer CPS architecture. The operational sensing layer uses free
-USGS and NOAA data; ICEYE commercial SAR provides building-level ground truth
-for one-time model calibration only, with open Sentinel-1 SAR providing
-broader flood-extent context.}
-\label{fig:cps_arch}
-\end{wrapfigure}
 \normalsize
 
 % ============================================================
@@ -184,24 +174,24 @@ damage assessment accuracy and calibration relative to a GIS-only baseline, and
 where does it function as a substitute versus complement to geospatial data?
 \end{itemize}
 
-These questions span coupled contributions across the CPS layers, mapped to their
-gaps and outcomes in Table~\ref{tab:research_summary}. The \textbf{cyber layer} is
-the computational core, a Bayesian framework that infers building-level inundation
-depth and duration from sparse, indirect, interval-censored observations (gauge stage
-projected across terrain, SAR duration brackets), fuses them with a
-GIS-parameterizable mass balance model and community-elicited priors, and propagates
-uncertainty to a decision-adequate damage estimate without hydraulic simulation. The
-\textbf{physical layer} contributes the first duration-dependent fragility surfaces
-for the older load-bearing masonry these communities are built from, identified under
-depth-duration collinearity through material-science priors, so the cyber layer's
-duration output registers as damage rather than being discarded by depth-only models.
-The \textbf{community layer} is the defining novelty, a characterization of when
-locally held knowledge entered as Bayesian priors improves accuracy and calibration
-over a GIS-only baseline, and where it functions as a substitute versus a complement
-to geospatial data. Together these establish a generalizable CPS architecture
-principle, that free national data fused with community knowledge is sufficient for
-the investment decisions small municipalities face, transferable to any domain with
-national data and community knowledge but no simulation capacity.
+These questions span three coupled contributions, mapped to their gaps and outcomes
+in Table~\ref{tab:research_summary}. The first is \textbf{computational}: a Bayesian
+framework that infers building-level inundation depth and duration from sparse,
+indirect, interval-censored observations (gauge stage projected across terrain, SAR
+duration brackets), fuses them with a GIS-parameterizable mass balance model and
+community-elicited priors, and propagates uncertainty to a decision-adequate damage
+estimate without hydraulic simulation. The second is \textbf{physical}: the first
+duration-dependent fragility surfaces for the older load-bearing masonry these
+communities are built from, identified under depth-duration collinearity through
+material-science priors, so the framework's duration output registers as damage
+rather than being discarded by depth-only models. The third, and the defining
+novelty, is treating locally held \textbf{community knowledge} as a structural
+calibration input: a characterization of when knowledge entered as Bayesian priors
+improves accuracy and calibration over a GIS-only baseline, and where it functions as
+a substitute versus a complement to geospatial data. Together these establish a
+generalizable principle, that free national data fused with community knowledge is
+sufficient for the investment decisions small municipalities face, transferable to
+any domain with national data and community knowledge but no simulation capacity.
 
 \begingroup
 \fontsize{10}{12}\selectfont
@@ -225,7 +215,7 @@ national data and community knowledge but no simulation capacity.
 \endfoot
 \hline
 \endlastfoot
-\textbf{Cyber layer:} Whether a GIS-parameterized mass balance model can produce
+\textbf{Computational:} Whether a GIS-parameterized mass balance model can produce
 building-level inundation duration estimates accurate enough for retrofit allocation
 decisions without hydraulic model calibration is unknown &
 \textbf{RO1} (Napolitano, Wauthier, and Busse): Build and validate a Bayesian
@@ -238,9 +228,9 @@ validation against ICEYE and field damage observations &
 Validated Bayesian framework with characterized decision-adequacy and identified
 conditions under which the GIS-parameterized system is and is not sufficient \\
 \hline
-\textbf{Physical layer:} Duration-depth-damage relationships for pre-code
+\textbf{Physical:} Duration-depth-damage relationships for pre-code
 load-bearing masonry are uncharacterized; existing fragility frameworks assume
-depth as the governing input and cannot serve a cyber layer that produces
+depth as the governing input and cannot serve a computational core that produces
 duration &
 \textbf{RO1} (Napolitano): Develop empirically derived, duration-dependent fragility
 surfaces for pre-code load-bearing masonry archetypes, calibrated on 271 buildings
@@ -252,7 +242,7 @@ Duration-dependent fragility surfaces calibrated on the 2023 event and validated
 on the held-out 2024 event; quantified additional explanatory power of duration
 beyond depth \\
 \hline
-\textbf{Cyber and CIR layers:} Community knowledge is structurally excluded from
+\textbf{Community knowledge:} Community knowledge is structurally excluded from
 CPS calibration, used post hoc rather than as quantitative model input; when it
 improves assessments relative to a GIS-only baseline, and whether it substitutes
 for or complements geospatial data, is uncharacterized &
@@ -268,7 +258,7 @@ Characterization of where community knowledge and geospatial data are substitute
 versus complements; conditions under which elicitation is worth the investment;
 transferable elicitation protocol for CPS calibration \\
 \hline
-\textbf{Decision layer:} No existing interface makes probabilistic duration-based
+\textbf{Decision interface:} No existing interface makes probabilistic duration-based
 flood damage assessments actionable for small municipalities across planning,
 pre-storm, and post-event contexts without ongoing technical support &
 \textbf{RO2} (Napolitano): Co-develop a three-mode decision interface with Montpelier
@@ -281,11 +271,12 @@ Three-mode decision interface independently operated by Montpelier community par
 transferable minimum-pathway protocol for new communities requiring no commercial SAR purchase \\
 \end{tabularx}
 \vspace{2pt}
-\fontsize{10}{12}\selectfont\textit{\textbf{Sensing layer} (underpins all rows):
+\fontsize{10}{12}\selectfont\textit{\textbf{Data inputs} (underpin all rows):
 free, nationally maintained USGS gauge and NOAA precipitation inputs
 operationally; ICEYE commercial SAR as one-time calibration ground truth (2023)
 and held-out validation (2024); open Sentinel-1 SAR for broader flood-extent
-context. No research gap. The sensing layer is a deliberate design choice.}
+context. No research gap. This reliance on free, national inputs is a deliberate
+design choice.}
 \endgroup
 \normalsize
 
@@ -311,10 +302,10 @@ for flood monitoring assume local sensor infrastructure, proprietary data
 contracts, or sustained community effort that resource-constrained municipalities
 cannot maintain after a grant ends, and lack the community knowledge mechanism,
 independent ground truth, or physical damage model either test requires. This
-proposal's sensing layer, USGS stream gauges, NOAA precipitation, and SAR imagery,
-makes both tests tractable and transferable to any gauged municipality, with
-community knowledge entering the cyber layer as measurable Bayesian priors rather
-than supplementary narrative.
+proposal's free, national inputs, USGS stream gauges, NOAA precipitation, and SAR
+imagery, make both tests tractable and transferable to any gauged municipality, with
+community knowledge entering the computational core as measurable Bayesian priors
+rather than supplementary narrative.
 
 \subsection{Hydrological mass balance modeling and flood duration estimation}
 Hydrological mass balance models estimate flood volume, storage, and drainage
@@ -360,8 +351,8 @@ than by depth alone
 \cite{kelman2004overview,schwarz2008damage,milanesi2018vulnerability}, yet no
 duration-dependent fragility surface exists for the pre-code load-bearing masonry
 archetypes that dominate repeatedly flooded northeastern American historic cores.
-This absence blocks CPS integration. A duration-producing cyber layer needs a
-duration-input physical layer, which no existing fragility framework provides for
+This absence blocks CPS integration. A duration-producing computational core needs
+duration-dependent fragility, which no existing framework provides for
 this building stock.
 % resolved 2026-07-22: HAZUS manual, JRC/Gerl depth-damage databases, European masonry duration studies (Kelman & Spence 2004, Schwarz & Maiwald 2008, Milanesi 2018), and degradation mechanism refs (Hall & Hoff, Franzoni 2015, Sathiparan 2018) all added, verified against publisher records.
 
@@ -515,7 +506,7 @@ separately for all 271 buildings across both events (Subtask~1.1).}
 
 \subsection{Preliminary results: Winooski watershed drainage timescale}
 To test whether the mass balance timescale is recoverable from free gauge data at
-fragility-layer accuracy, we ran a recession analysis of USGS gauge 04286000
+fragility-model accuracy, we ran a recession analysis of USGS gauge 04286000
 (Winooski River at Montpelier; 397\,mi\textsuperscript{2}) for both events using
 15-minute discharge records (Fig.~\ref{fig:recession}):
 fitting $Q(t) = Q_p\, e^{-t/\tau}$ to the first 60 hours of the falling limb gives
@@ -703,7 +694,7 @@ routes, anomalous building conditions), augments this baseline in Subtask~1.3;
 community knowledge improves the system but is not required to run it.
 The LogNormal family is appropriate because duration is strictly positive and right-skewed and keeps the log-scale consistency used by the Subtask~1.3 bracket likelihood. All duration quantities are conditional on inundation: $T_i$ is the standing-water duration at building $i$ given that it floods, and the Subtask~1.3 error model characterizes duration error, not flood/no-flood classification.
 Whether a building floods, and to what peak depth, is supplied by a second,
-deliberately simple cyber-layer component, a stage-to-DEM mapping that projects
+deliberately simple computational component, a stage-to-DEM mapping that projects
 gauge crest stage onto the USGS 3DEP terrain model along a reach-scale
 water-surface slope:
 \begin{equation}\label{eq:stagedem}
@@ -769,7 +760,7 @@ and the posterior is the prior truncated to it:
   \operatorname{LogNormal}(\mu_i,\; \sigma_{\mathrm{MB}}^2)
   \ \text{truncated to}\ [L_i,\; U_i]
 \end{equation}
-This interval-censored formulation treats the sensing layer honestly, with a
+This interval-censored formulation treats the SAR observations honestly, with a
 dense acquisition sequence the brackets are hours wide and the posterior is
 sharply localized; with sparse acquisitions the brackets widen and the SAR data
 constrain the posterior only weakly.
@@ -805,7 +796,7 @@ six-hourly coverage down to a single usable post-peak scene,
 $\sigma_{\mathrm{MB}}$ remains identified with estimation uncertainty that grows
 continuously rather than collapsing, and the regularizing prior narrows the
 estimate at every cadence at a bias cost bounded by the anchor's own scale.
-Within this framework, the fusion that defines the cyber layer is between the
+Within this framework, the fusion that defines the computational core is between the
 physically grounded mass balance prior and the community knowledge adjustments
 $\delta_i^{\mathrm{comm}}$ of Equation~\eqref{eq:mu}; the SAR brackets calibrate the error
 model on 2023 and adjudicate between prior variants on 2024, but the operational
@@ -885,7 +876,7 @@ The strength of the duration-depth collinearity is quantified and reported direc
 The posterior duration distribution from Subtask~1.3 (Equation~\eqref{eq:posterior}) propagates through
 Equation~\eqref{eq:fragility} by Monte Carlo integration, which samples $d_i$ jointly with $T_i$ from the
 calibrated depth distribution, so both fragility covariates carry quantified uncertainty into the decision
-layer and the resulting building-specific damage state probability distribution reflects the full
+interface and the resulting building-specific damage state probability distribution reflects the full
 inferential uncertainty of the mass balance, the depth projection, and the likelihood. A pre-submission
 sensitivity study (archived with the project repository) quantifies the relative contribution of
 depth-projection error and duration-bracket width to this uncertainty. The split is cadence dependent,
@@ -946,14 +937,14 @@ of lead time to characterize how forecast uncertainty degrades pre-storm predict
 quality and what actionable lead time the system can reliably provide.
 % becca: confirm that 2024 field damage observations will be available for the damage state comparison. Confirm the rank correlation metric for decision-adequacy validation and the composition of the expert panel.
 
-\textbf{Key outcomes:} RO1 produces three primary outputs (Table~\ref{tab:research_summary}): a validated Bayesian framework with characterized decision-adequacy across all three modes (Subtask~1.5); the duration-dependent fragility surfaces that give this CPS its physical layer, the first for the older load-bearing masonry these communities are built from (Subtask~1.4); and a characterization of when the GIS-parameterized system is decision-adequate, including the forecast lead times over which pre-storm predictions remain actionable (Subtask~1.5).
+\textbf{Key outcomes:} RO1 produces three primary outputs (Table~\ref{tab:research_summary}): a validated Bayesian framework with characterized decision-adequacy across all three modes (Subtask~1.5); the duration-dependent fragility surfaces that give this CPS its physical grounding, the first for the older load-bearing masonry these communities are built from (Subtask~1.4); and a characterization of when the GIS-parameterized system is decision-adequate, including the forecast lead times over which pre-storm predictions remain actionable (Subtask~1.5).
 
 % ── RO2 BOX ──────────────────────────────────────────────────────────────────
 \vspace{5pt}
 \begin{tcolorbox}[colback=mycmykcolor,colframe=black,boxrule=1pt,coltext=black,
   left=1mm,right=1mm,top=1mm,bottom=1mm]
 \textbf{Research Objective 2 (RO2, lead: Napolitano with all PIs): Co-develop
-the CPS decision layer with community partners in Montpelier; characterize the
+the CPS decision interface with community partners in Montpelier; characterize the
 conditions under which locally held community knowledge, entered as Bayesian
 calibration priors, improves damage assessment accuracy and calibration relative
 to GIS-only model runs; and produce a three-mode decision interface and
@@ -1181,7 +1172,7 @@ The planning mode is available at deployment; pre-storm mode delivers actionable
 building-level risk before water rises; post-event mode improves accuracy with
 each event, all without proprietary data or ongoing research support.
 
-The framework's operational sensing layer requires only USGS gauge data and NOAA
+The framework's operational data inputs are only USGS gauge data and NOAA
 precipitation, both free and nationally available;
 the mass balance model is parameterizable from USGS 3DEP, NLCD, SSURGO, and NHD
 StreamStats for any municipality with a gauge.
