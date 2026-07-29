@@ -14,6 +14,25 @@ reached §2. §2 (Current state-of-the-art) has now been rethesised to the loop 
 **Still unswept against the closed-loop framing: §3 (partner site/preliminary results, ~348–500),
 §4 (research plan, ~501–1080 — the big one), §5–7 (broader impacts, timeline, prior support).**
 
+### OPEN, START FRESH HERE (Becca stopped 2026-07-29, wants to restart this from scratch)
+**The §2 opener (lines 208–226) and the §2.5 gap summary (336–346) now say the same thing.** Both
+were rewritten to the same thesis in the same pass and never checked against each other:
+- opener: "Four literature domains each supply one piece of the loop… None couples them."
+- gap summary: "The pieces exist; the loop does not. Each domain above supplies one component and
+  stops at the interface with the next…"
+Same claim, same four-item enumeration, ~130 lines apart. **The committed text is the redundant
+version** — this is a known defect, not a finished state.
+
+Direction that seemed right (Becca did NOT approve it, wants a fresh attempt): give the two
+paragraphs different jobs — opener defines the loop concretely as a chain (hydrological → fragility
+→ community knowledge → decision → interventions revise the model), giving the reader a *standard*
+to judge §2.1–2.4 against; §2.5 keeps the *verdict*. Sharper claim available for the opener: not
+"none couples them" but "none supplies the **interface** — the output one domain produces is not the
+input the next requires." Candidate cuts in the opener: the "271 buildings" forward reference into
+§3, and "That is what RQ1 and RQ2 test" (both RQs appear in full twice in the preceding 30 lines).
+Two unresolved questions: whether §2 should keep an explicit RQ1/RQ2 tie at all, and whether to
+concede "each literature is mature" before criticizing it.
+
 **Known leftover already spotted, fix when sweeping §5:** line ~1120, "This framework is the first
 to place community-scale drainage investment and…" — a first-ness novelty claim of exactly the kind
 the merit paragraph deliberately abandoned (same species as the RO1 fix in item 3 below).
