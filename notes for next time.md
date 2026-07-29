@@ -54,6 +54,11 @@ behavior) — the fragility-surface novelty clause was deliberately removed from
   4. **Two-sided physical coupling labeled** (§2.4) — the intervention side was present but
      unlabeled; added the reentry clause ("nothing carries a completed retrofit back into the flood
      behavior a town should expect next time") to match the merit paragraph's physical advance.
+  - **Watch for this when rewriting a summary paragraph:** the first draft of the new gap summary
+    silently *dropped RQ2's gap* (community knowledge measured against a geospatial baseline) and
+    replaced it with §2.3's operationalization gap — so §2 closed supporting RQ1 only, in the last
+    paragraph before the research plan. Caught by re-running the mapping table against the *new*
+    text. Rewriting a summary can delete a claim as easily as add one; re-map after, not just before.
   - **Deliberately left alone:** §2.2 "no duration-dependent fragility surface exists" — a gap
     section is *supposed* to say no X exists; the RO1 fix dropped a first-ness **headline in the
     merit argument**, it did not make gap statements illegitimate. §2.3 close already matches
