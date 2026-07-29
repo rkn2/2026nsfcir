@@ -8,10 +8,22 @@ Working file: `Research_v3.tex`. Compile with `~/.local/bin/tectonic Research_v3
 - Compiles clean (exit 0, no undefined refs).
 - **Framing/argument work is DONE** as of commit `d6f0ff8`. Length is the one remaining big item.
 
-## PICK UP HERE NEXT TIME (2026-07-28, part 3)
-**The framing work is DONE.** The consistency sweep Becca asked for is complete (commit `d6f0ff8`).
-Argument/framing is settled; **length is the only remaining substantive item** (~3 pp over). Next
-session should go straight to the cut levers below, starting with the §2.2 dollar example.
+## PICK UP HERE NEXT TIME (2026-07-29)
+**The framing sweep was NOT actually complete** — the 2026-07-28 sweep was wording-level and never
+reached §2. §2 (Current state-of-the-art) has now been rethesised to the loop (see below).
+**Still unswept against the closed-loop framing: §3 (partner site/preliminary results, ~348–500),
+§4 (research plan, ~501–1080 — the big one), §5–7 (broader impacts, timeline, prior support).**
+
+**Known leftover already spotted, fix when sweeping §5:** line ~1120, "This framework is the first
+to place community-scale drainage investment and…" — a first-ness novelty claim of exactly the kind
+the merit paragraph deliberately abandoned (same species as the RO1 fix in item 3 below).
+
+**Verification method that works** (use it on §3/§4, a read-through will not catch this): build a
+mapping of each merit-paragraph claim → which paragraph of the target section establishes its gap
+or delivers it. Empty cells are the findings. Also grep for residue from *both* old framings:
+`grep -n 'layer\|epistemic\|first \(to\|for\)\|four \(coupled\|layers\|domains\)\|co-equal\|novel'`.
+
+Length is still ~3 pp over; cut levers below are untouched.
 
 ### Framing reference paragraph
 The intellectual-merit paragraph (RQ subsection, ~line 177) is the **canonical statement of the
@@ -21,7 +33,34 @@ subordinate to it, not co-equal novelties. Masonry appears only as two-sided phy
 (sensing flood signatures; drainage/hardening interventions whose effects reenter future flood
 behavior) — the fragility-surface novelty clause was deliberately removed from this paragraph.
 
-## Done in this session (2026-07-28)
+## Done in this session (2026-07-29)
+- **Carried the closed-loop framing into §2 Current state-of-the-art.** The mapping check found the
+  structural hole the wording sweep missed: the words *loop / closes / reenter* appeared **zero
+  times** in §2, so the central contribution had no state-of-the-art support at all. §2's own thesis
+  was still "integrating these four domains creates two scientific tests" — the old co-equal-novelty
+  structure. Four fixes, **net length delta exactly 0** (body 18 pp before and after, References
+  still at top of p19):
+  1. **§2 opener rethesised** — "four domains → two tests" → "four domains each supply one piece of
+     the loop; none couples them; the loop has never been evaluated end to end." Also fixes the
+     dangling "these four domains" (the antecedent came *after* the sentence). Ran ~2 lines shorter,
+     which paid for fix 3.
+  2. **Gap summary rethesised** — was landing on two co-equal gaps (no model + community knowledge
+     untested); now lands on "the pieces exist; the loop does not," enumerates where each domain
+     stops at the interface with the next, and points forward into the research plan.
+  3. **Post-event updating gap added** (§2.4) — the mode that actually *closes* the loop had no gap
+     anywhere. Careful wording needed: post-event *planning* does exist, so the claim is that
+     practice doesn't *feed back* (assessments reissued from static inputs, nothing improves as a
+     community accumulates events).
+  4. **Two-sided physical coupling labeled** (§2.4) — the intervention side was present but
+     unlabeled; added the reentry clause ("nothing carries a completed retrofit back into the flood
+     behavior a town should expect next time") to match the merit paragraph's physical advance.
+  - **Deliberately left alone:** §2.2 "no duration-dependent fragility surface exists" — a gap
+    section is *supposed* to say no X exists; the RO1 fix dropped a first-ness **headline in the
+    merit argument**, it did not make gap statements illegitimate. §2.3 close already matches
+    advance three. Transferability scope ("any gauged municipality" here vs "any domain with…" in
+    the merit ¶) — different altitudes, not a contradiction.
+
+## Done in previous session (2026-07-28)
 - **Consistency sweep — carried the closed-loop framing through the rest of the document** (commit `d6f0ff8`). Four real mismatches fixed, net-neutral on length:
   1. **Goals box close** — "The defining intellectual contribution is treating community knowledge as a structural calibration input…" flatly contradicted the merit paragraph. Now leads on the loop, with RQ2's measured-against-a-baseline claim kept but subordinate. Also killed "epistemic contribution."
   2. **Status quo close** (~line 159) — terminated the section on community knowledge alone; now points forward to closing the loop.

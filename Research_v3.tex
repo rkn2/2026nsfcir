@@ -205,23 +205,23 @@ simulation capacity.
 \vspace{-5pt}
 \section{Current state-of-the-art}
 
-Integrating these four domains creates two scientific tests neither domain poses
-alone, mirroring RQ1 and RQ2: whether the fused mass balance and community
-knowledge model is decision-adequate without hydraulic simulation, and whether
-community knowledge measurably improves duration estimation over a GIS-only
-baseline. Both tests require coupling a hydrological prior, a community knowledge
-mechanism, empirical ground truth, and a physical damage model into one evaluable
-system, arbitrated by real flood outcomes across 271 buildings with sensor-measured
-durations and field-recorded damage states. Neither test exists within any single
-domain.
+Four literature domains each supply one piece of the loop this proposal closes: a
+hydrological prior on how long water stays, a mechanism for entering community
+knowledge as quantified belief, a physical damage model for the affected building
+stock, and a decision framework for allocating mitigation dollars. None couples them,
+so the loop has never been evaluated end to end. No prior work runs free national data
+and community knowledge through a physical model of pre-code building stock to a damage
+estimate a municipality acts on, then feeds those actions and each new event back into
+the model. That is what RQ1 and RQ2 test, arbitrated by real flood outcomes across 271
+buildings with sensor-measured durations and field-recorded damage states.
 
-The broader CPS literature does not fill this gap. Community sensing architectures
+The broader CPS literature does not close it either. Community sensing architectures
 for flood monitoring assume local sensor infrastructure, proprietary data
 contracts, or sustained community effort that resource-constrained municipalities
-cannot maintain after a grant ends, and lack the community knowledge mechanism,
-independent ground truth, or physical damage model either test requires. This
-proposal's free, national inputs, USGS stream gauges, NOAA precipitation, and SAR
-imagery, make both tests tractable and transferable to any gauged municipality, with
+cannot maintain after a grant ends, and none carries the community knowledge mechanism,
+independent ground truth, or physical damage model the loop requires. This
+proposal's free national inputs, USGS stream gauges, NOAA precipitation, and SAR
+imagery, make it tractable and transferable to any gauged municipality, with
 community knowledge entering the computational core as measurable Bayesian priors
 rather than supplementary narrative.
 
@@ -311,9 +311,10 @@ building-by-building measures without a community-scale framework
 \cite{fema2014p312,fema2012p259}.
 % resolved 2026-07-22: P-2055 and P-2078 both dropped. Verified: P-2078 is a seismic response-spectra document, not a flood handbook. P-312 (homeowner retrofit guide) and P-259 (engineering retrofit practices) are the correct FEMA flood retrofit citations and are now in the sentence above. IBHS Fortified left out per the original note. HMA guide cited as the 2023 edition; a v2.1 took effect Jan 2025, so update to the version current at submission.
 None couples drainage investment outcomes to building damage probabilities through
-a physical model of the affected building stock, and none allows community-scale
-drainage investment and distributed building hardening to be compared on the same
-probabilistic basis.
+a physical model of the affected building stock, so nothing carries a completed
+retrofit back into the flood behavior a town should expect next time, and none allows
+community-scale drainage investment and distributed building hardening to be compared
+on the same probabilistic basis.
 None is designed for small municipalities with limited institutional capacity and
 no sustained technical staff; NIST SP~1310 explicitly acknowledges this limitation
 and calls for simplified analogs appropriate to smaller organizations
@@ -327,19 +328,22 @@ No existing framework provides building-level inundation risk predictions from
 forecast precipitation for pre-storm emergency resource staging; flood decision
 support has been designed for post-event or inter-event planning contexts, not
 for the hours before a flood peak when pre-positioning decisions must be made.
+Nor does post-event practice feed back: assessments are reissued from static inputs
+rather than updated by what the last flood revealed, so no framework improves as a
+community accumulates events.
 
 \subsection{Gap summary}
-The two investment decisions small municipalities with pre-code building stock face
-(Section~1) both require connecting upstream
-drainage decisions to downstream building damage probabilities through a physical
-model of the relevant building stock; no such model exists.
+The pieces exist; the loop does not. Each domain above supplies one component and
+stops at the interface with the next: mass balance models are uncharacterized at
+building-level duration, fragility frameworks cover neither pre-code masonry nor
+duration-dependent damage, community knowledge has never been operationalized as a
+quantitative calibration input, and decision frameworks connect neither upstream
+drainage investment nor community knowledge to building damage probabilities.
 NIST SP~1310 \cite{davis2024nist} explicitly calls for the development of analogous
 frameworks for flood and severe storms as necessary future work
 \cite[Sec.~6.1.2]{davis2024nist}; no existing tool answers that call for the
 building stock and community decision context this proposal targets.
-The conditions under which community knowledge improves probabilistic assessments
-relative to a geospatial baseline, uncharacterized as noted above, are similarly
-untested for any flood-adjacent infrastructure domain.
+The research plan that follows closes the loop those components leave open.
 
 % ============================================================
 %  PILOT SITE AND PRELIMINARY RESULTS
