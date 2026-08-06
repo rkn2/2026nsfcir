@@ -27,12 +27,15 @@
 \usepackage{colortbl}
 \usepackage{soul}
 \sethlcolor{yellow}
+\usepackage{pgfgantt}
 \usepackage[numbers,square,sort&compress]{natbib}
 \linespread{0.901}
 
 % ── Colors ───────────────────────────────────────────────────────────────────
 \definecolor{mycmykcolor}{cmyk}{0.45,0.30,0.20,0}
 \definecolor{secondary}{cmyk}{0,0,0,0.20}
+\definecolor{roonecol}{HTML}{8C9EB2}
+\definecolor{rootwocol}{HTML}{E0914D}
 
 % ── Section formatting ────────────────────────────────────────────────────────
 \titleformat{\section}[runin]{\normalfont\bfseries}{\thesection}{1em}{}[:]
@@ -283,9 +286,10 @@ In flood risk specifically, participatory GIS methods and volunteered geographic
 information platforms have been used to map inundation extents, document damage,
 and supplement remotely sensed observations \cite{goodchild2007citizens,assumpcao2018citizen}.
 Existing approaches use community knowledge for post-hoc validation, qualitative
-prioritization, or supplementary narrative input; none operationalizes it as a
-structural, quantitative calibration input to a probabilistic building damage
-model.
+prioritization, or supplementary narrative, treating the tacit process knowledge
+that residents hold about local drainage as anecdote rather than data. None
+operationalizes it as a structural, quantitative calibration input to a
+probabilistic building damage model.
 The Bayesian prior elicitation literature provides a principled mechanism for
 translating expert and stakeholder judgment into probability distributions
 \cite{ohagan2006uncertain,garthwaite2005statistical}, shown elsewhere to improve
@@ -428,25 +432,11 @@ plaster loss), and structural damage (e.g.\ mortar deterioration, masonry
 cracking, foundation compromise). The majority of buildings sustained damage,
 consistent with the event severity (80\% of the National Register Historic District
 affected). The three-state ordinal classification provides the resolution needed
-for duration-dependent fragility surface calibration in Subtask~1.4
-(Fig.~\ref{fig:damage_map}).
-% becca: add the actual counts per damage state when ready (how many no damage / cosmetic / structural).
-
-\begin{figure}[h]
-\vspace{-0.2cm}
-\centering
-\includegraphics[width=0.85\textwidth]{images/damage_map_2023.pdf}
-\captionsetup{font=small}
-\vspace{-0.3cm}
-\caption{\hl{\textbf{PLACEHOLDER --- BECCA VERIFY AGAINST ACTUAL FIELD DATA.}}
-Damage state by building footprint, Montpelier downtown core, July 2023 field
-assessment. Three ordered states: no damage (green), cosmetic (yellow), structural
-(red). The 271 pre-code masonry buildings used in the fragility analysis are a
-subset of the footprints shown. Synthetic assignments based on river proximity;
-replace with actual field observations before submission.}
-\label{fig:damage_map}
-\vspace{-0.3cm}
-\end{figure}
+for duration-dependent fragility surface calibration in Subtask~1.4.
+Each of the 271 buildings in the ICEYE dataset (Fig.~\ref{fig:iceye}) carries
+a field-assigned damage state on this three-level scale, paired building by
+building with ICEYE-measured depth and duration.
+% becca: add the actual counts per damage state when ready (how many no damage / cosmetic / structural out of 271).
 
 \subsection{Preliminary results: Winooski watershed drainage timescale}
 To test whether the mass balance timescale is recoverable from free gauge data at
@@ -907,13 +897,9 @@ partners a three-mode decision interface and transferable protocol for independe
 community use.}
 \end{tcolorbox}
 
-% FRAMING SWEEP TODO: confirm each RO2 subtask reflects the updated RO2 box —
-% specifically that the substitute-versus-complement characterization (now in the
-% box) is carried through Subtasks 2.1–2.5, not just 2.3 where it currently lands.
-% Also flag line ~921 (Subtask 2.2 Year 2): "cross-references community-observed
-% damage against 2023 field damage states" — against a mostly-damaged binary
-% baseline this check may be near-uninformative; revisit when the ordinal taxonomy
-% is finalized.
+% FRAMING SWEEP DONE 2026-08-06: substitute-vs-complement now in RO2 box, intro,
+% 2.3 (primary), and 2.5 (protocol guidance). Year 2 cross-reference is informative
+% with three ordinal states (no damage / cosmetic / structural).
 RO2 addresses RQ2 by characterizing the conditions under which community knowledge,
 entered as structural calibration input rather than post-hoc validation, improves
 the CPS outputs developed in RO1, and where it functions as a substitute versus
@@ -1117,6 +1103,11 @@ as a rough visual aid for flood-extent discussion where local recall is difficul
 combined with the open-source software package
 initialized from Montpelier-derived mass balance and fragility parameters.
 A community operating under this protocol has wider credible intervals than Montpelier because it lacks local ICEYE calibration, and free Sentinel-1 imagery does not close this gap. The expected interval widths, derived from the Subtask~1.3 $\sigma_{\mathrm{MB}}^2$ characterization and the elicitation-initialized $P_i^{(0)}$, are reported in the protocol documentation so communities can assess decision-adequacy before adoption, and intervals narrow with each observation cycle.
+The protocol's elicitation guidance is informed by the Subtask~2.3
+substitute-versus-complement characterization: where community knowledge adds
+value, the protocol prioritizes elicitation; where it does not, the protocol
+directs communities to rely on the GIS-only baseline rather than investing in
+workshops that produce no measurable improvement.
 % becca / maggie confirm the engineering specification approach for updating tau_k_hat -- what inputs does Maggie need from a retrofit design drawing to compute the change in drainage timescale? Storage volume + outlet capacity? Confirm the computational scenario for Subtask 2.4 (what retention basin size / location is plausible for Montpelier based on the watershed geometry?).
 
 \textbf{Key outcomes:} RO2 produces four primary outputs: a three-mode interface independently operated by Montpelier partners in Year~3 (Subtask~2.2); a characterization of when community knowledge and geospatial data are substitutes versus complements, including cases where community knowledge adds no value (Subtask~2.3); empirical demonstration that the loop closes, with community observations and retrofit specifications measurably improving posterior accuracy across events (Subtask~2.4); and a transferable protocol enabling any municipality with a USGS gauge to initialize the system from one workshop without a commercial SAR purchase (Subtask~2.5).
@@ -1154,37 +1145,42 @@ structured capacity to interpret probabilistic damage assessments, use forecast
 inputs for pre-event staging, and run what-if investment simulations
 independently.
 The CIR co-development methodology, documented as a transferable protocol, advances
-CPS practice by showing how structured elicitation of locally held flood knowledge
-translates into informative Bayesian priors, making resident knowledge measurably
-load-bearing in model calibration rather than supplementary narrative.
-Graduate students will receive cross-disciplinary training spanning
-SAR imagery data processing (Co-PI Wauthier), hydrological mass balance modeling
-and GIS-parameterized watershed analysis (Co-PI Busse), and probabilistic structural
-assessment and community-engaged research (PI Napolitano).
-% becca: name the xxx PhD students, their advising assignments, and any co-advising.
+CPS practice by converting tacit process knowledge, the drainage behavior that
+building owners and emergency managers know from lived experience but cannot fully
+codify, into quantitative model inputs whose contribution is measured against a
+geospatial baseline. Resident knowledge becomes measurably load-bearing in model
+calibration rather than supplementary narrative.
+The project supports one postdoctoral researcher and one PhD student, both
+receiving cross-disciplinary training spanning SAR imagery data processing
+(Co-PI Wauthier), hydrological mass balance modeling and GIS-parameterized
+watershed analysis (Co-PI Busse), and probabilistic structural assessment and
+community-engaged research (PI Napolitano).
+% becca: confirm advising assignments (who advises the postdoc, who advises the PhD) and any co-advising.
 
 \vspace{-10pt}
 \subsection{Potential for transformative impact}
-This framework is the first to place community-scale drainage investment and
-individual building retrofits on the same probabilistic basis for small historic
-municipalities, resolving an allocation problem that annually re-injures them.
-Its generalizable principle, that free national data fused with community
-knowledge suffices for the investment decisions these municipalities face, extends
-beyond flood resilience to any infrastructure domain with national data layers and
-community knowledge but no simulation capacity, and its substitutes-versus-complements
-characterization (Key Outcomes, RO2) informs how CPS research treats locally held
-knowledge more broadly.
+Placing community-scale drainage investment and individual building retrofits on
+the same probabilistic basis resolves an allocation problem that annually
+re-injures small historic municipalities.
+Its generalizable principle, that free national data fused with the tacit process
+knowledge communities already hold suffices for the investment decisions these
+municipalities face, extends beyond flood resilience to any infrastructure domain
+with national data layers and practitioner knowledge but no simulation capacity.
+The substitutes-versus-complements characterization (Key Outcomes, RO2) provides
+the first empirical basis for deciding when elicitation is worth the investment
+and when national data alone is sufficient, a question that applies wherever
+CPS research seeks to incorporate locally held knowledge.
 
 \vspace{-10pt}
 \subsection{Education and broadening participation}
 
 In addition to broader impacts for study communities, the project integrates research
-outcomes into engineering education.
-% becca: describe the xxx PhD students total across the three PIs, their institutions,   research assignments by RO, and any cross-college co-advising plan.
-
-Undergraduate students hired for this project will participate in the Building
-Engineering Seminal Undergraduate Research Experience (BESURE) program at Penn State
-% becca add
+outcomes into engineering education. Undergraduate students hired for this project
+will participate in the Building Engineering Seminal Undergraduate Research
+Experience (BESURE) program at Penn State, gaining hands-on experience in
+community-engaged flood research, SAR data processing, and probabilistic damage
+assessment.
+% becca: add BESURE details (how many undergrads per year, recruitment from underrepresented groups, any REU supplement plans). Also confirm postdoc and PhD advising assignments above.
 
 \vspace{-10pt}
 \subsection{Open science and transferability}
@@ -1218,10 +1214,9 @@ indicators:
   retrofit ranking retains $\geq$80\% overlap with the error-free ranking.
   \item Empirical consistency of 90\% credible intervals with the observed
   brackets between 0.85 and 0.95 across 271 buildings.
-  \item Duration-depth bivariate model accuracy exceeding the depth-only baseline
-  by a margin statistically significant under cluster-bootstrap comparison of
-  per-building predictive scores, in 2023 cross-validation and on the 2024
-  held-out event relative to that event's smaller damage variation.
+  \item Duration-depth bivariate model achieving a better interval-censored log
+  predictive score than the depth-only baseline in 2023 cross-validation and on
+  the 2024 held-out event relative to that event's damage variation.
   \item Pre-storm mode producing actionable building-level risk rankings at
   48-hour forecast lead time.
   \end{itemize}
@@ -1249,6 +1244,60 @@ transferable protocol (Subtask~2.5) documented and released with characterized
 interval widths for communities without local SAR calibration.
 \end{itemize}
 % resolved 2026-07-22: the sensitivity analysis was worth it and is done (analysis/ranking_sensitivity.py/.md): on a synthetic 271-building portfolio with anchored fragility parameters, top-20 overlap stays >= 0.8 up to sigma_est ~ 0.40-0.44 log-units (70-78 h portfolio-wide RMSE) across gamma/zeta variants; Spearman >= 0.9 holds to ~0.5 log-units. Threshold above uses the stricter overlap criterion. Caveats in the .md: synthetic portfolio, duration channel only; redo on real 2023 data once ICEYE durations are in hand.
+
+\begin{figure}[H]
+\centering
+\resizebox{0.88\textwidth}{!}{%
+\begin{ganttchart}[
+  hgrid,
+  vgrid=false,
+  x unit=2.6mm,
+  y unit title=5mm,
+  y unit chart=4.5mm,
+  title/.style={fill=lightgray, draw=black, font=\scriptsize\bfseries},
+  title label font=\scriptsize\bfseries,
+  bar label font=\scriptsize,
+  group label font=\scriptsize\bfseries,
+  bar height=0.55,
+  group height=0.3,
+  bar top shift=0.225,
+  bar label node/.append style={align=right, text width=5.0cm},
+  group label node/.append style={align=right, text width=5.0cm},
+]{1}{36}
+\gantttitle{Year 1}{12}\gantttitle{Year 2}{12}\gantttitle{Year 3}{12} \\
+\gantttitle{Q1}{3}\gantttitle{Q2}{3}\gantttitle{Q3}{3}\gantttitle{Q4}{3}%
+\gantttitle{Q1}{3}\gantttitle{Q2}{3}\gantttitle{Q3}{3}\gantttitle{Q4}{3}%
+\gantttitle{Q1}{3}\gantttitle{Q2}{3}\gantttitle{Q3}{3}\gantttitle{Q4}{3} \\
+%--- RO1
+\ganttgroup[
+  group/.append style={fill=roonecol, draw=roonecol!70!black},
+  group label node/.append style={text=roonecol!70!black}
+]{RO1 (RQ1)}{1}{24} \\
+\ganttbar[bar/.append style={fill=roonecol!55, draw=roonecol!80}]{1.1 SAR processing (Wauthier)}{1}{12} \\
+\ganttbar[bar/.append style={fill=roonecol!55, draw=roonecol!80}]{1.2 Mass balance \& depth (Busse)}{1}{15} \\
+\ganttbar[bar/.append style={fill=roonecol!55, draw=roonecol!80}]{1.3 Bayesian fusion (all PIs)}{6}{21} \\
+\ganttbar[bar/.append style={fill=roonecol!55, draw=roonecol!80}]{1.4 Fragility surfaces (Napolitano)}{1}{18} \\
+\ganttbar[bar/.append style={fill=roonecol!55, draw=roonecol!80}]{1.5 System validation (all PIs)}{18}{24} \\
+%--- RO2
+\ganttgroup[
+  group/.append style={fill=rootwocol, draw=rootwocol!70!black},
+  group label node/.append style={text=rootwocol!70!black}
+]{RO2 (RQ2)}{1}{36} \\
+\ganttbar[bar/.append style={fill=rootwocol!55, draw=rootwocol!80}]{2.1 Community elicitation (Napolitano)}{1}{36} \\
+\ganttbar[bar/.append style={fill=rootwocol!55, draw=rootwocol!80}]{2.2 Decision interface (Napolitano)}{1}{36} \\
+\ganttbar[bar/.append style={fill=rootwocol!55, draw=rootwocol!80}]{2.3 Community knowledge assessment}{15}{27} \\
+\ganttbar[bar/.append style={fill=rootwocol!55, draw=rootwocol!80}]{2.4 Closed-loop validation (all PIs)}{18}{33} \\
+\ganttbar[bar/.append style={fill=rootwocol!55, draw=rootwocol!80}]{2.5 Transferable protocol}{27}{36}
+\end{ganttchart}%
+}
+\vspace{-0.2cm}
+\caption{Project timeline. RO1 subtasks (blue) develop the CPS framework in
+Years~1--2; RO2 subtasks (orange) co-develop with community partners across all
+three years. Validation (1.5) and comparative assessment (2.3) overlap in Year~2;
+closed-loop validation (2.4) and transfer (2.5) conclude in Year~3.}
+\label{fig:gantt}
+\vspace{-0.3cm}
+\end{figure}
 
 % ============================================================
 %  RESULTS FROM PRIOR NSF SUPPORT
@@ -1286,13 +1335,7 @@ Intellectual Merit of the research lies in the integrated real-world system eval
 Broader Impacts:
 The Broader Impacts include advancement of decarbonization technologies and the development of an energy-literate future engineering workforce.  
 Research Products: None.
-% maggie: add prior NSF support in this format:
-%   (a) award number, dollar amount, dates
-%   (b) title
-%   (c) intellectual merit (2-3 sentences), broader impacts (2-3 sentences)
-%   (d) publications (cite key list)
-%   (e) publicly shared datasets
-%   (f) renewal status
+% MAGGIE: ADD PRIOR NSF SUPPORT IF ANY BEYOND CBET-2400672 ABOVE, IN THE SAME FORMAT.
 
 \newpage
 \bibliography{biblio.bib}
