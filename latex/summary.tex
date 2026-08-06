@@ -20,14 +20,14 @@ The small, aging communities most repeatedly devastated by riverine flooding lac
 the data, software, and technical capacity that existing flood damage frameworks
 require.
 Community partners in Montpelier, VT have identified inundation
-\textit{duration}---not just peak flood stage---as the decision-relevant variable
+\textit{duration}, not just peak flood stage, as the decision-relevant variable
 motivating every modeling constraint in this proposal.
 
 The proposed system has four coupled layers.
 The \textbf{physical layer} is the flood-building interaction: pre-code
 load-bearing masonry and timber structures absent from every existing vulnerability
 framework.
-The \textbf{sensing layer} is multi-temporal SAR imagery---open Sentinel-1 C-band
+The \textbf{sensing layer} is multi-temporal SAR imagery, open Sentinel-1 C-band
 for flood-extent context and commercial ICEYE X-band for building-level duration
 and depth at sub-daily cadence.
 The \textbf{cyber layer} is a Bayesian fusion framework integrating SAR-derived
@@ -37,9 +37,11 @@ The \textbf{decision layer} is a multi-criteria retrofit allocation framework,
 co-developed with community stakeholders, that maps duration outputs to
 building-specific damage probabilities, placing community-scale drainage
 investments and individual building retrofits on the same probabilistic basis.
-The loop closes at three timescales---pre-storm staging from NOAA forecasts,
-post-event updating of priors and error models, and long-term retrofit feedback
-through drainage and fragility updates---with human decisions as the actuators,
+A two-mode decision interface delivers the outputs. In Plan/Forecast mode, users
+select any flood scenario (historical replay, recurrence interval, or live NWS
+forecast) and compare retrofit investments; in Update Model mode, community
+members record per-building flood observations that update the Bayesian priors
+for future scenarios. Human decisions are the actuators at every timescale,
 making the community a functional component of the control loop.
 
 \vspace{-0.5cm}
@@ -48,7 +50,7 @@ making the community a functional component of the control loop.
 The intellectual merit rests on two contributions.
 First, we establish that community-accessible sensing, fused under a Bayesian
 architecture, can substitute for resource-intensive physics-based simulation in
-closed-loop CPS decision systems---a generalizable principle for infrastructure
+closed-loop CPS decision systems, a generalizable principle for infrastructure
 contexts without hydrodynamic modeling capacity.
 Second, we advance a co-design methodology that treats locally held knowledge as
 structural input to model calibration and characterizes whether community knowledge
@@ -65,8 +67,8 @@ foundation for fragility calibration and held-out validation.
 \subsection{Broader Impacts}
 \vspace{-0.3cm}
 The framework enables duration-based damage assessment where no path currently
-exists, resolving the allocation problem---community-scale drainage versus
-individual building retrofits---that annually re-injures small historic
+exists, resolving the allocation problem, community-scale drainage versus
+individual building retrofits, that annually re-injures small historic
 municipalities.
 The decision layer and co-design process are designed for communities without
 ongoing research support.
