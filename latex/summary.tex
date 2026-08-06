@@ -6,84 +6,77 @@
 
 \pagestyle{empty}
 
-% Project Summary — 1 page maximum (NSF PAPPG requirement).
-% Must contain three labeled subsections: Overview, Intellectual Merit,
-% and Broader Impacts.  Must not contain URLs or hyperlinks.
-% All three PIs must be named.
-
-\vspace{-0.3cm}
+\vspace{-0.5cm}
 \subsection{Overview}
 \vspace{-0.3cm}
-PIs Napolitano (Penn State, structural vulnerability and community co-design),
-Wauthier (\placeholder{Institution}, SAR processing and uncertainty quantification),
-and Busse (\placeholder{Institution}, hydrological modeling and mass balance)
+PIs Napolitano (structural vulnerability and community co-design),
+Wauthier (SAR processing and uncertainty quantification),
+and Busse (hydrological modeling and mass balance),
+all at Penn State,
 propose a closed-loop cyber-physical system (CPS) for flood duration estimation,
 pre-code building vulnerability assessment, and community retrofit decision support
 in small riverine communities.
-% QUESTION: Confirm institution names for Wauthier and Busse.
-The small, aging communities most repeatedly devastated by riverine flooding are the
-least equipped to use existing flood damage assessment frameworks, which require
-hydrodynamic simulation pipelines demanding data, software, and expertise far beyond
-what small municipalities can sustain.
-Our community partners in Montpelier, VT and Marshall, NC have specifically identified
-inundation \textit{duration}—not just peak flood stage—as the decision-relevant
-variable motivating every modeling constraint in this proposal.
+The small, aging communities most repeatedly devastated by riverine flooding lack
+the data, software, and technical capacity that existing flood damage frameworks
+require.
+Community partners in Montpelier, VT have identified inundation
+\textit{duration}---not just peak flood stage---as the decision-relevant variable
+motivating every modeling constraint in this proposal.
 
 The proposed system has four coupled layers.
-The \textbf{physical layer} is the flood-building interaction system: pre-code
-load-bearing masonry and timber structures ubiquitous across small historic riverine
-communities yet absent from every existing vulnerability framework.
-The \textbf{sensing layer} is multi-temporal Sentinel-1 C-band and Capella X-band
-SAR coherence and amplitude time series that track the physical state of flooded
-building surfaces through the recovery period.
-The \textbf{cyber layer} is a Bayesian data fusion framework integrating SAR coherence
-persistence with community-scale hydrological mass balance into probabilistic
-inundation duration estimates with propagated uncertainty.
-The \textbf{decision layer} is a retrofit allocation framework, co-designed with
-community stakeholders, that maps probabilistic duration outputs to building-specific
-damage state probabilities and actionable retrofit guidance.
-The closed loop—satellite sensing to probabilistic inference to community decision to
-physical change, validated by post-retrofit SAR acquisitions—is the defining CPS
-contribution of this work.
+The \textbf{physical layer} is the flood-building interaction: pre-code
+load-bearing masonry and timber structures absent from every existing vulnerability
+framework.
+The \textbf{sensing layer} is multi-temporal SAR imagery---open Sentinel-1 C-band
+for flood-extent context and commercial ICEYE X-band for building-level duration
+and depth at sub-daily cadence.
+The \textbf{cyber layer} is a Bayesian fusion framework integrating SAR-derived
+observations with hydrological mass balance into probabilistic duration estimates
+with propagated uncertainty.
+The \textbf{decision layer} is a multi-criteria retrofit allocation framework,
+co-developed with community stakeholders, that maps duration outputs to
+building-specific damage probabilities, placing community-scale drainage
+investments and individual building retrofits on the same probabilistic basis.
+The loop closes at three timescales---pre-storm staging from NOAA forecasts,
+post-event updating of priors and error models, and long-term retrofit feedback
+through drainage and fragility updates---with human decisions as the actuators,
+making the community a functional component of the control loop.
 
 \vspace{-0.5cm}
 \subsection{Intellectual Merit}
 \vspace{-0.3cm}
-The intellectual merit of this research rests on two contributions.
-First, we establish that community-accessible sensing modalities, fused under a
-Bayesian probabilistic machine learning architecture, can substitute for
-resource-intensive physics-based simulation intermediaries in closed-loop CPS
-decision systems—a generalizable principle for infrastructure contexts that cannot
-support full hydrodynamic modeling.
-Second, we advance a community co-design methodology that treats locally held
-knowledge as structural input to model validation, contributing to CPS practice for
-socio-technical systems where stakeholder knowledge cannot be separated from system
-calibration.
-Two independent flood events—Montpelier 2023 and Marshall 2024—provide model
-validation across heterogeneous community contexts; the contrast isolates which
-framework components transfer across contexts and which require local calibration,
-establishing the scientific basis for generalization.
-Preliminary Sentinel-1 coherence analysis of Montpelier 2023 across four
-polarization/orbit combinations shows consistent coherence depression concentrated
-in the downtown core persisting nearly two weeks post-peak, establishing the
-observational foundation for the proposed framework.
+The intellectual merit rests on two contributions.
+First, we establish that community-accessible sensing, fused under a Bayesian
+architecture, can substitute for resource-intensive physics-based simulation in
+closed-loop CPS decision systems---a generalizable principle for infrastructure
+contexts without hydrodynamic modeling capacity.
+Second, we advance a co-design methodology that treats locally held knowledge as
+structural input to model calibration and characterizes whether community knowledge
+functions as a substitute for or complement to national geospatial data, providing
+the first empirical basis for deciding when elicitation improves CPS accuracy.
+Two Montpelier flood events (2023, 2024) provide a within-community train-test
+validation: the inference chain is calibrated on 2023 and validated against the
+held-out 2024 event, directly testing generalizability across event characteristics.
+ICEYE commercial SAR provides building-level flood depth and duration at sub-daily
+cadence for 271 downtown buildings across both events, establishing the empirical
+foundation for fragility calibration and held-out validation.
 
 \vspace{-0.5cm}
 \subsection{Broader Impacts}
 \vspace{-0.3cm}
-The closed-loop CPS framework transforms how flood-affected communities interact
-with infrastructure sensing, enabling duration-based damage assessment where no
-path currently exists.
-The decision layer and co-design process are designed for communities without ongoing
-research support.
-Graduate students will receive cross-disciplinary training in SAR remote sensing,
-probabilistic structural modeling, and participatory community research.
-The CIR co-design methodology, documented as a transferable protocol, advances CPS
-practice for connected communities, establishing how resident knowledge anchors
-model validation and community decisions feed back into physical infrastructure
-sensing across networks of similarly situated towns.
-The framework is designed for open-source release, enabling communities beyond
-Montpelier and Marshall to apply duration-based damage assessment using freely
-available Sentinel-1 data.
+The framework enables duration-based damage assessment where no path currently
+exists, resolving the allocation problem---community-scale drainage versus
+individual building retrofits---that annually re-injures small historic
+municipalities.
+The decision layer and co-design process are designed for communities without
+ongoing research support.
+One postdoc and one PhD student receive cross-disciplinary training in SAR
+remote sensing, probabilistic structural modeling, hydrological mass balance,
+and participatory community research.
+The Community-Inspired Research (CIR) co-design methodology, documented as a
+transferable protocol, establishes how resident knowledge anchors model calibration
+and community decisions feed back into physical infrastructure sensing.
+The framework will be released under an MIT license, enabling communities beyond
+Montpelier to apply duration-based assessment using freely available national data.
 
 \end{document}

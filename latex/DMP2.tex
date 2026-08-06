@@ -15,67 +15,87 @@
 \vspace{0.3cm}
 
 \section{Roles and Responsibilities}
-% QUESTION: Which PI is the data management lead?
-%   Recommend Napolitano (Penn State) as lead given existing DesignSafe affiliation
-%   and ICDS-ACI storage infrastructure from the prior grant.
-%   Wauthier and Busse are secondary data custodians for their respective data streams.
-The Principal Investigator (PI), Dr.\ Rebecca Napolitano (Penn State), will have
+The Principal Investigator (PI), Dr.\ Rebecca Napolitano, will have
 primary responsibility for data management throughout the project lifecycle and will
 ensure data is collected, stored, preserved, and shared in accordance with this plan
 and NSF policies.
-Co-PI \textbf{Wauthier} (\placeholder{Institution}) is responsible for SAR data
-products and coherence time series.
-Co-PI \textbf{Busse} (\placeholder{Institution}) is responsible for hydrological
-model inputs, outputs, and associated metadata.
+Co-PI Wauthier is responsible for SAR data products, including ICEYE-derived
+building-level inundation measurements and Sentinel-1 flood-extent imagery.
+Co-PI Busse is responsible for hydrological model inputs, outputs, and associated
+metadata.
+All three PIs are at Penn State.
 
 \vspace{0.3cm}
 \section{Expected Data and Formats}
 This project will generate the following data types:
 
 \begin{itemize}
-\item[] \textbf{SAR coherence time series (Sentinel-1, Capella):}
-  Interferometric coherence and amplitude stacks for Montpelier, VT and Marshall, NC.
-  Formats: GeoTIFF (.tif), NetCDF (.nc), CSV summary tables (.csv).
-  % QUESTION (Wauthier): Confirm formats.  Are processed products stored as
-  %   GeoTIFFs (SNAP/ISCE output), NetCDF stacks (MintPy), or both?
+\item[] \textbf{ICEYE commercial SAR data (restricted):}
+  Building-level flood depth and inundation duration measurements for 271 downtown
+  Montpelier buildings across the 2023 and 2024 flood events, acquired under an NDA
+  data access agreement with ICEYE.
+  Raw ICEYE imagery and building-level measurements cannot be redistributed under
+  the data access agreement; derived products (per-building duration statistics,
+  validation metrics, anonymized scatter plots) will be shared.
+  Formats: CSV summary tables (.csv), PDF figures (.pdf).
+\item[] \textbf{Sentinel-1 SAR flood-extent products:}
+  Amplitude imagery and flood-extent classifications for Montpelier, VT across both
+  flood events, used for broader spatial context and cross-checking of ICEYE
+  building-level classifications.
+  Formats: GeoTIFF (.tif), CSV summary tables (.csv).
+\item[] \textbf{NOAA precipitation and forecast inputs:}
+  NOAA precipitation data and forecast products used for pre-storm staging and
+  mass balance model inputs.
+  Formats: CSV (.csv), NetCDF (.nc).
 \item[] \textbf{Hydrological mass balance model outputs:}
-  Drainage timescale estimates, watershed routing outputs, uncertainty envelopes.
+  Drainage timescale estimates, sub-basin parameterization, watershed routing
+  outputs, and uncertainty envelopes for the Winooski watershed.
   Formats: NetCDF (.nc), CSV (.csv).
-  % QUESTION (Busse): Confirm formats and model software.
 \item[] \textbf{Bayesian posterior distributions:}
-  Posterior duration distributions per building or spatial unit, credible intervals.
-  Formats: Python pickle (.pkl), NetCDF (.nc), CSV summary tables.
-  % QUESTION: Will the Bayesian code be on GitHub?  Confirm open-source license.
-  %   Recommended: MIT license.
+  Posterior duration distributions per building, credible intervals, and error
+  model parameters.
+  Formats: NetCDF (.nc), CSV summary tables (.csv).
 \item[] \textbf{Fragility surface parameters:}
-  Duration-damage fragility surfaces for pre-code load-bearing archetype(s).
-  Formats: CSV (.csv), MATLAB (.mat) or Python (.pkl).
-\item[] \textbf{Community co-design workshop materials:}
-  Workshop notes, participant feedback, facilitation guides.
+  Duration-depth fragility surfaces for pre-code load-bearing masonry archetypes,
+  calibrated on 2023 observations and validated against 2024.
+  Formats: CSV (.csv), Python serialization (.pkl).
+\item[] \textbf{Field damage observations:}
+  Building-level damage state classifications (no damage, cosmetic, structural)
+  from field assessment of 271 downtown Montpelier buildings.
+  These data are building-identifiable; anonymized versions with parcel-level
+  identifiers removed will be shared publicly, and the full geo-referenced dataset
+  will be available to qualified researchers under a data use agreement.
+  Formats: CSV (.csv), GeoJSON (.geojson).
+\item[] \textbf{Community co-development workshop materials:}
+  Workshop documentation, structured elicitation results, participant feedback,
+  and facilitation guides.
   Formats: PDF (.pdf), anonymized transcripts (.txt, .docx).
-  % NOTE: Workshop materials involving human subjects will be anonymized
-  %   before sharing.  See Ethics and Privacy section.
 \item[] \textbf{Decision framework outputs:}
-  Building-specific retrofit recommendations and what-if simulation outputs.
+  Retrofit priority rankings, what-if simulation outputs, and community-scale
+  drainage versus individual building retrofit comparisons.
   Formats: CSV (.csv), PDF reports for community partners.
 \item[] \textbf{Dissemination materials:}
   Publications, presentations, webinars (.pdf, .pptx, .mp4).
 \end{itemize}
 
 Metadata will include instrument specifications (SAR sensor, orbit, acquisition dates),
-data processing parameters (coherence window, multi-look factors), and model version
-information.
+data processing parameters, model version information, and field data collection
+protocols.
 
 \vspace{0.3cm}
 \section{Access, Sharing, and Reuse Policies}
-SAR coherence products, mass balance outputs, posterior distributions, and fragility
-surface parameters will be shared via DesignSafe-CI under open-access licenses upon
-publication or within 12 months of data collection completion.
-Bayesian fusion and decision framework code will be released on GitHub under an
-open-source license (\placeholder{confirm: MIT or Apache 2.0}).
-% QUESTION: Confirm open-source license for code release.
-Community workshop materials will be anonymized; access to identifiable materials
-will be restricted to project personnel.
+SAR-derived flood-extent products, mass balance outputs, posterior distributions,
+and fragility surface parameters will be shared via DesignSafe-CI under open-access
+licenses upon publication or within 12 months of data collection completion.
+ICEYE commercial SAR data is acquired under a data access agreement that restricts
+redistribution of raw imagery; derived per-building statistics and validation
+metrics will be shared on DesignSafe-CI.
+Bayesian fusion, mass balance parameterization, and decision framework code will
+be released on GitHub under an MIT open-source license.
+Field damage observations will be shared on the Open Science Framework: anonymized
+data publicly, geo-referenced data under a data use agreement.
+Community workshop materials will be anonymized before sharing; access to
+identifiable materials will be restricted to project personnel.
 Publications and presentations will be made openly available via institutional
 repositories.
 
@@ -98,22 +118,20 @@ All data and code will be archived on DesignSafe-CI.
 PI Napolitano is an affiliate of Penn State's Institute for Computation and Data
 Science (ICDS) and, through its Advanced Cyber Infrastructure (ICDS-ACI), has access
 to active and near-line storage that is backed up daily.
-Co-PIs Wauthier and Busse will maintain local backups at their institutions during
-active research phases, with regular synchronization to the shared DesignSafe-CI
-project workspace.
+Co-PIs Wauthier and Busse will use ICDS-ACI storage for active research data,
+ensuring all project data resides within Penn State's backed-up infrastructure.
 
 \vspace{0.3cm}
 \section{Ethics and Privacy}
 The project will comply with all relevant regulations, including Institutional Review
 Board (IRB) requirements for human subjects research.
-Community co-design workshop participants will be fully informed of data collection
-and sharing plans.
+Community co-development workshop participants will be fully informed of data
+collection and sharing plans.
 Workshop notes will be anonymized before sharing; personally identifiable information
 will be protected using encryption and access controls.
-% QUESTION: Does PI Napolitano have existing IRB coverage for community engagement
-%   that can be extended, or will a new protocol be needed?
-%   The prior grant had IRB approval for Marshall community conversations —
-%   confirm with Penn State IRB whether an amendment or new submission is required.
+Field damage observations are building-identifiable; publicly shared versions will
+have parcel-level identifiers removed, and geo-referenced data will be available only
+under a data use agreement to protect building owner privacy.
 This plan will be reviewed annually and revised as needed in consultation with the
 Penn State IRB.
 
