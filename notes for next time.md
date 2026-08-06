@@ -4,44 +4,32 @@
 Working file: `Research_v3.tex`. Compile with `~/.local/bin/tectonic Research_v3.tex` (no brew/sudo/Docker on this Mac).
 
 ## Current status (2026-08-06)
-- Body = **18 pages** against the **15-page** Project Description limit → **~3 pages still over**.
-  (Added synthetic damage map figure which cost ~1 page; body was at 17 before the figure.)
+- Body = **18 pages** against the **15-page** Project Description limit → **3 pages over**.
+  (Gantt chart added ~1 page; body was at 17 before adding it.)
 - References start on p19. Compiles clean.
-- **Framing sweep through §2, §3, and §4 intro/RO1 subtasks is DONE** as of commit `0f98f5a`.
-- **Still unswept: RO2 subtasks (2.1–2.5), §5 (broader impacts), §6 (timeline — mostly done),
-  §7 (prior support).**
+- **Full framing sweep is DONE** — §1 through §7 all checked against the closed-loop framing,
+  as of commit `d733989`.
 
 ## PICK UP HERE NEXT TIME
 
-### 1. RO2 subtask sweep (highest priority)
-Sweep Subtasks 2.1–2.5 against the closed-loop framing. Two flags already planted:
-- **Substitute-vs-complement** must flow through all subtasks, not just 2.3 where it currently
-  lands (see `% FRAMING SWEEP TODO` comment above the RO2 subtasks).
-- **Subtask 2.2, Year 2** (~line 921): "cross-references community-observed damage against 2023
-  field damage states" — against the three-state ordinal taxonomy (no damage / cosmetic /
-  structural), check whether this cross-reference is informative or near-trivial.
-
-### 2. §5 broader impacts
-**Known leftover:** ~line 1120, "This framework is the first to place community-scale drainage
-investment and…" — a first-ness novelty claim the merit paragraph deliberately abandoned.
-
-### 3. Remaining cut levers (~3 pp needed)
-The damage map figure added ~1 page. Updated lever list:
+### 1. Cut for length (~3 pp needed)
+This is the main remaining task. Cut levers ranked by size:
 1. **§2.2 worked dollar example** (~0.5–0.75 pp) — biggest self-contained object, low risk.
-2. **Damage map figure** — consider sizing down or combining with ICEYE panel (~0.3–0.5 pp).
-3. **One of the two preliminary-results figures** (recession analysis) (~0.3–0.4 pp).
-4. **Subtask description trims** — judgment pass, many small cuts (~0.5–1 pp).
+2. **Gantt chart** — could be compressed (smaller font, fewer labels) or cut if space is tight.
+3. **Subtask description trims** — judgment pass across 1.2, 1.3, 2.1, 2.2 (longest subtasks).
+4. **One of the two preliminary-results figures** (recession analysis) (~0.3–0.4 pp).
 5. **Tier 3 compressions** (reviewer-facing defenses/honesty caveats) (~0.4 pp).
-Stage-to-DEM prototype was already compressed in this session.
 
-### 4. Damage state data (from Becca)
-- Three ordinal states confirmed: no damage, cosmetic, structural.
-- Synthetic map is a PLACEHOLDER (yellow-highlighted in PDF). Replace with actual field data
-  before submission. Script: `analysis/synthetic_damage_map.py`.
-- Still needed: actual counts per damage state for the 271-building pre-code masonry subset.
-- Building archetypes: predominantly load-bearing brick URM, small number mixed brick-and-stone.
+### 2. Remaining TODOs from Becca
+- **Damage state counts** — how many of the 271 buildings are no damage / cosmetic / structural?
+- **BESURE details** — how many undergrads per year, recruitment from underrepresented groups, REU supplement?
+- **Postdoc and PhD advising** — who advises each, any co-advising?
+- **Expert panel** — "APT DRI" for decision-adequacy validation in Subtask 1.5; confirm full name.
+- **Transferable community count** — quantify using NFIP enrollment, ACS pre-1940 housing, USGS gauge
+  coverage (inputs are in biblio.bib; cross-tabulation still needed).
+- **`Research_vold.tex`** — untrack or leave? Not resolved.
 
-### 5. Co-PI items (visible in PDF as yellow highlights)
+### 3. Co-PI items (visible in PDF as yellow highlights)
 **Christelle (Wauthier):**
 - Confirm ICEYE figures are OK to use or provide replacements.
 - Confirm 2023/2024 scene cadence.
@@ -52,6 +40,12 @@ Stage-to-DEM prototype was already compressed in this session.
 - Provide sub-basin discretization (approximate size/count).
 - Address antecedent moisture condition (AMC) handling for pre-storm mode.
 - Confirm whether this uses an existing Winooski model or requires new development.
+- Add prior NSF support if any beyond CBET-2400672.
+
+### 4. After cuts
+- Read-through / hypothesis check (outstanding since 2026-06-18).
+- Push to collaborators (Wauthier, Busse) for review — the yellow highlights mark their items.
+- Fill/confirm any remaining Prior NSF Support text.
 
 ### Framing reference paragraph
 The intellectual-merit paragraph (RQ subsection, ~line 177) is the **canonical statement of the
@@ -60,42 +54,27 @@ physical / community knowledge) are subordinate to it. Masonry appears only as t
 physical coupling. Anything written later should match it.
 
 ## Structural changes made this session (2026-08-06)
-- **§2 opener rewritten** — now a short capability-chain setup ("Closing the loop requires four
-  capabilities… Each has a mature literature. None addresses the interface with the next."). No
-  longer redundant with the gap summary. Approved by Becca.
-- **§3 recession analysis tightened** — cut redundant baseflow paragraph, compressed stage-to-DEM
-  prototype from 11 to 4 lines.
-- **Field damage assessment filled in** — three ordinal states (no damage / cosmetic / structural),
-  pre-2024 timing confirmed, synthetic damage map figure added as placeholder.
-- **§4 research plan intro** — bridge sentence connecting §2 gaps to research plan; three-timescale
-  closing rewritten as one loop at three speeds ("at every timescale" not "all three loops").
-- **RO1 intro paragraph** — rewritten around the four capabilities from §2, with explicit community
-  knowledge handoff to RO2 via δ_i^comm.
-- **RO2 box** — added substitute-versus-complement language to match RQ2 fully.
-- **Subtask 2.4 split into 2.4 + 2.5** — 2.4 is Closed-Loop Validation (the reentry mechanism),
-  2.5 is Transferable Protocol. RO2 now has five subtasks. All cross-references updated. Adoption
-  KPIs updated to include 2.5.
-- **Subtask 1.2 retitled** — "GIS-Parameterizable Mass Balance and Depth Projection" with framing
-  sentence naming both components. Addresses reviewer concern that the stage-to-DEM model was
-  hidden inside a "mass balance" subtask.
-- **Subtask 1.4 trimmed** — material-science prose compressed so masonry reads as one mechanism
-  serving the loop. Wild cluster bootstrap replaced with Bayesian model comparison (interval-censored
-  log predictive score), consistent with the rest of the framework. Three-state ordinal damage
-  taxonomy integrated into the fragility equation description. Building archetypes added.
-- **RO1 Key Outcomes** — community knowledge slot folded into outcome 1, kept at three outputs.
-- **Co-PI comments** — all Christelle/Maggie comments converted to ALL CAPS with visible
-  yellow-highlighted notes in the rendered PDF.
-- **Lara citation added** (Maalouf & Napolitano 2025, IJHS).
-- **README.md created** explaining file organization.
 
-## Open decisions for Becca
-- **`Research_vold.tex`** — untrack it (`git rm --cached`) or leave it? (Not resolved.)
-- **Damage map figure** — keep at current size or shrink to save space?
-- **Expert panel for decision-adequacy validation** — Becca said "APT DRI"; confirm full name and
-  composition for Subtask 1.5 text.
-
-## After framing sweep + cuts
-- Read-through / hypothesis check (outstanding since 2026-06-18).
-- Push to collaborators (Wauthier, Busse) for review — the yellow highlights mark their items.
-- Fill/confirm any remaining Prior NSF Support text (Wauthier CAREER text is in; confirm
-  Napolitano/Busse as needed).
+### Framing sweep (full document)
+- **§2 opener** — short capability-chain setup, no longer redundant with gap summary.
+- **§2.3 community knowledge gap** — added tacit-process-knowledge framing.
+- **§3 recession analysis** — cut redundant baseflow paragraph, compressed stage-to-DEM.
+- **§3 field damage assessment** — three ordinal states (no damage / cosmetic / structural),
+  pre-2024 timing confirmed, each building paired with ICEYE measurements.
+- **§4 research plan intro** — bridge sentence; three-timescale closing as one loop at three speeds.
+- **RO1 intro** — rewritten around four capabilities with community knowledge handoff to RO2.
+- **RO2 box** — added substitute-versus-complement language to match RQ2.
+- **Subtask 2.4/2.5 split** — 2.4 is Closed-Loop Validation, 2.5 is Transferable Protocol.
+- **Subtask 1.2** — retitled "Mass Balance and Depth Projection" with framing sentence.
+- **Subtask 1.4** — material-science prose trimmed; wild cluster bootstrap → Bayesian model comparison;
+  three-state ordinal taxonomy integrated; building archetypes added.
+- **RO1 Key Outcomes** — community knowledge folded into outcome 1.
+- **RO2 Subtask 2.5** — substitute/complement connection to 2.3 findings added.
+- **§5 broader impacts** — first-ness claim killed; tacit-knowledge framing threaded through
+  §2.3, §5 intro, and §5.1 (Golden Age Ch.IV parallel, absorbed not cited).
+- **§5.2 Education** — 1 postdoc + 1 PhD, BESURE sentence completed.
+- **§6 timeline** — Gantt chart added (pgfgantt). Stale cluster-bootstrap KPI fixed.
+- **§7 prior support** — co-PI comment formatting cleaned up.
+- **Co-PI comments** — all Christelle/Maggie comments ALL CAPS with yellow PDF highlights.
+- **Lara citation** added (Maalouf & Napolitano 2025, IJHS).
+- **README.md** created explaining file organization.
