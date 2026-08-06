@@ -3,116 +3,99 @@
 **Deadline: 2026-09-01 (hard).** Becca is PI + primary writer.
 Working file: `Research_v3.tex`. Compile with `~/.local/bin/tectonic Research_v3.tex` (no brew/sudo/Docker on this Mac).
 
-## Current status (2026-07-28)
-- Body = **18 pages** against the **15-page** Project Description limit → **~3 pages still over**. (References start on p19; they do not count toward the 15.)
-- Compiles clean (exit 0, no undefined refs).
-- **Framing/argument work is DONE** as of commit `d6f0ff8`. Length is the one remaining big item.
+## Current status (2026-08-06)
+- Body = **18 pages** against the **15-page** Project Description limit → **~3 pages still over**.
+  (Added synthetic damage map figure which cost ~1 page; body was at 17 before the figure.)
+- References start on p19. Compiles clean.
+- **Framing sweep through §2, §3, and §4 intro/RO1 subtasks is DONE** as of commit `0f98f5a`.
+- **Still unswept: RO2 subtasks (2.1–2.5), §5 (broader impacts), §6 (timeline — mostly done),
+  §7 (prior support).**
 
-## PICK UP HERE NEXT TIME (2026-07-29)
-**The framing sweep was NOT actually complete** — the 2026-07-28 sweep was wording-level and never
-reached §2. §2 (Current state-of-the-art) has now been rethesised to the loop (see below).
-**Still unswept against the closed-loop framing: §3 (partner site/preliminary results, ~348–500),
-§4 (research plan, ~501–1080 — the big one), §5–7 (broader impacts, timeline, prior support).**
+## PICK UP HERE NEXT TIME
 
-### OPEN, START FRESH HERE (Becca stopped 2026-07-29, wants to restart this from scratch)
-**The §2 opener (lines 208–226) and the §2.5 gap summary (336–346) now say the same thing.** Both
-were rewritten to the same thesis in the same pass and never checked against each other:
-- opener: "Four literature domains each supply one piece of the loop… None couples them."
-- gap summary: "The pieces exist; the loop does not. Each domain above supplies one component and
-  stops at the interface with the next…"
-Same claim, same four-item enumeration, ~130 lines apart. **The committed text is the redundant
-version** — this is a known defect, not a finished state.
+### 1. RO2 subtask sweep (highest priority)
+Sweep Subtasks 2.1–2.5 against the closed-loop framing. Two flags already planted:
+- **Substitute-vs-complement** must flow through all subtasks, not just 2.3 where it currently
+  lands (see `% FRAMING SWEEP TODO` comment above the RO2 subtasks).
+- **Subtask 2.2, Year 2** (~line 921): "cross-references community-observed damage against 2023
+  field damage states" — against the three-state ordinal taxonomy (no damage / cosmetic /
+  structural), check whether this cross-reference is informative or near-trivial.
 
-Direction that seemed right (Becca did NOT approve it, wants a fresh attempt): give the two
-paragraphs different jobs — opener defines the loop concretely as a chain (hydrological → fragility
-→ community knowledge → decision → interventions revise the model), giving the reader a *standard*
-to judge §2.1–2.4 against; §2.5 keeps the *verdict*. Sharper claim available for the opener: not
-"none couples them" but "none supplies the **interface** — the output one domain produces is not the
-input the next requires." Candidate cuts in the opener: the "271 buildings" forward reference into
-§3, and "That is what RQ1 and RQ2 test" (both RQs appear in full twice in the preceding 30 lines).
-Two unresolved questions: whether §2 should keep an explicit RQ1/RQ2 tie at all, and whether to
-concede "each literature is mature" before criticizing it.
+### 2. §5 broader impacts
+**Known leftover:** ~line 1120, "This framework is the first to place community-scale drainage
+investment and…" — a first-ness novelty claim the merit paragraph deliberately abandoned.
 
-**Known leftover already spotted, fix when sweeping §5:** line ~1120, "This framework is the first
-to place community-scale drainage investment and…" — a first-ness novelty claim of exactly the kind
-the merit paragraph deliberately abandoned (same species as the RO1 fix in item 3 below).
+### 3. Remaining cut levers (~3 pp needed)
+The damage map figure added ~1 page. Updated lever list:
+1. **§2.2 worked dollar example** (~0.5–0.75 pp) — biggest self-contained object, low risk.
+2. **Damage map figure** — consider sizing down or combining with ICEYE panel (~0.3–0.5 pp).
+3. **One of the two preliminary-results figures** (recession analysis) (~0.3–0.4 pp).
+4. **Subtask description trims** — judgment pass, many small cuts (~0.5–1 pp).
+5. **Tier 3 compressions** (reviewer-facing defenses/honesty caveats) (~0.4 pp).
+Stage-to-DEM prototype was already compressed in this session.
 
-**Verification method that works** (use it on §3/§4, a read-through will not catch this): build a
-mapping of each merit-paragraph claim → which paragraph of the target section establishes its gap
-or delivers it. Empty cells are the findings. Also grep for residue from *both* old framings:
-`grep -n 'layer\|epistemic\|first \(to\|for\)\|four \(coupled\|layers\|domains\)\|co-equal\|novel'`.
+### 4. Damage state data (from Becca)
+- Three ordinal states confirmed: no damage, cosmetic, structural.
+- Synthetic map is a PLACEHOLDER (yellow-highlighted in PDF). Replace with actual field data
+  before submission. Script: `analysis/synthetic_damage_map.py`.
+- Still needed: actual counts per damage state for the 271-building pre-code masonry subset.
+- Building archetypes: predominantly load-bearing brick URM, small number mixed brick-and-stone.
 
-Length is still ~3 pp over; cut levers below are untouched.
+### 5. Co-PI items (visible in PDF as yellow highlights)
+**Christelle (Wauthier):**
+- Confirm ICEYE figures are OK to use or provide replacements.
+- Confirm 2023/2024 scene cadence.
+- Add ICEYE processing pipeline description and depth/duration measurement flags (Subtask 1.1).
+
+**Maggie (Busse):**
+- Confirm or replace τ̂_k formulation (linear-reservoir, fractional-storage closure).
+- Provide sub-basin discretization (approximate size/count).
+- Address antecedent moisture condition (AMC) handling for pre-storm mode.
+- Confirm whether this uses an existing Winooski model or requires new development.
 
 ### Framing reference paragraph
 The intellectual-merit paragraph (RQ subsection, ~line 177) is the **canonical statement of the
-framing** — anything written later should match it, not drift from it. It says: the closed loop is
-THE contribution; the three advances (computational / physical / community knowledge) are
-subordinate to it, not co-equal novelties. Masonry appears only as two-sided physical coupling
-(sensing flood signatures; drainage/hardening interventions whose effects reenter future flood
-behavior) — the fragility-surface novelty clause was deliberately removed from this paragraph.
+framing**. It says: the closed loop is THE contribution; the three advances (computational /
+physical / community knowledge) are subordinate to it. Masonry appears only as two-sided
+physical coupling. Anything written later should match it.
 
-## Done in this session (2026-07-29)
-- **Carried the closed-loop framing into §2 Current state-of-the-art.** The mapping check found the
-  structural hole the wording sweep missed: the words *loop / closes / reenter* appeared **zero
-  times** in §2, so the central contribution had no state-of-the-art support at all. §2's own thesis
-  was still "integrating these four domains creates two scientific tests" — the old co-equal-novelty
-  structure. Four fixes, **net length delta exactly 0** (body 18 pp before and after, References
-  still at top of p19):
-  1. **§2 opener rethesised** — "four domains → two tests" → "four domains each supply one piece of
-     the loop; none couples them; the loop has never been evaluated end to end." Also fixes the
-     dangling "these four domains" (the antecedent came *after* the sentence). Ran ~2 lines shorter,
-     which paid for fix 3.
-  2. **Gap summary rethesised** — was landing on two co-equal gaps (no model + community knowledge
-     untested); now lands on "the pieces exist; the loop does not," enumerates where each domain
-     stops at the interface with the next, and points forward into the research plan.
-  3. **Post-event updating gap added** (§2.4) — the mode that actually *closes* the loop had no gap
-     anywhere. Careful wording needed: post-event *planning* does exist, so the claim is that
-     practice doesn't *feed back* (assessments reissued from static inputs, nothing improves as a
-     community accumulates events).
-  4. **Two-sided physical coupling labeled** (§2.4) — the intervention side was present but
-     unlabeled; added the reentry clause ("nothing carries a completed retrofit back into the flood
-     behavior a town should expect next time") to match the merit paragraph's physical advance.
-  - **Watch for this when rewriting a summary paragraph:** the first draft of the new gap summary
-    silently *dropped RQ2's gap* (community knowledge measured against a geospatial baseline) and
-    replaced it with §2.3's operationalization gap — so §2 closed supporting RQ1 only, in the last
-    paragraph before the research plan. Caught by re-running the mapping table against the *new*
-    text. Rewriting a summary can delete a claim as easily as add one; re-map after, not just before.
-  - **Deliberately left alone:** §2.2 "no duration-dependent fragility surface exists" — a gap
-    section is *supposed* to say no X exists; the RO1 fix dropped a first-ness **headline in the
-    merit argument**, it did not make gap statements illegitimate. §2.3 close already matches
-    advance three. Transferability scope ("any gauged municipality" here vs "any domain with…" in
-    the merit ¶) — different altitudes, not a contradiction.
-
-## Done in previous session (2026-07-28)
-- **Consistency sweep — carried the closed-loop framing through the rest of the document** (commit `d6f0ff8`). Four real mismatches fixed, net-neutral on length:
-  1. **Goals box close** — "The defining intellectual contribution is treating community knowledge as a structural calibration input…" flatly contradicted the merit paragraph. Now leads on the loop, with RQ2's measured-against-a-baseline claim kept but subordinate. Also killed "epistemic contribution."
-  2. **Status quo close** (~line 159) — terminated the section on community knowledge alone; now points forward to closing the loop.
-  3. **RO1 Key outcomes** (~line 858) — dropped the "the first for the older load-bearing masonry" novelty claim, since the merit paragraph deliberately abandoned that first-ness claim. Fragility surfaces stay as an RO1 outcome, just not a headline novelty.
-  4. **Transformative impact** (~line 1123) — "free geospatial data" → "free national data" so the generalizable-principle sentence matches its twin in the merit paragraph.
-  - Also de-layered the stale "PHYSICAL layer" wording in the Subtask 1.4 `%` comment. **Trim TODO left in place** — that's a cut task.
-  - **Checked and deliberately left alone:** goals box body 68–78 (already IS the loop story; masonry there is a subordinate appositive that makes the physical coupling concrete); RO1 box and Subtask 1.4 prose (the deemphasis was about the *merit argument*, not erasing masonry from the research plan — Subtask 1.4 genuinely is fragility surface development); "these four domains" at line 208 (a count of the four literature subsections, unrelated to the old four-*layer* taxonomy — verified).
-- **De-layered the CPS framing** (commit `9b53c2f`). Removed the rigid "four coupled layers" taxonomy (physical/sensing/cyber/decision) that was fighting the three-contribution merit argument. The solicitation does not ask for a layer taxonomy — it was self-imposed scaffolding.
-  - Goals box: enumeration → loop-story prose (sense → compute → community closes the loop).
-  - Merit subsection: three named layers → three plain contributions (**computational / physical / community knowledge**).
-  - Removed the `fig:cps_arch` four-layer diagram (`img.jpg`).
-  - Swept ~15 downstream "X layer" mentions (Table row labels + body shorthand) to plain phrasing. Left "GIS layers" / "national data layers" alone (different meaning) and the two `%` PI comments.
-- **Dropped Table 1** (the gaps/objectives/approaches/outcomes summary, commit `dc6ea0b`). It was ~1 full page and fully redundant with the prose. Fixed all four `\ref{tab:research_summary}` cross-references. Saved ~1 page (19 → 18).
-
-## Remaining cut levers (largest first, ~3 pp needed)
-1. **§2.2 worked dollar example** — full worked allocation example; table-ize or trim (~0.5–0.75 pp). **Suggested next** — biggest self-contained object, low risk.
-2. **One of the two preliminary-results figures** (recession analysis + one other) (~0.3–0.4 pp).
-3. **Stage-to-DEM prototype narrative** — compress to equation + one sentence (~0.3 pp).
-4. **Second-paragraph trims on subtask descriptions** — judgment pass, many small cuts (~0.5–1 pp).
-5. **Tier 3 compressions** skipped last round (reviewer-facing defenses/honesty caveats) (~0.4 pp).
-
-Note: page savings are quantized — rendered-line estimates historically overpredict ~2x because reflow absorbs cuts. Measure after each batch (`mdls -name kMDItemNumberOfPages Research_v3.pdf` + find where "References:" starts via pdftotext).
+## Structural changes made this session (2026-08-06)
+- **§2 opener rewritten** — now a short capability-chain setup ("Closing the loop requires four
+  capabilities… Each has a mature literature. None addresses the interface with the next."). No
+  longer redundant with the gap summary. Approved by Becca.
+- **§3 recession analysis tightened** — cut redundant baseflow paragraph, compressed stage-to-DEM
+  prototype from 11 to 4 lines.
+- **Field damage assessment filled in** — three ordinal states (no damage / cosmetic / structural),
+  pre-2024 timing confirmed, synthetic damage map figure added as placeholder.
+- **§4 research plan intro** — bridge sentence connecting §2 gaps to research plan; three-timescale
+  closing rewritten as one loop at three speeds ("at every timescale" not "all three loops").
+- **RO1 intro paragraph** — rewritten around the four capabilities from §2, with explicit community
+  knowledge handoff to RO2 via δ_i^comm.
+- **RO2 box** — added substitute-versus-complement language to match RQ2 fully.
+- **Subtask 2.4 split into 2.4 + 2.5** — 2.4 is Closed-Loop Validation (the reentry mechanism),
+  2.5 is Transferable Protocol. RO2 now has five subtasks. All cross-references updated. Adoption
+  KPIs updated to include 2.5.
+- **Subtask 1.2 retitled** — "GIS-Parameterizable Mass Balance and Depth Projection" with framing
+  sentence naming both components. Addresses reviewer concern that the stage-to-DEM model was
+  hidden inside a "mass balance" subtask.
+- **Subtask 1.4 trimmed** — material-science prose compressed so masonry reads as one mechanism
+  serving the loop. Wild cluster bootstrap replaced with Bayesian model comparison (interval-censored
+  log predictive score), consistent with the rest of the framework. Three-state ordinal damage
+  taxonomy integrated into the fragility equation description. Building archetypes added.
+- **RO1 Key Outcomes** — community knowledge slot folded into outcome 1, kept at three outputs.
+- **Co-PI comments** — all Christelle/Maggie comments converted to ALL CAPS with visible
+  yellow-highlighted notes in the rendered PDF.
+- **Lara citation added** (Maalouf & Napolitano 2025, IJHS).
+- **README.md created** explaining file organization.
 
 ## Open decisions for Becca
-- **`Research_vold.tex`** — a 1191-line backup got swept into git via `git add -A` in commit `9b53c2f`. Untrack it (`git rm --cached`) or leave it? (Not resolved.)
-- **Which cut lever next** — recommended the §2.2 dollar example.
+- **`Research_vold.tex`** — untrack it (`git rm --cached`) or leave it? (Not resolved.)
+- **Damage map figure** — keep at current size or shrink to save space?
+- **Expert panel for decision-adequacy validation** — Becca said "APT DRI"; confirm full name and
+  composition for Subtask 1.5 text.
 
-## After cuts
-- Read-through / hypothesis check (was outstanding since 2026-06-18).
-- Push to collaborators (Wauthier, Busse) for review.
-- Fill/confirm any remaining Prior NSF Support text (Wauthier CAREER text is in; confirm Napolitano/Busse as needed).
+## After framing sweep + cuts
+- Read-through / hypothesis check (outstanding since 2026-06-18).
+- Push to collaborators (Wauthier, Busse) for review — the yellow highlights mark their items.
+- Fill/confirm any remaining Prior NSF Support text (Wauthier CAREER text is in; confirm
+  Napolitano/Busse as needed).
