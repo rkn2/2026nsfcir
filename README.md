@@ -5,8 +5,9 @@
 
 ## Active files
 
-- `Research_v3.tex` — current working draft (compile with `tectonic Research_v3.tex`)
-- `Research_v3.pdf` — last compiled output
+- `Research_v4.tex` — current working draft (compile with `tectonic Research_v4.tex`)
+- `Research_v4.pdf` — last compiled output
+- `Research_v3.tex` — pre-compression draft (superseded by v4)
 - `biblio.bib` — bibliography (root copy is current)
 
 ## Supplementary documents

@@ -9,76 +9,70 @@
 \vspace{-0.5cm}
 \subsection{Overview}
 \vspace{-0.3cm}
+Small, repeatedly flooded municipalities with older building stock have no
+engineering tool to evaluate whether community-scale drainage investment or
+distributed building hardening better reduces flood damage.
 PIs Napolitano (structural vulnerability and community co-design),
 Wauthier (SAR processing and uncertainty quantification),
 and Busse (hydrological modeling and mass balance),
 all at Penn State,
-propose a closed-loop cyber-physical system (CPS) for flood duration estimation,
-pre-code building vulnerability assessment, and community retrofit decision support
-in small riverine communities.
-The small, aging communities most repeatedly devastated by riverine flooding lack
-the data, software, and technical capacity that existing flood damage frameworks
-require.
-Community partners in Montpelier, VT have identified inundation
-\textit{duration}, not just peak flood stage, as the decision-relevant variable
-motivating every modeling constraint in this proposal.
+propose a closed-loop cyber-physical system (CPS) that couples the physical
+behavior of pre-code load-bearing masonry and timber, absent from existing
+fragility frameworks, with a computational core that turns free national data
+and community memory into building-level damage estimates.
+It senses through USGS gauges and NOAA precipitation operationally, with
+commercial ICEYE SAR for one-time calibration and open Sentinel-1 for
+flood-extent context; its computational core is a Bayesian framework fusing a
+GIS-parameterizable mass balance model (inputs from free national data: USGS
+3DEP, NLCD, SSURGO, NHD StreamStats) with community-elicited duration priors
+and a gauge-stage-to-terrain depth projection; and the community closes the
+loop through a co-developed two-mode interface for scenario-based planning,
+forecast-driven staging, and post-event model updating.
+Human decisions are the actuators at every timescale.
 
-The proposed system has four coupled layers.
-The \textbf{physical layer} is the flood-building interaction: pre-code
-load-bearing masonry and timber structures absent from every existing vulnerability
-framework.
-The \textbf{sensing layer} is multi-temporal SAR imagery, open Sentinel-1 C-band
-for flood-extent context and commercial ICEYE X-band for building-level duration
-and depth at sub-daily cadence.
-The \textbf{cyber layer} is a Bayesian fusion framework integrating SAR-derived
-observations with hydrological mass balance into probabilistic duration estimates
-with propagated uncertainty.
-The \textbf{decision layer} is a multi-criteria retrofit allocation framework,
-co-developed with community stakeholders, that maps duration outputs to
-building-specific damage probabilities, placing community-scale drainage
-investments and individual building retrofits on the same probabilistic basis.
-A two-mode decision interface delivers the outputs. In Plan/Forecast mode, users
-select any flood scenario (historical replay, recurrence interval, or live NWS
-forecast) and compare retrofit investments; in Update Model mode, community
-members record per-building flood observations that update the Bayesian priors
-for future scenarios. Human decisions are the actuators at every timescale,
-making the community a functional component of the control loop.
+The CPS is developed and validated in Montpelier, Vermont across two flood
+events (2023 calibration, 2024 held-out validation), with 271 downtown pre-code
+masonry buildings each carrying ICEYE-measured duration, depth, and field-recorded
+damage state.
+\textbf{RQ1:} To what extent can this CPS produce building-level damage
+assessments decision-adequate for retrofit allocation without hydraulic simulation?
+\textbf{RQ2:} Under what conditions does community knowledge, entered as Bayesian
+priors, improve assessments relative to a GIS-only baseline, and where does it
+function as substitute versus complement?
 
 \vspace{-0.5cm}
 \subsection{Intellectual Merit}
 \vspace{-0.3cm}
-The intellectual merit rests on two contributions.
-First, we establish that community-accessible sensing, fused under a Bayesian
-architecture, can substitute for resource-intensive physics-based simulation in
-closed-loop CPS decision systems, a generalizable principle for infrastructure
-contexts without hydrodynamic modeling capacity.
-Second, we advance a co-design methodology that treats locally held knowledge as
-structural input to model calibration and characterizes whether community knowledge
-functions as a substitute for or complement to national geospatial data, providing
-the first empirical basis for deciding when elicitation improves CPS accuracy.
-Two Montpelier flood events (2023, 2024) provide a within-community train-test
-validation: the inference chain is calibrated on 2023 and validated against the
-held-out 2024 event, directly testing generalizability across event characteristics.
-ICEYE commercial SAR provides building-level flood depth and duration at sub-daily
-cadence for 271 downtown buildings across both events, establishing the empirical
-foundation for fragility calibration and held-out validation.
+The central contribution is the closed loop these two questions form, a working
+CPS in which free national data and community knowledge together support real
+investment decisions with no hydraulic simulation.
+Realizing it required three advances.
+First, a \textit{computational} advance: a Bayesian framework that infers
+building-level depth and duration from sparse, interval-censored observations,
+fuses them with a GIS-parameterizable mass balance model and community-elicited
+priors, and propagates uncertainty to a decision-adequate damage estimate.
+Second, a \textit{physical} advance: duration-dependent fragility surfaces for
+pre-code load-bearing masonry, absent from existing frameworks; the CPS senses
+flood signatures and informs interventions whose effects reenter future flood
+behavior.
+Third, treating locally held \textit{community knowledge} as a structural
+calibration input, characterizing when Bayesian priors improve accuracy over a
+GIS-only baseline and where they function as substitutes versus complements.
+Together these establish that free national data fused with community knowledge
+suffices for the investment decisions small municipalities face.
 
 \vspace{-0.5cm}
 \subsection{Broader Impacts}
 \vspace{-0.3cm}
-The framework enables duration-based damage assessment where no path currently
-exists, resolving the allocation problem, community-scale drainage versus
-individual building retrofits, that annually re-injures small historic
-municipalities.
-The decision layer and co-design process are designed for communities without
-ongoing research support.
-One postdoc and one PhD student receive cross-disciplinary training in SAR
-remote sensing, probabilistic structural modeling, hydrological mass balance,
-and participatory community research.
-The Community-Inspired Research (CIR) co-design methodology, documented as a
-transferable protocol, establishes how resident knowledge anchors model calibration
-and community decisions feed back into physical infrastructure sensing.
-The framework will be released under an MIT license, enabling communities beyond
-Montpelier to apply duration-based assessment using freely available national data.
+The framework gives small municipalities probabilistic damage assessments and
+pre-storm decision support that does not currently exist. A new community needs
+only a USGS gauge ID, national GIS layer access, and one workshop; no commercial
+SAR, hydrologist, or hydraulic model is required.
+The CIR co-development methodology, documented as a transferable protocol,
+converts tacit process knowledge into quantitative model inputs measured against
+a geospatial baseline.
+One postdoc and one PhD student receive cross-disciplinary training spanning SAR
+processing, mass balance modeling, probabilistic structural assessment, and
+community-engaged research. All code will be released under an MIT license.
 
 \end{document}
