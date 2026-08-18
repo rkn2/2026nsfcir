@@ -40,7 +40,7 @@ def main():
         events[key] = dict(df=df, peak_time=peak_time, peak_Q=peak_Q, fit=fit, label=cfg["label"])
 
     plt.rcParams.update({
-        "font.size": 7,
+        "font.size": 10,
         "axes.spines.top": False,
         "axes.spines.right": False,
         "axes.grid": False,
@@ -70,15 +70,15 @@ def main():
 
         tau_txt = rf"$\tau$={fit['tau_hours']:.0f}h ($R^2$={fit['r2']:.2f})"
         if key == "2023":
-            ax.text(65, 22000, tau_txt, fontsize=5.5, color=color, ha="left")
+            ax.text(65, 22000, tau_txt, fontsize=8, color=color, ha="left")
         else:
-            ax.text(65, 3200, tau_txt, fontsize=5.5, color=color, ha="left")
+            ax.text(65, 3200, tau_txt, fontsize=8, color=color, ha="left")
 
     ax.set_yscale("log")
-    ax.set_xlabel("Hours since peak", fontsize=7)
-    ax.set_ylabel("Discharge (cfs)", fontsize=7)
+    ax.set_xlabel("Hours since peak", fontsize=10)
+    ax.set_ylabel("Discharge (cfs)", fontsize=10)
     ax.set_xlim(-12, 120)
-    ax.legend(loc="lower left", fontsize=6, frameon=False, handlelength=1.5)
+    ax.legend(loc="lower left", fontsize=8, frameon=False, handlelength=1.5)
 
     fig.tight_layout(pad=0.4)
     out_pdf = IMAGES_DIR / "recession_combined.pdf"

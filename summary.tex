@@ -1,0 +1,78 @@
+\documentclass[11pt]{article}
+\usepackage{nopageno}
+\setcounter{secnumdepth}{1}
+\usepackage[margin=1in]{geometry}
+\begin{document}
+
+\pagestyle{empty}
+
+\vspace{-0.5cm}
+\subsection{Overview}
+\vspace{-0.3cm}
+Small, repeatedly flooded municipalities with older building stock have no
+engineering tool to evaluate whether community-scale drainage investment or
+distributed building hardening better reduces flood damage.
+PIs Napolitano (structural vulnerability and community co-design),
+Wauthier (SAR processing and uncertainty quantification),
+and Busse (hydrological modeling and mass balance),
+all at Penn State,
+propose a closed-loop cyber-physical system (CPS) that couples the physical
+behavior of pre-code load-bearing masonry and timber, absent from existing
+fragility frameworks, with a computational core that turns free national data
+and community memory into building-level damage estimates.
+It senses through USGS gauges and NOAA precipitation operationally, with
+commercial ICEYE SAR for one-time calibration and open Sentinel-1 for
+flood-extent context; its computational core is a Bayesian framework fusing a
+GIS-parameterizable mass balance model (inputs from free national data: USGS
+3DEP, NLCD, SSURGO, NHD StreamStats) with community-elicited duration priors
+and a gauge-stage-to-terrain depth projection; and the community closes the
+loop through a co-developed two-mode interface for scenario-based planning,
+forecast-driven staging, and post-event model updating.
+Human decisions are the actuators at every timescale.
+
+The CPS is developed and validated in Montpelier, Vermont across two flood
+events (2023 calibration, 2024 held-out validation), with 271 downtown pre-code
+masonry buildings each carrying ICEYE-measured duration, depth, and field-recorded
+damage state.
+\textbf{RQ1:} To what extent can this CPS produce building-level damage
+assessments decision-adequate for retrofit allocation without hydraulic simulation?
+\textbf{RQ2:} Under what conditions does community knowledge, entered as Bayesian
+priors, improve assessments relative to a GIS-only baseline, and where does it
+function as substitute versus complement?
+
+\vspace{-0.5cm}
+\subsection{Intellectual Merit}
+\vspace{-0.3cm}
+The central contribution is the closed loop these two questions form, a working
+CPS in which free national data and community knowledge together support real
+investment decisions with no hydraulic simulation.
+Realizing it required three advances.
+First, a \textit{computational} advance: a Bayesian framework that infers
+building-level depth and duration from sparse, interval-censored observations,
+fuses them with a GIS-parameterizable mass balance model and community-elicited
+priors, and propagates uncertainty to a decision-adequate damage estimate.
+Second, a \textit{physical} advance: duration-dependent fragility surfaces for
+pre-code load-bearing masonry, absent from existing frameworks; the CPS senses
+flood signatures and informs interventions whose effects reenter future flood
+behavior.
+Third, treating locally held \textit{community knowledge} as a structural
+calibration input, characterizing when Bayesian priors improve accuracy over a
+GIS-only baseline and where they function as substitutes versus complements.
+Together these establish that free national data fused with community knowledge
+suffices for the investment decisions small municipalities face.
+
+\vspace{-0.5cm}
+\subsection{Broader Impacts}
+\vspace{-0.3cm}
+The framework gives small municipalities probabilistic damage assessments and
+pre-storm decision support that does not currently exist. A new community needs
+only a USGS gauge ID, national GIS layer access, and one workshop; no commercial
+SAR, hydrologist, or hydraulic model is required.
+The CIR co-development methodology, documented as a transferable protocol,
+converts tacit process knowledge into quantitative model inputs measured against
+a geospatial baseline.
+One postdoc and one PhD student receive cross-disciplinary training spanning SAR
+processing, mass balance modeling, probabilistic structural assessment, and
+community-engaged research. All code will be released under an MIT license.
+
+\end{document}

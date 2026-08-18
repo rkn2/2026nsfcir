@@ -1,0 +1,1203 @@
+\documentclass[11pt]{article}
+% NSF PAPPG Ch. 2 SS B.2: font >=11pt, margins >=1in, <=6 lines/inch.
+% No hyperlinks in Project Description body (Research.gov constraint).
+
+\usepackage{bm}
+\usepackage{color}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{subcaption}
+\usepackage{vmargin}
+\usepackage{mathrsfs}
+\usepackage{float}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{ltablex}
+\usepackage[svgnames]{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{caption}
+\usepackage{colortbl}
+\usepackage[numbers,square,sort&compress]{natbib}
+\usepackage{pgfgantt}
+\usepackage{tikz}
+\linespread{0.935}
+
+\definecolor{mycmykcolor}{cmyk}{0.45,0.30,0.20,0}
+\definecolor{secondary}{cmyk}{0,0,0,0.20}
+\definecolor{roonecol}{HTML}{8C9EB2}
+\definecolor{rootwocol}{HTML}{B08A72}
+\definecolor{roothreecol}{HTML}{7A9985}
+\definecolor{lightgray}{HTML}{E8E8E8}
+\definecolor{figuregreen}{HTML}{A8D5C2}
+\definecolor{figureblue}{HTML}{A8C8E8}
+\definecolor{figuregray}{HTML}{D9D9D9}
+\definecolor{figureborder}{HTML}{156082}
+
+\pagestyle{empty}
+\titleformat{\section}[runin]{\normalfont\bfseries}{\thesection}{1em}{}[:]
+\titlespacing*{\section}{0pt}{\baselineskip}{1ex}
+\titleformat{\subsection}[runin]{\normalfont\bfseries}{\thesubsection}{1em}{}[:]
+\titlespacing*{\subsection}{0pt}{\baselineskip}{1ex}
+
+\bibliographystyle{unsrtnat}
+\hypersetup{hidelinks,colorlinks=false,urlcolor=black}
+\hypersetup{draft}
+\setpapersize{USletter}
+\setmarginsrb{1in}{1in}{1in}{1in}{0pt}{0mm}{0pt}{0mm}
+\pretolerance=5000
+\tolerance=9000
+\graphicspath{{images/}}
+
+\newcommand{\pseudodot}{{\lower 2.4pt\hbox{$\cdot$}}}
+\newcommand{\colorsquare}[1]{\tikz[baseline=-0.6ex]\draw[fill=#1, draw=none] (0,0) rectangle (1ex,1ex);}
+\newcommand{\framesquare}[1]{\tikz[baseline=-0.6ex]\draw[fill=none, draw=#1] (0,0) rectangle (1ex,1ex);}
+
+
+\newcommand{\customsection}[1]{%
+  \titleformat{\section}[block]{\normalfont\bfseries}{\thesection}{1em}{}[]%
+  \section{#1}%
+  \titleformat{\section}[runin]{\normalfont\bfseries}{\thesection}{1em}{}[:]%
+}
+
+\begin{document}
+
+% -----------------------------------------------------------------------
+% GOALS TCOLORBOX
+
+% current title: Social and Physical Flood Criticality in Heritage Districts: A Coupled Social-Hydrodynamic Framework
+
+% potential title: Unraveling the Preservation-Urgency Paradox: Flood Risk and Collective Action in URM Heritage District
+% -----------------------------------------------------------------------
+
+% \begin{tcolorbox}[colback=lightgray, colframe=black, boxrule=1pt, coltext=black]
+% \textbf{Project goals:}
+% Heritage districts, dense with older unreinforced masonry (URM) are socio-technical infrastructure systems whose flood resilience
+% depends on the state of their physical assets, the organizational capacity to act on them,
+% and the service infrastructure that connects them.
+% We couple social science, hydrodynamic modeling, and spatial data science to
+% investigate how the preservation-urgency paradox operates at individual and district
+% scales in URM heritage districts, test whether the spatial configuration of hardening
+% decisions has nonlinear consequences for collective flood outcomes, and determine
+% whether collective action exclusion and physical flood criticality co-locate within
+% districts, translating findings into actionable toolkit resources.
+% \textbf{RQ1} (Napolitano, Busse, Chi) asks how the preservation-urgency paradox
+% operates at both the individual building and district scales, and which buildings and owners are drawn into collective action versus acting independently.
+% \textbf{RQ2} (Busse, Napolitano) asks whether the spatial configuration of
+% pre-disaster hardening decisions across a heritage district produces nonlinear
+% effects on district-scale flood vulnerability, and whether individual building states
+% produce disproportionate collective consequences at identifiable thresholds.
+% \textbf{RQ3} (Chi, Napolitano, Busse) asks whether collective action exclusion in
+% heritage district flood recovery has a spatial signature corresponding to where
+% individual hardening decisions produce disproportionate collective flood consequences.
+% The defining intellectual contribution is the first empirical test of whether
+% social exclusion from collective action and physical flood criticality are coupled
+% phenomena in heritage districts, producing findings that give communities a
+% spatially targeted basis for pre-disaster collective action investment (Fig.~\ref{fig:framework}).
+% \end{tcolorbox}
+
+% -----------------------------------------------------------------------
+% OPENING WRAPFIGURE
+% -----------------------------------------------------------------------
+\begin{wrapfigure}{r}{0.55\textwidth}
+\includegraphics[width=0.55\textwidth]{images/ISap_fig1_may26.png}
+\captionsetup{justification=centering,singlelinecheck=false,font=small}
+\vspace{-0.9cm}
+\caption{Coupled social-hydrodynamic framework linking community decision-making under the preservation urgency paradox to district-scale flood vulnerability outcomes in URM heritage districts. Intervention typologies (e.g., \protect\colorsquare{figuregreen} wet floodproofing, \protect\colorsquare{figureblue} dry floodproofing, \protect\colorsquare{figuregray} no action) and collective action participation statuses (e.g., \protect\framesquare{figureborder} coordinated, \protect\framesquare{figuregray} excluded) are defined empirically in RO1.}
+\vspace{-0.2cm}
+\label{fig:framework}
+\end{wrapfigure}
+
+% -----------------------------------------------------------------------
+\section{Status quo}
+% -----------------------------------------------------------------------
+
+The United States faces intensifying flood hazards that disproportionately threaten
+heritage-rich inland communities whose unreinforced masonry (URM) building stock was
+constructed before modern flood resilience standards existed~\cite{Xu2024,QIANG2019,probfut2026}.
+Predicted annual flood damage ranges from \$180 to \$500 billion across 94\% of
+continental states~\cite{JEC2024FloodingCosts}, with inland non-metropolitan community
+centers experiencing compounded vulnerabilities such as geographic isolation, limited
+institutional infrastructure, constrained financial resources, and building stock whose
+historic significance imposes preservation obligations that standard disaster assistance
+frameworks are not designed to support~\cite{WattsTompkins2022,ClimateCentral2024,wilson2021flood,zhorov2024floodprints}.
+When floods strike these communities, the irreplaceable cultural assets that define
+local identity and anchor tourism-dependent economies face permanent loss through both
+direct damage and cascading business interruption that persists even when physical
+damage is limited~\cite{OlderSmallerBetter2014,untapped2017,firststreet2026}.
+The scale of this threat is illustrated by Montpelier, Vermont, where 80\% of the
+National Register Historic District sustained flood damage in July
+2023~\cite{NWSPaducah2023,dupigny2002climate}, and Marshall, North Carolina, where
+Hurricane Helene devastated a rural Appalachian heritage district in September
+2024~\cite{npr_hurricane_helene_2024}.
+
+The fundamental difficulty is systemic incompatibility at two coupled scales.
+Heritage districts are socio-technical infrastructure systems: physical assets operated
+through human organizational agency where functional recovery requires both built
+infrastructure and organizational capacity~\cite{NIST2024SP1310}.
+At the building scale, structures are hardened through National Park Service (NPS)-guided
+pre-disaster intervention to reduce vulnerability while maintaining historic integrity,
+demanding time, resources, and institutional coordination these communities chronically
+lack~\cite{NPS2021,SeronSuhoothi2017,Jigyasu2024,joshi2021community}.
+At the community scale, the district's combined built fabric, organizational capacity,
+and service infrastructure determines flood inundation, velocity, and duration, yet
+the relationship between individual preservation decisions and system-level outcomes
+has never been characterized~\cite{NIST2024SP1310,vojinovic2016holistic}.
+The NPS flood adaptation guidelines identify intervention options at both scales,
+from individual building hardening such as wet and dry floodproofing to district-scale
+physical modifications such as riparian vegetation management and drainage
+improvements~\cite{NPS2021}, yet no existing work characterizes how these approaches
+compare in their collective flood vulnerability outcomes, or what organizational and
+network structures determine which approach a community pursues.
+The ASCE-JSCE infrastructure resilience framework formalizes this requirement,
+treating organizational capacity as a co-equal determinant of service restoration
+alongside physical performance~\cite{davis2023}.
+The two scales are coupled through the preservation-urgency paradox: tension between
+rapid disaster imperatives and technically-informed heritage preservation that causes
+communities to diverge from NPS-recommended infrastructure states, with unquantified
+consequences for district-scale flood
+vulnerability~\cite{maalouf2025a,maalouf2025b} (Fig.~\ref{fig:paradox}).
+Existing research has advanced technical understanding of flood impacts on heritage
+districts and community recovery approaches, but treats physical vulnerability and
+social decision-making as separate
+domains~\cite{sesana2021climate,NPS2021,Arrighi2024,castro2021community,gibson2019engagement,briz2022prioritization,fatoric2023towards,kim2021implementation}.
+NIST SP 1310's recommended future research agenda explicitly identifies social
+organizational and multidisciplinary social-technical computational models as unmet
+needs, and calls for extending the framework to hazards beyond earthquakes alongside
+the FEMA/BSSC Functional Recovery Planning
+Committee~\cite{NIST2024SP1310,NIBSFunctionalRecovery2023}; this research pursues
+that integration for flood hazards and heritage districts.
+
+\begin{wrapfigure}{r}{0.7\textwidth}
+\vspace{-0.65cm}
+\includegraphics[width=0.7\textwidth]{images/ISap_fig2_may26.png}
+\captionsetup{justification=centering,singlelinecheck=false,font=small}
+\vspace{-0.8cm}
+\caption{The preservation-urgency paradox operates at both pre-disaster
+(preparedness failure) and post-disaster (recovery divergence) temporal scales,
+and at both individual building and district spatial scales, producing measurable
+divergence from NPS-recommended infrastructure states whose consequences for
+community-scale flood vulnerability this research quantifies. Intervention typologies
+(e.g., \protect\colorsquare{figuregreen} wet floodproofing,
+\protect\colorsquare{figureblue} dry floodproofing,
+\protect\colorsquare{figuregray} no action) and collective action participation
+statuses (e.g., \protect\framesquare{figureborder} coordinated,
+\protect\framesquare{figuregray} excluded) are defined empirically in RO1.}
+\vspace{-0.45cm}
+\label{fig:paradox}
+\end{wrapfigure}
+
+While recent work couples social vulnerability with building-scale flood recovery
+trajectories for residential buildings~\cite{mazumder2025modeling}, no study has
+coupled community-scale hydrodynamic modeling with empirically documented heritage
+district intervention decision patterns to characterize how individual building hardening,
+district-scale physical interventions, and mixed approaches compare in their effects
+on district-scale flood vulnerability, or what organizational and network structures
+explain why communities default to fragmented individual hardening rather than
+coordinated district-scale intervention where technical expertise identified it as
+an option.
+This research addresses the ISP program's core interest in how infrastructure systems
+function under extreme events and how human decision-making shapes system resilience,
+by producing the first empirical comparison of building-level and district-scale
+intervention approaches in URM heritage districts and the first characterization of
+the organizational dynamics that produce coordination failure around district-scale
+intervention, directly advancing the socio-technical systems framing established in
+NIST SP 1310~\cite{NIST2024SP1310}.
+% -----------------------------------------------------------------------
+% STATUS QUO WRAPFIGURE
+% -----------------------------------------------------------------------
+
+\vspace{-0.4cm}
+% -----------------------------------------------------------------------
+\subsection{Intellectual merit}
+% -----------------------------------------------------------------------
+This research advances infrastructure systems science by establishing how the
+preservation-urgency paradox operates at individual and district scales, testing
+how individual building hardening, district-scale physical intervention, and mixed
+approaches compare in their effects on collective flood vulnerability, and determining
+what organizational and network structures produce the coordination failures that
+prevent communities from pursuing district-scale intervention.
+Building on preliminary identification of this paradox~\cite{maalouf2025a,maalouf2025b},
+we challenge conventional assumptions about community capitals in heritage preservation
+recovery~\cite{MurzynKupisz2013,HistoricEngland2023}.
+While self-organized, community-driven approaches have been central to disaster recovery
+by drawing on community capitals to assess needs, allocate resources, and coordinate
+recovery~\cite{imperiale2016experiencing}, our research investigates how collective action
+participation is structured, with preliminary findings suggesting network position rather
+than heritage significance as the primary determinant~\cite{maalouf2025a,maalouf2025b},
+and whether the network structures that exclude properties from collective action also
+explain why communities default to fragmented individual building hardening rather than
+coordinated district-scale intervention such as riparian vegetation management or drainage
+improvements~\cite{Hou2023,UNESCO2024}.
+This investigation will contribute to fundamental social and engineering sciences by
+advancing understanding of how collective action structure shapes infrastructure system
+resilience in flood-affected heritage districts~\cite{moya2022approach,aldrich2015social,cleaver2002reinventing}.
+The research questions that organize this work are:
+\newpage
+\begin{itemize}[noitemsep]
+  \item \textbf{RQ1 (Napolitano, Busse, Chi):} How does the preservation-urgency paradox 
+  operate at both the individual building and district scales in URM heritage districts, 
+  and which buildings and owners are drawn into collective action around building-level 
+  hardening or district-scale intervention versus acting independently?
+  \item \textbf{RQ2 (Busse, Napolitano):} How do individual building hardening, 
+  district-scale physical interventions, and mixed approaches compare in their effects 
+  on district-scale flood vulnerability in URM heritage districts, and does any 
+  intervention approach produce threshold behavior in collective flood outcomes?
+  \item \textbf{RQ3 (Chi, Napolitano, Busse):} Among buildings and owners excluded 
+  from collective action in heritage district flood recovery, what organizational and 
+  network structures explain that exclusion, and do those same structures explain why 
+  district-scale physical intervention was not pursued where technical expertise 
+  identified it as an option?
+\end{itemize}
+\vspace{-0.3cm}
+The three RQs are coupled in a feed-forward structure that constitutes the primary
+intellectual contribution: the collective action participation patterns, intervention
+typology classifications, and awareness of district-scale options documented in RO1
+provide the spatially explicit inputs for the hydrodynamic modeling in RO2, and the
+RO2 outputs comparing intervention approaches are combined with the collective action
+exclusion patterns and network structures from RO1 to test whether the organizational
+dynamics that produce social exclusion also explain the failure to pursue district-scale
+intervention, the question at the core of RQ3.
+\vspace{-0.3cm}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{table.png}
+\vspace{-0.3cm}
+\caption{Summary of research gaps, objectives, approaches, and outcomes.\label{fig:research_summary}}
+\end{figure}
+
+% -----------------------------------------------------------------------
+\section{Current state-of-the-art}
+% -----------------------------------------------------------------------
+
+Research on disaster decision-making in flood-vulnerable heritage communities spans three domains
+including technical preservation of URM heritage structures under flood hazards,
+community-based disaster recovery in heritage-rich environments, and infrastructure
+systems modeling of flood vulnerability.
+Each domain has advanced independently, and no existing work integrates all three.
+The integration gap, specifically the absence of a coupled social-hydrodynamic framework
+linking community decision-making patterns to district-scale flood vulnerability in
+these communities, is the scientific opportunity this research addresses.
+
+URM structures present distinct technical challenges under flood loading;
+retrofitting requires balancing structural intervention with preservation of historic
+fabric, and standard damage models substantially underestimate failure risk because
+prolonged inundation compromises lime mortar and high-porosity brick in ways not
+accounted for in flood exposure assessments, with wall collapse fragility nonlinear
+above approximately 90~cm inundation
+depth~\cite{SeronSuhoothi2017,xiao2021flood,castillo2026moisture,korswagen2025experimental,moaiyedfar2025collapse}.
+The NPS flood adaptation guidelines provide the federal typology for heritage
+intervention at both building and district scales~\cite{NPS2021}, though empirical
+evidence from inland flood recovery contexts suggests that compliance requirements
+often exceed owner capacity during crisis conditions, leading many property owners
+to forgo preservation programs despite potential
+benefits~\cite{maalouf2025b,GAO2025,Poling2024}.
+Post-flood damage extends beyond structural losses to include diminished cultural
+significance that standard assessments do not
+capture~\cite{Arrighi2024,sesana2021climate}.
+Flood risk frameworks exist at global and individual-asset scales but have not been
+applied to inland U.S. heritage districts where collective action patterns determine
+which buildings receive intervention~\cite{carmichael2023riverine,figueiredo2024flovri,vojinovic2016holistic}.
+Existing work examines individual building performance without characterizing how
+building-level decisions produce district-scale outcomes, the gap this proposal
+addresses through NIST SP 1310 socio-technical framing~\cite{NIST2024SP1310}.
+
+District-scale hydrodynamic modeling estimates flood extent, depth, and velocity
+from terrain, drainage, and building morphology interactions, with 1D/2D approaches
+well established for urban
+environments~\cite{usgs_effects,sanders2015hydrodynamic,fan2017coupled,leandro2009comparison,mustafa2023gis}.
+Nature-based solutions such as riparian vegetation management and drainage
+improvements are increasingly modeled within HEC-RAS 2D by adjusting Manning's
+$n$ to represent increased flow resistance from vegetation and modifying terrain
+to represent drainage and regrading interventions, with established parameter
+ranges for afforestation, wetland creation, and floodplain
+reconnection~\cite{wang2019evaluating,modellingnbs2026}; no existing work applies
+this approach to compare building-level and district-scale intervention approaches
+in heritage districts.
+Scenario-based assessments treat building stock as static input without the social
+decision-making that determines which configurations are
+realized~\cite{zhu2019modeling,bsi128,sanders2015hydrodynamic}.
+Agent-based model (ABM)-coupled frameworks focus on evacuation and post-event
+response rather than pre-disaster collective action; no existing socio-hydrodynamic
+framework models this decision class~\cite{aerts2020abm,anshuka2022abm}.
+
+Community-based disaster research establishes that social capital (bridging connections and linking relationships with institutions)
+shape vulnerability and recovery trajectories in heritage-rich environments by enabling resource
+mobilization, coordination, and knowledge
+exchange~\cite{aldrich2015social,MurzynKupisz2013,imperiale2016experiencing}.
+In heritage specifically, community organization and participatory methods
+determine who is involved in decisions, which owners receive support, and which
+preservation approaches are
+adopted~\cite{castro2021community,gibson2019engagement,joshi2021community,Jigyasu2024}.
+Preliminary work at Montpelier and Marshall finds that preservation success correlates
+with network access rather than heritage significance or recovery need, a finding
+that challenges the Putnam-Aldrich framework in which higher social capital
+produces better recovery outcomes regardless of how that capital is
+distributed~\cite{aldrich2015social,putnam2015bowling}: if network position
+rather than need determines who receives support, social capital
+functions as a sorting mechanism that concentrates recovery resources among
+already-connected owners rather than as a collective good.
+Whether the same network structures that produce exclusion also explain why
+communities default to fragmented individual building hardening rather than
+coordinated district-scale intervention, even where technical expertise identified
+it as an option, remains untested (Fig.~\ref{fig:research_summary}).
+\vspace{-0.3cm}
+% -----------------------------------------------------------------------
+\section{Pilot sites and preliminary work}
+% -----------------------------------------------------------------------
+
+This research is grounded in two sites selected for their analytic contrast and
+existing PI research relationships.
+Both sites are NPS-designated heritage districts that experienced recent catastrophic
+flooding and have established data access through prior work; they differ meaningfully
+on the dimensions most relevant to the research questions: hydraulic regime (valley
+river versus confined mountain channel), institutional capacity (state capital with
+preservation infrastructure versus small rural town with minimal formal support), and
+federal program access.
+Findings from each site are reported as site-specific results; convergence across
+sites is treated as suggestive evidence warranting future comparative work at larger
+scale, not as proof of generalizability.
+Information on the communities is provided in Tab.~\ref{tab:community_stats}.
+\vspace{-0.3cm}
+\begin{table}[h]
+
+\centering
+\footnotesize
+\caption{Statistics of the two study communities~\cite{uscensus_acs5year}}
+\label{tab:community_stats}
+\vspace{-0.8cm}
+\begin{tabularx}{\textwidth}{@{}l*{9}{>{\centering\arraybackslash}X}@{}}
+\toprule
+\textbf{Community} & \textbf{Pop.} & \textbf{\% White} & \textbf{Med. Age} & \textbf{Med. Inc.} & \textbf{\% Poverty} & \textbf{Med. Prop.} & \textbf{Prop. Tax} & \textbf{\% Home} & \textbf{\% Mort.} \\
+\midrule
+Montpelier, VT & 8,030 & 90 & 44 & \$76,143 & 6.4 & \$326,800 & \$2,154 & 56 & 59.7 \\
+Marshall, NC   & 616   & 87 & 42 & \$49,700  & 22.7 & \$228,400 & \$183  & 60 & 65 \\
+Nationwide     & --    & 89 & 39 & \$75,149  & 12.5 & \$281,900 & \$2,111 & 65 & 65 \\
+\bottomrule
+\end{tabularx}
+\footnotesize{Note: Pop.\ = Population; Med.\ = Median; Inc.\ = Income; Prop.\ = Property value;
+\% Home = Homeownership rate; \% Mort.\ = Percentage of homes with mortgage}
+\end{table}
+\normalsize
+\vspace{-0.3cm}
+\begin{wrapfigure}{r}{0.4\textwidth}
+\vspace{-0.4cm}
+\includegraphics[width=0.4\textwidth]{images/vt.pdf}
+\captionsetup{justification=centering,singlelinecheck=false,font=small}
+\vspace{-0.9cm}
+\caption{Montpelier 2023 flooding.}
+\label{fig:vt}
+\vspace{-0.2cm}
+\end{wrapfigure}
+Montpelier's baseline is enriched by a structural dataset acquired through an
+NHERI RAPID Graduate Scholar grant and archived on DesignSafe~\cite{maalouf2024data},
+providing material composition, roof form, wall thickness, foundation type,
+upper-story damage state, and wall geometry where Street View cannot resolve
+sufficient detail~\cite{maalouf2025a}.
+Feature importance analysis of 271 heritage structures within this dataset revealed
+that commercial use, high property values, and larger building areas were the strongest
+predictors of faster recovery permit initiation following disaster, while residential
+and religious or cultural properties showed significantly longer delays~\cite{maalouf2025a},
+establishing the quantitative equity baseline against which RQ3's network and
+organizational analysis will be evaluated (Fig.~\ref{fig:vt}).
+\begin{wrapfigure}{l}{0.4\textwidth}
+\vspace{-0.4cm}
+\includegraphics[width=0.4\textwidth]{images/nc.pdf}
+\captionsetup{justification=centering,singlelinecheck=false,font=small}
+\vspace{-0.6cm}
+\caption{Marshall, NC: Hurricane Helene flooding aftermath, September 2024.}
+\label{fig:nc}
+\vspace{-0.2cm}
+\end{wrapfigure}
+For Marshall, a December 2024 field mission by PI Napolitano's group produced
+drone photogrammetry covering approximately 30\% of the district along with
+building condition assessments and preliminary permit records~\cite{maalouf2026data};
+Subtask 1.1 will expand drone coverage to the full district.
+Preliminary analysis identified four intervention windows governing heritage-conscious
+recovery outcomes: material salvage (days 0--10), expert consultation (days 7--20),
+funding mobilization (days 10--25), and implementation commitment (days 20--33),
+with timeline flexibility the strongest predictor of NPS-consistent
+outcomes~\cite{maalouf2025b} (Fig.~\ref{fig:nc}).
+
+% maggie: please review the paragraph below for accuracy and add citations for
+% your HEC-RAS 2D experience and any published work at comparable sites.
+% %MAGGIE please add citations
+
+Co-PI Busse brings established district-scale hydrodynamic modeling capability using
+HEC-RAS 2D, with experience spanning riverine fluvial flooding and urban surface
+inundation at the neighborhood scale, the modeling context this proposal requires.
+The two pilot sites present hydraulically distinct systems: Montpelier's mid-size
+Vermont valley river (moderate gradients, broad floodplain, dense urban fabric) versus
+Marshall's confined Appalachian mountain channel (rapid stage rise, high velocities,
+limited buffering), allowing threshold behavior to be tested across mechanistically
+different flood regimes and strengthening transferability of findings.
+
+% guangqing: please review the paragraph below for accuracy and add any prior
+% work from your lab on collective action, social networks, or rural community
+% resilience that is relevant here.
+
+The social science foundation for RO1 builds on two preliminary studies and
+Co-PI Chi's prior work on collective action in rural governance~\cite{li2023collective}.
+In Montpelier, thematic coding \cite{boyatzis1998transforming} of 15 semi-structured stakeholder interviews in
+ATLAS.ti, combined with feature importance analysis of recovery trajectories across
+271 heritage structures, revealed that building characteristics and socioeconomic
+factors produced divergent recovery trajectories, and that institutional arrangements
+privileged certain recovery pathways over others regardless of heritage significance
+or recovery need~\cite{maalouf2025a}.
+In Marshall, a mixed-methods analysis of 21 heritage buildings and interviews with
+16 property owners conducted 10 weeks post-disaster showed that in the absence of
+formal preservation support, social networks functioned as improvised preservation
+infrastructure, but that preservation success correlated with network access rather
+than heritage significance or recovery need~\cite{maalouf2025b}.
+The validated mixed-methods framework from these studies will be applied at both
+sites in RO1, with Chi leading social network and institutional analysis that
+extends the thematic findings into a spatially explicit exclusion map.
+\vspace{-0.4cm}
+% -----------------------------------------------------------------------
+\section{Research plan}
+% -----------------------------------------------------------------------
+The research plan is organized around three research objectives corresponding to the
+three research questions.
+RO1 (Napolitano, Busse, Chi; 4 subtasks) establishes the coupled physical and social
+data foundation at both sites using a shared NPS-grounded intervention typology spanning
+both building-level and district-scale interventions.
+RO2 (Busse, Napolitano; 3 subtasks) tests how individual building hardening,
+district-scale physical interventions, and mixed approaches compare in their effects
+on district-scale flood vulnerability, and whether any intervention approach produces
+threshold behavior in collective flood outcomes.
+RO3 (Chi, Napolitano, Busse; 3 subtasks) characterizes the organizational and network
+structures that produce collective action exclusion and explains why district-scale
+physical intervention was not pursued where technical expertise identified it as an
+option, and translates findings into a field-tested, federally-informed toolkit
+co-developed with the Association of Preservation Technology (APT DRI) which PI
+Napolitano leads and the Department of the Interior.
+
+\begin{tcolorbox}[colback=roonecol!60,colframe=black,boxrule=1pt,coltext=black,
+  left=1mm,right=1mm,top=1mm,bottom=1mm]
+\textbf{Research Objective 1 (RO1, leads: Napolitano, Busse \& Chi): Characterize
+how the preservation-urgency paradox operates at both the individual building and
+district scales, documenting collective action participation and classifying
+infrastructure states at both building and district scales to produce the coupled
+dataset that RO2 and RO3 require.}
+\end{tcolorbox}
+
+\textbf{Subtask 1.1: NPS intervention typology and collective action classification (lead: Napolitano).}
+Using the NPS flood adaptation guidelines as a classification framework, each structure
+in Montpelier and Marshall will be assigned an intervention type reflecting its
+pre-disaster condition relative to NPS recommendations, including wet floodproofing,
+dry floodproofing, elevation, no action, or non-compliant modification at the building
+scale, and riparian vegetation management, drainage improvements, and regrading at the
+district scale.
+Classification draws on Street View imagery, which provides complete building-level
+coverage at both sites, as the primary source for visual inspection and typology
+assignment; building footprints are drawn from OpenStreetMap.
+For buildings where Street View cannot resolve key structural details, laser scan data
+(Montpelier) and drone photogrammetry (Marshall) provide enrichment, adding roof
+condition, material specifics, upper-story damage state, and wall geometry.
+Building records and permit data supplement imagery review for intervention history.
+District-scale intervention states are documented through organizational records,
+permit data, and field observation; Montpelier's post-2023 riparian vegetation work
+provides one empirically observed district-scale configuration, while Marshall's
+district-scale intervention state reflects no observed action.
+Each building's record will also assign a collective action participation status
+using a two-step construction that distinguishes exclusion from voluntary
+non-participation.
+First, a reach indicator is derived from organizational records: emails, meeting
+attendance lists, event photographs, and program documentation establish which
+owners were contacted by any collective action effort.
+Second, a response indicator is derived from interviews: of those reached, whether
+the owner participated or declined.
+This produces three analytically distinct categories: coordinated (reached and
+participated), exit (reached but declined), and excluded (no evidence of contact
+in organizational records).
+RQ3 uses the excluded category specifically; the exit category is retained as a
+comparison group for the social network analysis~\cite{scott2012social} in Subtask 3.1.
+A shared building-level identifier links each record across the imagery review,
+permit records, Chi's interview dataset, and Busse's hydrodynamic model inputs,
+enabling the RO3 network and organizational analysis connecting collective action
+exclusion patterns with intervention approach outcomes from RO2.
+The typology uses one-hot encoding across observable treatment categories, capturing
+multi-treatment buildings without forcing a single classification; categories
+requiring structural access are resolved through permit records and interviews.
+Jennifer Wellock (co-author of the NPS flood adaptation guidelines~\cite{NPS2021},
+previous collaborator of PI Napolitano, see Letters of Collaboration)
+will review the completed typology for consistency with current federal practice.
+
+\textbf{Subtask 1.2: District-scale hydrodynamic site characterization (lead: Busse).}
+Busse will develop site-specific hydrodynamic baselines for Montpelier and Marshall
+by using high resolution digital elevation models with OpenStreetMap (OSM) vector
+features (building footprints, channel alignment) to define model geometry.
+Baselines will establish the channel geometry, building footprints, elevation, and
+permeability conditions that Subtask 2.1 will use as the foundation for both
+building-level and district-scale infrastructure configuration development; where
+available, laser scan and drone photogrammetry data enrich building geometry inputs
+with structural depth beyond what OSM provides.
+The hydraulic contrast between the two sites presents a genuine parameterization
+challenge: Montpelier's mid-size Vermont valley river system and Marshall's steep
+confined Appalachian mountain channel require distinct approaches to boundary
+conditions, flood event type, and calibration data, which Busse will address
+through site-specific model development before configurations are introduced in RO2.
+
+% maggie: please review the paragraph below for accuracy and add citations for
+% HEC-RAS 2D and any USGS lidar data products. %MAGGIE please add citations
+
+Site-specific HEC-RAS 2D models~\cite{HECRAS2D} will be developed using USGS lidar
+terrain data (QL1 at 0.35~m for Montpelier, QL2 at 0.7~m for Marshall)~\cite{USGS3DEP}.
+15-minute stage and discharge records from USGS gauges at the Winooski
+river~\cite{USGS_Winooski_Waterbury,USGS_Winooski_Montpelier,USGS_Winooski_EssexJunction}
+will provide boundary conditions for the models.
+Models will be calibrated against the July 2023 and 2024 floods at Montpelier and
+Hurricane Helene (September 2024) at Marshall, using gauge records, peak stage
+observations, and satellite-derived inundation data, with validation against
+high water marks~\cite{Olson2025_VT2023,Olson2025_VT2023_SIR,USGS_FEV_VT2024,USGS_FEV_Helene2024},
+FEMA flood maps~\cite{FEMA_FIRM_Marshall,FEMA_FIRM_Montpelier,FEMA_DR4720_VT,FEMA_DR4782_VT,FEMA_DR4827_NC},
+and post-event survey data.
+The two flood regimes require distinct parameterization: Montpelier's rainfall-driven
+riverine system and Marshall's hurricane-driven confined mountain channel differ
+in stage rise rate, velocity, and floodplain interaction.
+Busse will develop site-specific boundary conditions and roughness schemes for each.
+For Marshall's steep confined channel, where flow is sensitive to sub-meter
+terrain variation, calibration will confirm that 1~m resolution is adequate for
+characterizing building-level flood depth differences; if calibration residuals
+indicate resolution-driven error, the model domain will be refined at critical
+locations using the QL2 0.7~m terrain data.
+Baseline outputs are 1~m resolution raster grids of inundation depth, flow velocity,
+and water surface elevation; each building in the OSM footprint is resolved at this
+grid, enabling Napolitano to assign NPS typology hardening states as building-level
+model parameters (dry floodproofing as blocked obstructions, wet floodproofing and
+no-action as flow-through with adjusted Manning's~$n$) and district-scale intervention
+states as terrain edits and Manning's~$n$ adjustments for riparian and drainage
+modifications for RO2 configuration runs.
+
+\begin{wrapfigure}{r}{0.36\textwidth}
+\vspace{-0.4cm}
+\includegraphics[width=0.36\textwidth]{images/josh.jpg}
+\captionsetup{justification=centering,singlelinecheck=false,font=small}
+\vspace{-0.4cm}
+\caption{Preliminary community conversations in Marshall, NC (IRB-approved).}
+\label{fig:josh}
+\vspace{-0.4cm}
+\end{wrapfigure}
+\textbf{Subtask 1.3: Social science data collection (Chi).}
+
+Chi will lead mixed-methods data collection on community decision-making shaping
+disaster response in heritage districts at both sites (Fig.~\ref{fig:josh}).
+Archival records identify which buildings participated in collective action; interviews
+explain mechanisms of participation and exclusion; and quantitative data on building
+characteristics, socioeconomic factors, and community capital~\cite{uscensus_acs5year,li2023collective}
+provides the feature space for Subtask 1.4.
+Interviews use stratified purposive and snowball sampling~\cite{maxwell1996methods}
+with local authorities, community leaders, heritage experts, property owners, and residents.
+Protocols focus on decision points within the four intervention
+windows~\cite{maalouf2025a,maalouf2025b}, factors enabling NPS-consistent preparation,
+collective action participation including why owners were or were not engaged and
+what network structures shaped their access, awareness of district-scale intervention
+options including whether technical experts communicated those options and through
+what channels, and what structural or organizational barriers prevented coordinated
+district-scale action where it was not pursued.
+At Marshall, organizational records from the Downtown Marshall Association, including
+emails and meeting notes from recovery coordination efforts and event photographs from
+post-Helene community gatherings, establish reach independent of interview recall;
+interviews validate and add nuance to the record-derived classifications rather than
+serving as the primary source.
+IRB protocol submission in month 1 will confirm that organizational record collection
+is within scope; PI Napolitano will expand coverage beyond the existing exemption
+determination (STUDY00024770) if the organizational records protocol requires it.
+All interview and archival records will be linked to the shared building identifier
+established in Subtask 1.1 to enable the network and organizational analysis in
+Subtask 3.1.
+We anticipate approximately 50--60 interviews in Montpelier and 40--50 in Marshall,
+with sampling continuing until data saturation is reached~\cite{maxwell1996methods}.
+IRB approval will be obtained prior to data collection; PI Napolitano has existing
+IRB exemption determination for prior work at both sites.
+
+% guangqing: please review the paragraph below, add your preferred citations
+% for purposive/snowball sampling and thematic analysis methods, and confirm
+% the target interview counts per site.
+% %GUANGQING please add: target sample size per site and any lab citations
+
+Protocols build on the validated instruments from the Montpelier and Marshall
+preliminary work~\cite{maalouf2025a,maalouf2025b}, extended to capture whether
+building owners were reached by district-level collective processes: whether
+organizations contacted them, what was offered, whether they participated, what
+structural barriers prevented engagement where they did not, and whether
+district-scale intervention options were communicated to property owners and
+community leaders or remained within technical and engineering networks.
+Interviews will be audio-recorded, transcribed, and coded in NVivo with codes
+for collective action exposure, engagement response, structural barrier type, and
+awareness of district-scale intervention options.
+Building permit data for Montpelier (2023 events) are already secured; records
+requests for 2024 events at Montpelier and for Marshall will be submitted at
+project initiation.
+Qualitative themes are encoded as binary indicators for Subtask 1.4 feature
+importance analysis; the same organizational contact records produce the
+building-level exclusion indicator for the Subtask 3.1 network analysis, coded
+identically across both uses via the shared street address identifier.
+
+\textbf{Subtask 1.4: Feature importance analysis of recovery determinants (lead: Chi, Napolitano).}
+Building on the machine learning methodology validated in the Montpelier preliminary
+work across 271 heritage structures~\cite{maalouf2025a,kallas2024}, Chi and Napolitano
+will conduct feature importance analysis using random forest classifiers and
+multi-layer perceptron models with two distinct outcome variables: collective action
+participation status and NPS intervention typology classification.
+The first analysis predicts collective action participation from network position,
+institutional capacity, geographic location within the district, and socioeconomic
+variables, directly addressing RQ1 and providing the explanatory layer for the
+network and organizational analysis in RQ3.
+The second analysis predicts NPS intervention typology classification from the same
+feature set plus collective action participation status as a predictor, characterizing
+the relative importance of participation versus building and owner characteristics
+in explaining intervention outcomes.
+This analysis is explicitly descriptive: collective action participation and
+NPS-consistent outcomes are produced by the same organizational process and are
+not causally independent; the analysis asks whether participation remains an
+important predictor after controlling for building characteristics the owner cannot
+change, which (if true) strengthens the equity argument for inclusive outreach.
+Hierarchical correlation clustering will be implemented before importance analysis
+to mitigate bias from correlated features~\cite{maalouf2025a}, and partial dependence
+analysis will characterize the direction and magnitude of influential features on
+each outcome.
+The two sites present different temporal recovery depths: Montpelier's July 2023
+flood and Marshall's September 2024 Hurricane Helene recovery are at structurally
+different stages.
+Rather than treating this as a confound to adjust away, separate site-specific
+models are run at each site and feature importance rankings are compared directly.
+
+The feature set combines binary indicators from NVivo thematic
+coding~\cite{boyatzis1998transforming} (preservation priority, urgency, institutional
+capacity, collective action exposure, financial constraint, expertise access, awareness
+of district-scale intervention options), building and owner characteristics, and
+Census data~\cite{uscensus_acs5year}.
+Binary encoding avoids false precision in scaling subjective interview content.
+Outcome variables are modeled separately to keep interpretation clean.
+Cross-validation uses 5-fold at Montpelier (271 buildings) and leave-one-out
+at Marshall where the smaller sample warrants maximum use of training data.
+At Marshall, feature set size is capped at 15 variables prior to classifier
+training, selected through recursive feature elimination to maintain a viable
+feature-to-sample ratio and limit overfitting risk given the smaller district.
+\textbf{Key outcomes and evaluation:}
+RO1 produces four linked outputs that constitute the coupled dataset RO2 and RO3 require.
+Subtask 1.1 delivers a building-level database for all structures at both sites,
+each record carrying an NPS intervention typology classification at both building
+and district scales and collective action participation status linked by street
+address to all downstream data, complete by month 12.
+Subtask 1.2 delivers calibrated HEC-RAS 2D baseline models at 1~m resolution for
+both sites, with calibration validated against observed flood extents and
+district-scale intervention states before RO2 begins.
+Subtask 1.3 delivers 90--110 coded interview transcripts with codes converted to
+binary indicators, collective action exposure linked per building, and awareness
+of district-scale intervention options documented, continuing until data saturation
+is confirmed.
+Subtask 1.4 delivers site-specific feature importance models for both collective
+action participation and NPS intervention typology, with convergent and divergent
+rankings across sites characterizing which features are stable versus
+context-dependent, contingent on inter-rater reliability achieving $\kappa \geq 0.70$.
+
+% -----------------------------------------------------------------------
+\begin{tcolorbox}[colback=rootwocol!60,colframe=black,boxrule=1pt,coltext=black,
+  left=1mm,right=1mm,top=1mm,bottom=1mm]
+\textbf{Research Objective 2 (RO2, leads: Busse \& Napolitano): Test how individual
+building hardening, district-scale physical interventions, and mixed approaches
+compare in their effects on district-scale flood vulnerability, and whether any
+intervention approach produces threshold behavior in collective flood outcomes.}
+\end{tcolorbox}
+RO2 addresses RQ2 and constitutes the core engineering systems contribution of the
+proposal: the first empirical comparison of individual building hardening,
+district-scale physical interventions such as riparian vegetation management and
+drainage improvements, and mixed approaches in terms of their collective flood
+vulnerability outcomes in URM heritage districts.
+Busse produces district-scale hydrodynamic outputs across empirically documented
+and synthetic infrastructure configurations from RO1; Napolitano applies spatial
+interdependence analysis and unsupervised feature learning to those outputs to
+characterize how intervention approach and spatial configuration shape collective
+flood outcomes, and to test whether any intervention approach produces threshold
+behavior in those outcomes.
+
+\textbf{Subtask 2.1: Infrastructure configuration development (lead: Napolitano, Busse).}
+Napolitano and Busse will translate the RO1 typology classifications and collective
+action participation patterns into spatially explicit district-scale infrastructure
+configurations, varying along four dimensions: participation structure (coordinated,
+individual, non-participating), geographic distribution of hardened buildings,
+NPS intervention typology classification, and intervention scale (building-level
+hardening, district-scale physical intervention, and mixed approaches).
+Intervention typologies map to HEC-RAS 2D parameters: dry floodproofing as blocked
+obstructions; wet floodproofing and no-action as flow-through with adjusted
+Manning's $n$; terrain adaptations as DEM edits; fill-basement as reduced storage;
+utility protection as hydraulic neutral; riparian vegetation as Manning's $n$
+adjustments along the riverbank; drainage improvements and regrading as terrain
+edits to the DEM.
+Unknown buildings default to no-action with sensitivity flagging.
+Observed configurations from RO1 establish baseline runs, including Montpelier's
+empirically documented post-2023 riparian vegetation work as the sole observed
+district-scale configuration; synthetic configurations vary hardening rate
+(0--100\% in 10\% steps), spatial clustering (clustered/distributed/random),
+participation structure (concentrated/distributed), and intervention scale
+(building-level only, district-scale only, mixed).
+Simulations will be executed on the Penn State Roar high-performance computing
+cluster, where HEC-RAS 2D run times at 1~m resolution are estimated at
+15--30~minutes per configuration, making a total of 500--1000 configurations
+per site computationally feasible within the project timeline and providing
+sufficient coverage of the configuration space for Subtask 2.3's comparative
+analysis.
+
+\textbf{Subtask 2.2: District-scale hydrodynamic modeling (lead: Busse).}
+Busse will run district-scale hydrodynamic simulations across the configurations
+developed in Subtask 2.1 at both sites, producing outputs of flood inundation
+depth, flow velocity, and flood duration at the building level across the
+heritage district.
+Each simulation produces 1~m resolution raster outputs of flow velocity, inundation
+depth, and water surface elevation across the full district.
+These are aggregated to building-level scalar values using mean depth over each
+building footprint, producing the paired configuration-outcome dataset that
+Subtask 2.3 requires for the intervention comparison and threshold analysis.
+
+All configurations are run at two return periods: the observed event magnitude
+at each site (the July 2023 flood at Montpelier and Hurricane Helene at
+Marshall, both directly calibrated) and the 100-year event (the standard design
+flood and the most policy-relevant magnitude for pre-disaster investment
+decisions~\cite{CFR44_59}).
+The return period design balances coverage against computational feasibility.
+A representative subset, comprising the empirically observed configurations plus
+synthetic configurations at boundary participation rates (0\%, 50\%, and 100\% of
+district buildings hardened) across all three intervention scales, are additionally
+run at the 10-year and 50-year return periods to characterize how intervention
+approach comparisons and any threshold behavior vary across flood magnitudes
+without the full computational cost of all-configuration coverage at all return
+periods.
+The approximate total of 2,100 runs at 15--30 minutes per run on the Penn State
+Institute for Computational and Data Sciences (ICDS) Roar cluster is feasible
+within the project timeline, and PI Napolitano holds affiliate faculty status
+with ICDS; she and PI Busse each have an existing annual computing allocation
+that can be used for this.
+
+Model uncertainty is characterized using two approaches.
+Calibration residuals are reported against observed high water marks, post-event
+survey data, and satellite-derived inundation extents for the July 2023 Montpelier
+and Hurricane Helene Marshall events, quantifying model performance at the
+building level before configurations are varied.
+Manning's $n$ roughness coefficients for key land cover types are varied
+$\pm$20\%, with sensitivity of mean building-level depth to roughness perturbation
+reported across the configuration space; configurations where depth outputs are
+sensitive to roughness assumptions are flagged in the Subtask 2.3 analysis.
+
+\textbf{Subtask 2.3: Spatial interdependence and comparative intervention analysis (lead: Napolitano).}
+Napolitano will apply exploratory data analysis and unsupervised feature learning
+to the paired configuration-outcome dataset from Subtask 2.2 to characterize how
+individual building hardening, district-scale physical interventions, and mixed
+approaches compare in their effects on district-scale flood vulnerability, and to
+test whether any intervention approach produces threshold behavior in collective
+flood outcomes.
+Results are compared across sites to assess whether intervention comparison findings
+are consistent or context-dependent, generating propositions for future work rather
+than generalizable claims from two cases.
+
+The analysis proceeds in two stages that address distinct dimensions of the
+configuration space.
+First, intervention approach comparisons are drawn directly from the
+configuration-outcome dataset: mean district-level flood depth and its distribution
+across buildings are compared across building-level only, district-scale only, and
+mixed configurations at equivalent participation rates, characterizing whether
+district-scale intervention produces systematically different collective outcomes
+than building-level hardening at the same level of community investment.
+Second, PELT change-point detection~\cite{killick2012optimal} is applied within
+each intervention class to the participation-rate dimension: mean district-level
+flood depth as a function of aggregate hardening rate (0--100\% in 10\% steps),
+which is a scalar ordered sequence suited to PELT input.
+Discontinuities that survive permutation testing indicate threshold behavior;
+smooth relationships indicate approximate linearity.
+PCA-reduced configuration features are submitted to hierarchical agglomerative
+clustering with Ward linkage and Euclidean distance~\cite{ward1963hierarchical}
+to identify whether distinct outcome regimes exist across the full multidimensional
+configuration space, including spatial pattern variation not captured by the
+participation-rate curve alone.
+Cluster count is selected by the largest gap in the dendrogram linkage distances,
+avoiding the need to pre-specify the number of regimes.
+
+Where threshold behavior is identified within any intervention class,
+variance-based global sensitivity analysis (Sobol indices)~\cite{saltelli2010variance}
+characterizes which buildings or district-scale features contribute most to variance
+in collective flood outcomes across configurations.
+Sobol indices are estimated using Gaussian process emulation fitted to the
+500--1000 configuration-outcome pairs from Subtask 2.2, following established
+metamodel-based sensitivity analysis procedures~\cite{saltelli2010variance,marrel2009calculations}.
+The emulator evaluates sensitivity analytically from the fitted response surface,
+requiring no additional model runs beyond those already planned.
+Spatial autocorrelation of high-sensitivity locations using Moran's $I$ and LISA
+tests whether they cluster spatially within the district or are distributed
+independently of geography.
+Findings are communicated to practitioner audiences in RO3 as intervention
+comparison results and, where threshold behavior is identified, as maps of
+high-sensitivity locations suitable for direct use in pre-disaster investment
+planning.
+If intervention approaches produce broadly similar outcomes, that finding is
+reported as a null result and passed to RO3 as baseline physical exposure
+(depth, velocity, duration from Subtask 1.2); the equity contribution of RO3
+holds regardless of finding direction.
+
+\textbf{Key outcomes and evaluation:}
+RO2 produces two outputs that feed into RO3.
+Subtask 2.1 delivers infrastructure configurations at both sites from RO1 typology
+classifications across all three intervention scales plus synthetic configurations
+across the full participation-rate range, archived by month 24.
+Subtask 2.2 delivers building-level flood depth, velocity, and duration outputs
+across all configurations at both return periods, with calibration validated against
+observed extents and FEMA flood maps, and Manning's $n$ sensitivity analysis
+complete before comparative analysis proceeds.
+Subtask 2.3 delivers intervention comparison results across building-level,
+district-scale, and mixed configurations, PELT-based threshold analysis with
+permutation test p-values where threshold behavior is tested, and Sobol-based
+sensitivity maps and LISA analysis where threshold behavior is identified, or
+documented null findings passed to RO3 where they are not.
+% -----------------------------------------------------------------------
+\begin{tcolorbox}[colback=roothreecol!60,colframe=black,boxrule=1pt,coltext=black,
+  left=1mm,right=1mm,top=1mm,bottom=1mm]
+\textbf{Research Objective 3 (RO3, leads: Chi, Napolitano \& Busse): Characterize
+the organizational and network structures that produce collective action exclusion
+and explain why district-scale physical intervention was not pursued where technical
+expertise identified it as an option, and translate findings into a field-tested
+toolkit co-developed with APT DRI and the Department of the Interior.}
+\end{tcolorbox}
+RO3 addresses RQ3 by combining the collective action exclusion patterns and network
+structures from RO1 with the intervention comparison outputs from RO2 to characterize
+what organizational and network structures explain exclusion from collective action,
+and whether those same structures explain why communities defaulted to fragmented
+individual building hardening rather than district-scale intervention even where
+technical expertise identified it as an option.
+Toolkit outputs translate these findings into actionable guidance for pre-disaster
+investment decisions, including intervention comparison results from RO2 and
+exclusion pattern maps from RO1, each adapted for preservation specialists, property
+owners, and community leaders.
+
+\textbf{Subtask 3.1: Network and organizational analysis of collective action exclusion (lead: Chi, Napolitano).}
+Chi and Napolitano will combine the building-level exclusion indicator established
+in Subtask 1.3 with the intervention comparison outputs from RO2 to characterize
+what organizational and network structures explain exclusion from collective action,
+and whether those same structures explain why communities defaulted to fragmented
+individual building hardening rather than district-scale intervention where technical
+expertise identified it as an option.
+Chi will lead the social network and institutional analysis that characterizes why
+specific buildings and owners were excluded from collective action, framing exclusion
+in terms of network position, institutional access, and geographic location within
+the district~\cite{yin2021characterizing,yang2020untangle}; this analysis produces
+the explanatory layer for the coordination failure pattern.
+Napolitano will lead the join of Chi's exclusion characterization with the RO2
+intervention comparison outputs, testing whether the organizational dynamics that
+produce exclusion also predict which intervention approach a community pursues,
+and characterizing the degree and structure of any correspondence.
+Analysis will also identify which property attributes (geographic position within
+the district, ownership type, social network connectivity) predict exclusion from
+collective action, and assess whether the exclusion pattern and its relationship
+to intervention approach is consistent across Montpelier and Marshall or differs
+in ways that generate hypotheses for future work.
+Findings will be reported as a set of testable propositions about the relationship
+between collective action exclusion and intervention approach in heritage districts.
+
+The network has two node types (property owners and organizational actors including
+nonprofits (Montpelier Alive, Downtown Marshall Association), local government
+(Montpelier Commission for Recovery), state historic preservation offices (VT and
+NC SHPO), and federal agencies), with edges from organizational contact records
+and interview data.
+Three standard measures per owner node (degree centrality, betweenness centrality,
+core-periphery structure) are complemented by institutional access indicators
+(FEMA assistance, SHPO grants, prior heritage organization relationships) and
+awareness of district-scale intervention options documented in Subtask 1.3.
+These are linked to each building via street address and delivered as a
+georeferenced table that Napolitano joins to the RO2 outputs using the shared
+identifier.
+
+Cross-case comparison tests whether the exclusion pattern (which buildings are
+peripheral, which are core-adjacent) is consistent or different across two sites
+that differ in network density, institutional density, and program
+access~\cite{chi2012impacts}.
+Findings are reported as propositions rather than causal claims: for example,
+whether peripheral network position predicts exclusion more strongly in the
+less institutionally dense site (Marshall) than in the more institutionally
+supported one (Montpelier), and whether awareness of district-scale intervention
+options follows the same network position pattern as collective action participation.
+Consistent findings across both sites provide a stronger basis for future
+comparative work than either site alone; inconsistent findings identify
+context-dependence worth investigating at larger scale.
+
+\textbf{Subtask 3.2: Stakeholder workshops and co-production (lead: Napolitano).}
+Napolitano will organize in-person workshops in Montpelier and Marshall, followed
+by a joint virtual cross-site session.
+Each in-person workshop spans two days: day one presents RO1 and RO2 findings
+with intervention comparison results and exclusion patterns, and day two uses
+affinity diagramming to co-produce ranked pre-disaster collective action strategies
+as primary toolkit inputs.
+Participant lists are drawn from the RO1 exclusion data to ensure previously
+excluded owners are present; outreach to this group uses direct mail and
+door-to-door contact by local community liaisons at Montpelier Alive, the
+Montpelier Commission for Recovery, and the Downtown Marshall Association already
+engaged through PI Napolitano's APT DRI relationships at both sites, rather than
+relying on the organizational networks that originally failed to reach them.
+Wellock will review outputs for federal alignment before final toolkit production.
+
+\textbf{Subtask 3.3: Toolkit development and testing (lead: Napolitano).}
+Drawing on comparative analysis findings from Subtask 3.1 and the co-produced
+strategies from Subtask 3.2, Napolitano, who directs the APT DRI, will develop
+the Flood-Resilient Heritage Preservation Toolkit through APT DRI.
+The toolkit serves three audiences: preservation specialists with NPS-grounded
+flowcharts and pre-disaster assessment templates calibrated to the four intervention
+windows~\cite{maalouf2025a,maalouf2025b}; property owners with tip sheets modeled
+on FLASH~\cite{FLASH-SafeRoomChecklist} and FEMA resources~\cite{FEMA-ProtectYourProperty};
+and community leaders with intervention comparison results, exclusion pattern maps,
+and guidance on organizational structures that enable district-scale collective action.
+Communication components draw on the Natural Hazards Center's Principles of Risk
+Communication~\cite{campbell2021}, adapting their guidance on communicating through
+trusted messengers, providing clear and actionable information, and tailoring
+messages for target audiences to the specific constraints of URM heritage district
+owners navigating the preservation-urgency paradox.
+Testing at the annual APT conference tabletop exercise measures whether practitioners
+make better pre-disaster decisions using the toolkit, scored against a benchmark
+established by an expert panel of five practitioners: two preservation engineers
+from APT DRI, at least one state historic preservation officer with flood recovery
+experience (VT or NC), and Wellock as the federal heritage recovery representative,
+all of whom PI Napolitano has worked with before.
+Wellock's Department of the Interior connections extend reach to heritage-at-risk
+communities nationwide.
+All components are published openly through the APT DRI platform and archived on
+NHERI DesignSafe with a CC BY 4.0 license.
+Tabletop exercise success is measured through a pre/post questionnaire design:
+participants make a building prioritization decision before and after using the
+toolkit, with decision quality scored against an expert panel benchmark from the
+RO2 and RO3 findings.
+
+Dissemination beyond the two case study sites operates through two channels.
+A three-part webinar series delivered through APT reaches preservation
+professionals, state historic preservation officers, and local emergency managers
+across the APT network, with sessions covering the research findings, the toolkit
+components, and the workshop co-production model for communities wanting to adapt
+the toolkit to their own contexts.
+Wellock's connections to heritage-at-risk communities through the Department of
+the Interior provide a second dissemination pathway, reaching communities already
+identified through federal programs; the DOI's established coordination with HENTF
+extends this reach to cultural stewards embedded in local emergency management
+infrastructure nationwide, giving the toolkit direct access to the federal heritage
+recovery infrastructure it was designed to inform.
+Risk communication strategy draws on resources from Katelyn Nolan (USACE) and the
+Natural Hazards Center to ensure toolkit messaging reaches emergency management
+and floodplain management audiences beyond the preservation community.
+
+\textbf{Key outcomes and evaluation:}
+RO3 produces three linked outputs.
+Subtask 3.1 delivers testable propositions about the organizational and network
+structures that produce collective action exclusion and explain the failure to
+pursue district-scale intervention at each site, with the georeferenced join table
+archived on DesignSafe and reviewed before stakeholder presentation by month 27.
+Subtask 3.2 delivers ranked pre-disaster collective action strategies co-produced
+in workshops at both sites and a joint virtual session, with participant lists
+drawn from the RO1 exclusion data to ensure previously excluded owners are present.
+Subtask 3.3 delivers the Flood-Resilient Heritage Preservation Toolkit published
+through APT DRI and archived on DesignSafe under CC BY 4.0 by month 36, with
+field testing measured through pre/post questionnaire data from the APT conference
+tabletop exercise.
+\vspace{-0.4cm}
+% -----------------------------------------------------------------------
+\customsection{Broader Impacts}
+% -----------------------------------------------------------------------
+\vspace{-0.2cm}
+This research provides the first empirical comparison of individual building
+hardening, district-scale physical intervention, and mixed approaches in terms
+of their collective flood vulnerability outcomes in URM heritage districts, and
+the first characterization of the organizational and network structures that
+explain why communities default to fragmented individual hardening rather than
+coordinated district-scale intervention.
+Either finding gives communities a quantitative foundation for pre-disaster
+investment that currently has none, delivered through the Flood-Resilient Heritage
+Preservation Toolkit with Wellock's Department of the Interior connections extending
+reach to heritage-at-risk communities nationwide.
+The social-network-plus-hydrodynamic-modeling methodology is transferable to other
+hazards where individual and collective intervention decisions aggregate to
+infrastructure-scale outcomes, and is replicable regardless of findings at
+Montpelier and Marshall.
+Where findings show district-scale intervention produces better collective flood
+outcomes, the organizational analysis identifies the social levers communities
+would need to shift to pursue it; where findings show intervention approaches
+produce comparable outcomes, that establishes a baseline and suggests outreach
+need not be redirected toward district-scale coordination.
+A future research direction this work opens is characterizing what institutional
+conditions and community capacities would need to be in place for communities to
+pursue district-scale intervention at scale, a question the current research
+motivates but does not fully answer.
+
+This research advances the ISP program's interest in infrastructure system
+function under extreme events and the equity dimensions of infrastructure
+performance, contributing to NEHRP and NWIRP goals: URM buildings were identified as critical infrastructure vulnerabilities in the NEHRP seismic
+context, and the hurricane- and storm-driven flooding studied here connects
+directly to NWIRP's interest in windstorm impacts on communities.
+It extends the NIST SP 1310 socio-technical systems framing to flood hazards
+and heritage infrastructure, responding directly to NIST SP 1310's call for
+analogous frameworks for hurricanes and floods~\cite{NIST2024SP1310} and the
+FEMA/BSSC Functional Recovery Planning Committee's parallel call for retrofit
+strategies for existing construction~\cite{NIBSFunctionalRecovery2023}.
+The project leverages NSF's investment in NHERI by archiving all field data,
+hydrodynamic simulation outputs, and georeferenced datasets in the NHERI
+DesignSafe Data Depot under open licenses, building on PI Napolitano's prior
+NHERI RAPID Graduate Scholar datasets already archived there.
+Findings will be published in the International Journal of Disaster Risk Reduction,
+Journal of Cultural Heritage, and Natural Hazards and Earth System Sciences, and
+presented at Engineering Mechanics Institute, APT, and Keeping History Above Water
+conferences.
+
+Research outcomes integrate into education through PI Napolitano's Penn State
+courses (200-level programming for 120 architectural engineers annually; 400-level
+structural engineering for 40 students) and PI Chi's Indiana University courses
+(300-level population geography; 400- and 500-level spatial analysis).
+Post-doctoral scholars develop domain-specific skills: Napolitano's lab in spatial
+data science and community engagement; Busse's lab in district-scale hydrodynamic
+modeling; Chi's lab in mixed-methods social science and network analysis.
+Undergraduates in Built Environment Seminal Undergraduate Research Experience
+(BESURE), WISER (Women in Science and Engineering Research), and MURE (Minority
+Undergraduate Research Experience) contribute to building typology classification,
+geospatial data preparation, and HEC-RAS 2D output post-processing at no cost to
+the project; PI Napolitano, serving as undergraduate research coordinator for her
+department and BESURE, has direct access to department-sponsored undergraduate
+researchers and existing program infrastructure for recruiting, supervising, and
+tracking their contributions.
+Learning outcomes are assessed through pre/post surveys, faculty rubrics, and
+long-term STEM career tracking.
+All code will be released on GitHub under an MIT license and datasets deposited
+in the NHERI DesignSafe Data Depot~\cite{maalouf2024data,maalouf2026data}.
+Toolkit materials will be freely accessible through the APT DRI platform and
+distributed through local government channels, community organizations, and
+social media.
+\vspace{-0.4cm}
+% -----------------------------------------------------------------------
+\section{Project timeline and evaluation}The project runs from January 2027 through December 2029 (36 months, Figure~\ref{fig:gantt}).
+% -----------------------------------------------------------------------
+\begin{figure}[H]
+\centering
+\resizebox{0.8\textwidth}{!}{%
+\begin{ganttchart}[
+  hgrid,
+  vgrid=false,
+  x unit=2.6mm,
+  y unit title=5mm,
+  y unit chart=4.8mm,
+  title/.style={fill=lightgray, draw=black, font=\scriptsize\bfseries},
+  title label font=\scriptsize\bfseries,
+  bar label font=\scriptsize,
+  group label font=\scriptsize\bfseries,
+  bar height=0.55,
+  group height=0.3,
+  bar top shift=0.225,
+  bar label node/.append style={align=right, text width=4cm},
+  group label node/.append style={align=right, text width=4cm},
+  milestone label font=\tiny,
+  milestone label node/.append style={text width=0pt, text=white},
+]{1}{36}
+%--- title rows
+\gantttitle{Year 1 (2027)}{12}\gantttitle{Year 2 (2028)}{12}\gantttitle{Year 3 (2029)}{12} \\
+\gantttitle{Q1}{3}\gantttitle{Q2}{3}\gantttitle{Q3}{3}\gantttitle{Q4}{3}%
+\gantttitle{Q1}{3}\gantttitle{Q2}{3}\gantttitle{Q3}{3}\gantttitle{Q4}{3}%
+\gantttitle{Q1}{3}\gantttitle{Q2}{3}\gantttitle{Q3}{3}\gantttitle{Q4}{3} \\
+%--- RO1
+\ganttgroup[
+  group/.append style={fill=roonecol, draw=roonecol!70!black},
+  group label node/.append style={text=roonecol!70!black}
+]{RO1}{1}{18}
+  \ganttmilestone[milestone/.append style={fill=roonecol!60!black, draw=roonecol!40!black, shape=rectangle, rounded corners=1pt, inner sep=6pt, label={[font=\tiny\bfseries,text=white,inner sep=0pt]center:M1}}]{}{12}
+  \ganttmilestone[milestone/.append style={fill=roonecol!60!black, draw=roonecol!40!black, shape=rectangle, rounded corners=1pt, inner sep=6pt, label={[font=\tiny\bfseries,text=white,inner sep=0pt]center:M2}}]{}{18} \\
+\ganttbar[bar/.append style={fill=roonecol!55, draw=roonecol!80}]{1.1 Typology \& CA status}{1}{12} \\
+\ganttbar[bar/.append style={fill=roonecol!55, draw=roonecol!80}]{1.2 Site characterization}{1}{12} \\
+\ganttbar[bar/.append style={fill=roonecol!55, draw=roonecol!80}]{1.3 Interviews}{3}{18} \\
+\ganttbar[bar/.append style={fill=roonecol!55, draw=roonecol!80}]{1.4 Feature importance}{12}{18} \\
+%--- RO2
+\ganttgroup[
+  group/.append style={fill=rootwocol, draw=rootwocol!70!black},
+  group label node/.append style={text=rootwocol!70!black}
+]{RO2}{12}{27}
+  \ganttmilestone[milestone/.append style={fill=rootwocol!60!black, draw=rootwocol!40!black, shape=rectangle, rounded corners=1pt, inner sep=6pt, label={[font=\tiny\bfseries,text=white,inner sep=0pt]center:M3}}]{}{27} \\
+\ganttbar[bar/.append style={fill=rootwocol!55, draw=rootwocol!80}]{2.1 Configurations}{12}{18} \\
+\ganttbar[bar/.append style={fill=rootwocol!55, draw=rootwocol!80}]{2.2 Hydrodynamic modeling}{12}{24} \\
+\ganttbar[bar/.append style={fill=rootwocol!55, draw=rootwocol!80}]{2.3 Comparative analysis}{18}{27} \\
+%--- RO3
+\ganttgroup[
+  group/.append style={fill=roothreecol, draw=roothreecol!70!black},
+  group label node/.append style={text=roothreecol!70!black}
+]{RO3}{18}{36}
+  \ganttmilestone[milestone/.append style={fill=roothreecol!60!black, draw=roothreecol!40!black, shape=rectangle, rounded corners=1pt, inner sep=6pt, label={[font=\tiny\bfseries,text=white,inner sep=0pt]center:M4}}]{}{30}
+  \ganttmilestone[milestone/.append style={fill=roothreecol!60!black, draw=roothreecol!40!black, shape=rectangle, rounded corners=1pt, inner sep=6pt, label={[font=\tiny\bfseries,text=white,inner sep=0pt]center:M5}}]{}{35} \\
+\ganttbar[bar/.append style={fill=roothreecol!55, draw=roothreecol!80}]{3.1 Network analysis}{18}{27} \\
+\ganttbar[bar/.append style={fill=roothreecol!55, draw=roothreecol!80}]{3.2 Workshops}{24}{27} \\
+\ganttbar[bar/.append style={fill=roothreecol!55, draw=roothreecol!80}]{3.3 Toolkit development}{27}{33} 
+\end{ganttchart}%
+}
+\vspace{-0.3cm}
+\caption{Project timeline. Rectangles (M1--M5) indicate key performance indicators.}
+\label{fig:gantt}
+\end{figure}
+\vspace{-0.3cm}
+
+\newpage 
+RO1 runs concurrently in years 1--2: Subtasks 1.1--1.2 begin month 1; Subtasks
+1.3--1.4 span months 3--18.
+RO2 begins month 12 once RO1 typology and site characterization are sufficiently
+developed, with modeling through month 24 and comparative analysis complete by month 27.
+RO3 runs months 18--36: network and organizational analysis months 18--27, workshops
+months 24--27, toolkit development months 27--33, APT testing months 33--36
+(Fig.~\ref{fig:gantt}).
+Progress will be evaluated against six key performance indicators corresponding to
+the three research objectives:
+(1) Completion of NPS intervention typology classification at both building and
+district scales and collective action status recording for 271 structures in
+Montpelier and over 70 structures in Marshall (RO1, month 12);
+(2) Completion of social science data collection with target interview sample sizes,
+data saturation confirmed, and awareness of district-scale intervention options
+documented (RO1, month 18);
+(3) Delivery of calibrated district-scale hydrodynamic models for both sites (RO2,
+month 18);
+(4) Completion of hydrodynamic simulations across documented configurations and
+intervention comparison analysis, with threshold behavior reported where present
+(RO2, month 27);
+(5) Completion of stakeholder workshops in Montpelier and Marshall with
+co-produced toolkit draft (RO3, month 30);
+(6) Field-tested toolkit released on APT DRI platform following APT conference
+tabletop evaluation (RO3, month 36).
+Progress will be monitored through weekly project meetings and tracked in PSU
+Microsoft Planner and Teams.
+\vspace{-0.3cm}
+% -----------------------------------------------------------------------
+\section{Results from prior NSF Support}
+% -----------------------------------------------------------------------
+
+\textbf{PI Napolitano:}
+CMMI-2222849, \$131,317, April 2022 -- February 2025.
+RAPID: Examining the Performance of Historic Masonry Structures after the Midwest Tornadoes.
+Intellectual Merit: This project addressed building code gaps by analyzing historic masonry structures' performance under tornadic loading and assessing retrofitting efficacy, producing the first systematic dataset on tornado damage to unreinforced masonry heritage structures.
+Broader Impacts: The project enhanced understanding of historic masonry resilience under wind hazards, produced open datasets archived on DesignSafe, and integrated community-centered structural data into engineering education.
+Publications: \cite{kaushal2023understanding, kaushal2023structural, kaushal2023b, sskmgeometric, sskmdatacollection, sskmstructuralanalysis}.
+Undergraduate research presentations: \cite{patelski2022research, whitesides2023research}.
+Publicly shared datasets: \cite{steerquad, MapillaryDatasetSteer360, kaushal2023processed, kaushal2023raw}.
+Renewal: N/A.
+
+\noindent\textbf{Co-PI Busse:}
+% maggie: add prior NSF support in the same format above.
+% If no prior NSF support, note relevant prior funding and publications
+% that establish hydrodynamic modeling expertise.
+is senior personnel on NSF CBET-2400672, \$1,000,000, August 2024 - July 2029:
+RAISE: CET: Co-development of engineering energy literacy and engineering identities through campus decarbonization research.
+Intellectual Merit:
+This work integrates six component-specific research directions to address fundamental questions associated with net-zero fuels in the context of Combined Heat and Power decarbonization.
+Intellectual Merit of the research lies in the integrated real-world system evaluation approach as well as the evaluation of student energy literacy through their research experience. 
+Broader Impacts:
+Advancement of decarbonization technologies and the development of an energy-literate future engineering workforce.  
+Publications: None.
+Undergraduate research presentations: \cite{little2026}
+Renewal: N/A
+
+\noindent\textbf{Co-PI Chi:}
+ICER-1927827, \$3,018,000, January 2020 -- June 2025.
+NNA Track 1: Pursuing Opportunities for Long-term Arctic Resilience for Infrastructure and Society (POLARIS).
+Intellectual Merit: This transdisciplinary project developed theoretical frameworks and models addressing environmental disruption to communities and infrastructure, food security, and migration in Arctic Indigenous communities, producing findings applicable to other resource-constrained communities facing existential environmental threats.
+Broader Impacts: Findings inform government, researcher, practitioner, and Indigenous group decision-making for adaptation to rapid Arctic change; the project supported 6 Ph.D.\ students, 3 postdocs, and 10+ undergraduates.
+Publications: 16 peer-reviewed articles \cite{yin2022tale, korkut2022addressing, Yin2022, Holen2022, Mucioki2024, Chi2024, Christian2024, Smith2024, Abdar2020, Holen2023, Mucioki2024b, Zhou2024, Mucioki2024c, Hamilton2024, Smith2023, Powell2023}, 6 op-ed pieces \cite{ArcticPOLARIS, Bogardus2024, Baldwin2023, AumanBauer2019, POLARIS, AumanBauer2020}, 5 videos \cite{WoodRiverBridge2022, StakesForStakeholders2022, POLARISTeam2021, ChevakSchool2024, ChevakAlaska2022}, and 16 conference presentations \cite{Smith2025, Maio2024, Yin2025, Maio2024b, Miller2024, Miller2021, Mucioki2024, Yin2024, Tickamyer2024, Tickamyer2025, Hamilton2024, Maio2024c, Chi2024, Mucioki2024b, Chi2025, Maio2024d}.
+Renewal: N/A.
+\newpage
+\bibliography{biblio}
+
+\end{document}
