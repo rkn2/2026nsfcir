@@ -2,6 +2,12 @@
 \usepackage{nopageno}
 \setcounter{secnumdepth}{1}
 \usepackage[margin=1in]{geometry}
+\usepackage{titlesec}
+\titleformat{\section}[runin]{\normalfont\bfseries}{\thesection}{1em}{}[]
+\titlespacing*{\section}{0pt}{0.1\baselineskip}{1ex}
+\titleformat{\subsection}[runin]{\normalfont\bfseries}{\thesubsection}{1em}{}[:]
+\titlespacing*{\subsection}{0pt}{0.1\baselineskip}{1ex}
+\usepackage{enumitem}
 \begin{document}
 
 \pagestyle{empty}
@@ -17,6 +23,9 @@ The lab also features an advanced workspace designed for integrated, team-based 
 
 \item \textbf{Busse Lab at Penn State:}
 The Busse Lab, led by Co-PI Busse, has four Dell Precision 3660 desktop computers dedicated to computational work, equipped with HEC-RAS 2D, EPANET, Python, MATLAB, and Solidworks. These resources directly support the mass balance modeling and hydrological analysis in Subtasks~1.2 and~2.4. The main lab space is equipped for water treatment and water system testing applications and is approved for BSL2-level experiments. Co-PI Busse also shares access to a closed-loop water channel built by Engineering Laboratory Design, Inc.
+
+\item \textbf{InSAR, Geodesy, \& Geohazards (IGG) Lab at Penn State:}
+The InSAR Geodesy \& Geohazards Laboratory (IGG) Lab managed by Co-PI Wauthier is a computational laboratory with five Unix-based computers and one Windows laptop configured for image processing, geospatial analysis, and scientific computing. Wauthier's personal workstation is a Mac Pro with a 3.7 GHz Quad-Core Intel Xeon E5 processor and 32 GB of 1866 MHz DDR3 memory. The IGG Lab also has access to Penn State's high-performance computing (HPC) system, Roar Collab. Roar Collab provides SAR data processing software (GAMMA, ISCE, and GMTSAR), InSAR time-series analysis tools (StaMPS/MTI and MintPy), and scientific computing, modeling, and geospatial analysis software, including Python, MATLAB, COMSOL, Abaqus, R, and GIS applications. These resources directly support the remote sensing-based flood analyses in Subtasks~1.1 and~1.3.
 
 \item \textbf{Institute for Computational and Data Sciences -- Advanced Cyber Infrastructure:}
 Research data will be hosted by Penn State's Institute for Computational and Data Sciences (ICDS) through its Roar supercomputer. Roar provides active storage (DDN 12KX40 and GS7K flash storage arrays) and near-line storage (Oracle FS1 flash appliance and SL8500 Tape Library), with daily backups. ICDS provides long-term archival services; research data will be archived for at least three years after the end of the award or after public release, whichever comes later.
